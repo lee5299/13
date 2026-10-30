@@ -1,0 +1,59 @@
+{
+  "applied": true,
+  "duplicate": false,
+  "revision": 13,
+  "result_refs": [
+    {
+      "id": "asset-host",
+      "revision": 2
+    },
+    {
+      "id": "asset-specframe",
+      "revision": 2
+    },
+    {
+      "id": "asset-wpf",
+      "revision": 2
+    },
+    {
+      "id": "asset-sqlite",
+      "revision": 2
+    },
+    {
+      "id": "asset-restic",
+      "revision": 2
+    },
+    {
+      "id": "asset-computeruse",
+      "revision": 2
+    },
+    {
+      "id": "candidate-local-native",
+      "revision": 2
+    },
+    {
+      "id": "provide-cap-alignment",
+      "revision": 2
+    },
+    {
+      "id": "provide-cap-selection",
+      "revision": 2
+    },
+    {
+      "id": "provide-cap-roadmap",
+      "revision": 2
+    },
+    {
+      "id": "provide-cap-delivery",
+      "revision": 2
+    },
+    {
+      "id": "link-discovery-composition",
+      "revision": 2
+    }
+  ],
+  "invalidated": [
+    "decision-18593f53bf4d4030bbe94c6530ee6c17"
+  ],
+  "gate": null
+}

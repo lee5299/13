@@ -1,0 +1,31 @@
+{
+ "action":"DERIVE_CAPABILITY",
+ "judgment":{
+  "action":"DERIVE_CAPABILITY",
+  "ddc":{
+   "observable_state":{"revision":2,"state_digest":"80d4350d9c340e311b5c2a46a5e80a86c6e30abe9e3d6912a6eec6ea8c50d761","facts":["실행 ACTIVE. C1~C4에 연결한 기능은 아직 없고 적용·해석 질문은 미평가이며 후보·관측·미완료 연산은 없다."]},
+   "decision_objective":"계획 문서 전체와 원문을 대조하여 추천의 기능·판별 조건을 도출하고 도구 선택 의무의 적용을 판단한다.",
+   "available_actions":["DERIVE_CAPABILITY","DISCOVER_KNOWLEDGE","GENERATE_FRAME"],
+   "decision_policy":"원문 보존과 필수 기능이 먼저 필요하므로 파일 검토로 직접 판별할 수 있는 적용 범위와 기능 도출을 우선한다. 외부 후보 검색은 새 기능 질문에 연결하여 이어간다.",
+   "constraints":["실제 제품 구현·설치로 확대하지 않음","원본 문서와 승인상태 보존","필수 범위를 MVP로 축소하지 않음"],
+   "state_transition":"원문 대조 근거·기능·실제 조사 질문을 등록하고 적용 질문의 관측 기반 답을 반영한다.",
+   "feedback":"문서와 원문 차이가 드러나면 해석 질문과 정보 요구를 보완하고 신규 탐색 의무가 등록됐는지 확인한다.",
+   "recovery":"읽기 실패는 원본을 보존하고 실제 접근 가능한 다른 사본을 확인한다. intent 이후 미평가 관측은 보존한 뒤 이어간다."
+  },
+  "alternatives":[{"action":"DISCOVER_KNOWLEDGE","rationale":"검색은 필요하지만 현재 기능·평가 기준이 없는 상태에서 도구 이름에 고착될 수 있어 문서 검토 뒤 수행한다."},{"action":"GENERATE_FRAME","rationale":"우선 원문과 기능을 읽고 실제 구조 차이가 있으면 생성한다."}],
+  "evidence_refs":[],"rationale":"현재 미연결 기준과 미평가 적용 질문을 직접 문서로 판별할 수 있다.","expected_effects":["권고에 필요한 실제 조건 도출","신규 탐색과 통합 비교 의무 활성화"]
+ },
+ "intent":{
+  "description":"최신 요구사항 전체와 이전 비관리 권고안을 읽고 원문·사용 조건에 맞는 기능과 다음 지식 공백을 도출한다. 이전 권고안은 확정 근거가 아닌 재검토 대상이다.",
+  "learning_task_refs":[{"id":"work-organizer-advice:tool-scope","revision":1}],
+  "learning_plan":[{
+   "task_ref":{"id":"work-organizer-advice:tool-scope","revision":1},"requirement_ids":["scope.applicability"],
+   "parent_role":"현재 목표의 기술/스킬 선택 의무 판정","gap":"선택 요청은 명시되었지만 실제 계획 범위에 연결한 적용 근거와 기능이 아직 없다.","known_evidence_refs":[],
+   "next_observation":{"target":"계획 문서와 요청 원문","source":"로컬 계획 파일 및 대화 원문","locator":"outputs/업무정리_요구사항_최종확인본.md 전체25절, 현재 사용자의 세 요청","information":"구현이 아닌 권고 목표의 범위, 실제 필요한 기술 선택과 보존 제약","decision_effect":"도구선택 적용 판정과 필요한 기능·지식질문 등록"},
+   "judgment_target":{"target_ref":{"id":"work-organizer-advice:tool-scope","revision":1},"item_id":null,"decision":"도구 선택·사용·연결 판단이 필요한지 판정","consumer_refs":[{"id":"work-organizer-advice:tool-scope","revision":1}],"scope":"계획된 Windows 로컬 앱의 개발 방법 권고"},
+   "sufficient_when":"원문·계획에서 기술/스킬 역할 선택 필요와 권한 경계를 구별하고 관련 기능을 도출할 수 있다.",
+   "failure_alternative":"최종 확인본 접근 실패 시 워크스페이스 또는 D13의 같은 문서를 확인하고 차이를 보존한다."
+  }]
+ },
+ "input_refs":[{"id":"work-organizer-advice","revision":1},{"id":"work-organizer-advice:tool-scope","revision":1}],"evidence_refs":[],"key":"scope-and-capabilities-20261030"
+}

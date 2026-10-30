@@ -1,0 +1,715 @@
+{
+  "observed_revision": 12,
+  "refs": {
+    "asset-host": {
+      "id": "asset-host",
+      "revision": 2
+    },
+    "asset-specframe": {
+      "id": "asset-specframe",
+      "revision": 2
+    },
+    "asset-wpf": {
+      "id": "asset-wpf",
+      "revision": 2
+    },
+    "asset-sqlite": {
+      "id": "asset-sqlite",
+      "revision": 2
+    },
+    "asset-restic": {
+      "id": "asset-restic",
+      "revision": 2
+    },
+    "asset-computeruse": {
+      "id": "asset-computeruse",
+      "revision": 2
+    },
+    "candidate-local-native": {
+      "id": "candidate-local-native",
+      "revision": 2
+    },
+    "provide-cap-alignment": {
+      "id": "provide-cap-alignment",
+      "revision": 2
+    },
+    "provide-cap-selection": {
+      "id": "provide-cap-selection",
+      "revision": 2
+    },
+    "provide-cap-roadmap": {
+      "id": "provide-cap-roadmap",
+      "revision": 2
+    },
+    "provide-cap-delivery": {
+      "id": "provide-cap-delivery",
+      "revision": 2
+    },
+    "link-discovery-composition": {
+      "id": "link-discovery-composition",
+      "revision": 2
+    }
+  },
+  "invalidated_consumers": [
+    {
+      "previous_ref": {
+        "id": "decision-18593f53bf4d4030bbe94c6530ee6c17",
+        "revision": 2
+      },
+      "projected_ref": {
+        "id": "decision-18593f53bf4d4030bbe94c6530ee6c17",
+        "revision": 3
+      },
+      "projected_validity_status": "STALE",
+      "selection_validity": null
+    }
+  ],
+  "reference_conflicts": [],
+  "propagation_obligations": [
+    {
+      "affected_scope": "selection",
+      "assessment": "REVISE",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-b4583415474efb18344a0e37",
+      "rationale": "발견2를 실제 조합·조건·대안·작업에 소비하여 현재 조합답을 새버전으로 작성했다.",
+      "relationship_role": "COMPARES_USING",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "work-organizer-advice:tool-composition",
+          "revision": 2
+        }
+      ],
+      "source_change_id": "work-organizer-advice:tool-discovery@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-discovery",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "Final composition must consume current discovery results",
+      "assessment": "REVISE",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-3fc912a63235e7c3629dab43",
+      "rationale": "발견2를 실제 조합·조건·대안·작업에 소비하여 현재 조합답을 새버전으로 작성했다.",
+      "relationship_role": "COMPARES_USING",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "work-organizer-advice:tool-composition",
+          "revision": 2
+        }
+      ],
+      "source_change_id": "work-organizer-advice:tool-discovery@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-discovery",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-5664ad0e9ceda9c59d76da09",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-computeruse",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-d85b60ccac1873c836f2d1ba",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-host",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-228ac4c9eaab10f9514bd15e",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-restic",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-af760fc755b7c437dfa6ca74",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-specframe",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-08d14951fd091f3121d9a0cb",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-sqlite",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재역할/조건평가",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-05da38bf35928360ebd7a62c",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "asset-wpf",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "현재조합/선택",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-d802e680b360a3baecbd8b20",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "COMPARES_USING",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "candidate-local-native",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "원문/사용목적",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-b13f810cf0ccadb9b8ed2c3a",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "REUSES",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "candidate-local-native",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "advice-scope",
+      "assessment": "MAINTAIN",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-1386cb33c77aa5bab3f30e43",
+      "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+      "relationship_role": "AFFECTS",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "cap-alignment",
+          "revision": 1
+        }
+      ],
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "cap-alignment",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "advice-scope",
+      "assessment": "MAINTAIN",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-ecf912b61099932380027c81",
+      "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+      "relationship_role": "AFFECTS",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "cap-delivery",
+          "revision": 1
+        }
+      ],
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "cap-delivery",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "advice-scope",
+      "assessment": "MAINTAIN",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-1aae185bcc582c9c8c61f04a",
+      "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+      "relationship_role": "AFFECTS",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "cap-roadmap",
+          "revision": 1
+        }
+      ],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "cap-roadmap",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "advice-scope",
+      "assessment": "MAINTAIN",
+      "evidence_refs": [
+        {
+          "id": "ev-comparison",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        },
+        {
+          "id": "ev-window",
+          "revision": 1
+        },
+        {
+          "id": "ev-file",
+          "revision": 1
+        },
+        {
+          "id": "ev-store",
+          "revision": 1
+        },
+        {
+          "id": "ev-backup",
+          "revision": 1
+        },
+        {
+          "id": "ev-bpolicy",
+          "revision": 1
+        },
+        {
+          "id": "ev-ui",
+          "revision": 1
+        },
+        {
+          "id": "ev-tools",
+          "revision": 1
+        },
+        {
+          "id": "ev-local",
+          "revision": 1
+        },
+        {
+          "id": "ev-support",
+          "revision": 1
+        },
+        {
+          "id": "ev-omission",
+          "revision": 1
+        },
+        {
+          "id": "ev-plan",
+          "revision": 1
+        }
+      ],
+      "id": "prop-0912452c4339b68d2f0219ae",
+      "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+      "relationship_role": "AFFECTS",
+      "remaining_work": [],
+      "result_refs": [
+        {
+          "id": "cap-selection",
+          "revision": 1
+        }
+      ],
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "status": "RESOLVED",
+      "target_ref": {
+        "id": "cap-selection",
+        "revision": 1
+      }
+    }
+  ],
+  "scope": "Read-only proposed versions and declared dependency effects. No validation, semantic approval, automatic rebinding or propagation assessment. Recompute after changing the patch."
+}

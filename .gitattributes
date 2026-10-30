@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.sqlite3 binary
+*.ps1 text eol=lf
+# Preserve historical evidence bytes and their recorded hashes.
+planning/history/** -text -diff

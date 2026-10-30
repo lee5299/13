@@ -1,0 +1,167 @@
+{
+  "at": "2026-10-30T16:13:25.7433556+09:00",
+  "passed": 40,
+  "scope": "\uD575\uC2EC \uACC4\uC0B0\u00B7\uD30C\uC77C\uD750\uB984\u00B7\uC120\uD0DD \uC2DC \uC2E4\uC81C restic \uBCF5\uC6D0 \uAC80\uC0AC. UI/\uC0AC\uC6A9\uC790\uBAA9\uC801 \uC804\uCCB4\uC778\uC218 \uC544\uB2D8.",
+  "results": [
+    {
+      "name": "W11/W17 \uC624\uB298 \uD3EC\uD568 \uC218\uC694\uC77C3\u00B7\uBAA9\uC694\uC77C2",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC8FC\uB9D0 \uB2A5\uB8250",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC120\uD0DD \uACF5\uD734\uC77C\uB9CC \uC81C\uC678",
+      "status": "PASS"
+    },
+    {
+      "name": "W05 20\uC77C\uCE58/15\uD3C9\uC77C \uACFC\uC911",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC644\uB8CC \uC5C5\uBB34 \uC81C\uC678\u00B7\uACFC\uAC70 \uC77C\uC218 \uC774\uC911\uD658\uAE09 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAC80\uD1A0\uC911 \uC81C\uC678\u00B7\uC120\uD0DD \uD558\uB098 \uC218\uB77D \uAC00\uC815",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAE30\uD55C \uBBF8\uC815\uB7C90\uCC98\uB9AC \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC624\uB298 \uB9C8\uAC100.5\uC77C\uB3C4 \uAE34\uAE09",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAE34 \uB9C8\uAC10\uC758 \uD6C4\uC18D\uC57D\uC18D\uC744 \uBCF4\uC874\uD558\uB294 \uC774\uBC88\uC8FC \uC5EC\uC720",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC0AC\uC6A9\uC790 \uAE30\uC900\uC77C\uC758 \uC774\uC804 \uC8FC\uAE30",
+      "status": "PASS"
+    },
+    {
+      "name": "\uD734\uC77C\uB3C4 \uACE0\uC815 \uBC18\uBCF5\uC77C \uC720\uC9C0\u00B7\uD3F4\uB354\uC0DD\uC131 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\u00B12\uC8FC \uC6D4\uACBD\uACC4 \uC608\uC0C1",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC694\uCCAD\uBCC4 \uB0A0\uC9DC\uBA85\u00B7\uC6D0\uBB38\uBCF4\uC874\u00B7\uCCB4\uD06C\uC591\uC2DD\uB9CC \uBCF5\uC0AC",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAC19\uC740\uB0A0 \uB3D9\uBA85\uC694\uCCAD \uB3C5\uB9BD\u00B7\uB36E\uC5B4\uC4F0\uAE30 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC694\uCCAD \uC800\uC7A5 \uC7AC\uC2DC\uB3C4\uB294 \uAC19\uC740 \uD3F4\uB354 \uD55C \uAC74",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC798\uBABB\uB41C \uC608\uC0C1\uB7C9\uC73C\uB85C \uD3F4\uB354 \uC0DD\uC131 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC678\uBD80\uD3B8\uC9D1 \uCDA9\uB3CC \uAC10\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uCDA9\uB3CC \uC591\uCABD \uB0B4\uC6A9 \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC218\uB77D\uC740 \uC774\uB3D9 \uC5C6\uC774 \uC0C1\uD0DC\uB9CC",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC911\uBCF5 \uC644\uB8CC\u00B7\uCD5C\uCD08\uC2DC\uAC01 \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uD0D0\uC0C9\uAE30 \uAC1C\uBA85\u00B7ID/\uC2DC\uAC01 \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC571 \uC885\uB8CC\uC911 \uC644\uB8CC \uC774\uB3D9\u00B7\uB0A0\uC9DC \uAFB8\uBBF8\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC644\uB8CC\uD3F4\uB354 \uBC16 \uC6D0\uB798\uC8FC\uAE30 \uBCF5\uADC0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC9C0\uB09C\uC81C\uCD9C\uBB3C \uBCF5\uC0AC\uBCF8 \uD3B8\uC9D1\u00B7\uC6D0\uBCF8 \uBD88\uBCC0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uACB0\uACFC\uBB3C \uB3D9\uBA85 \uB36E\uC5B4\uC4F0\uAE30 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uB8E8\uD2B8 \uB0B4\uBD80 \uC7AC\uADC0\uBC31\uC5C5 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC120\uD0DD \uD30C\uC77C \uBCF5\uC6D0 \uC804 \uD604\uC7AC\uBCF8 \uBCC4\uB3C4\uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAE30\uC900\uC77C \uBCC0\uACBD\uC740 \uC774\uD6C4 \uC0C8 \uC8FC\uAE30\uBD80\uD130\u00B7\uAE30\uC874\uC18C\uC18D \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC774\uBC88 \uD68C\uCC28\uB9CC \uC2DC\uAE30 \uBCC0\uACBD\u00B7\uB2E4\uC74C \uD68C\uCC28 \uACE0\uC815\uC77C \uC720\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC624\uB798 \uC5F4\uB9B0 \uCC3D\uC774 \uC678\uBD80 \uC5C5\uBB34\uC815\uBCF4\uB97C \uB36E\uC5B4\uC4F0\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC678\uBD80 \uC5C5\uBB34\uC815\uBCF4 \uCDA9\uB3CC\uC774\uBA74 \uC644\uB8CC \uC774\uB3D9 \uC804 \uC911\uB2E8",
+      "status": "PASS"
+    },
+    {
+      "name": "\uCDA9\uB3CC \uB4A4 \uC6D0\uB798 \uC791\uC5C5\uD3F4\uB354 \uC704\uCE58 \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC2E4\uC81C restic \uC774\uB825\uBC31\uC5C5",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC2E4\uC81C \uBCF5\uAD6C\uC2DC\uC810 \uC870\uD68C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBCC0\uACBD \uC5C6\uC74C\uC740 \uBCF5\uAD6C\uC2DC\uC810\uC744 \uAFB8\uBA70 \uB9CC\uB4E4\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC2E4\uC81C \uBCC4\uB3C4\uBCF5\uC6D0 \uD30C\uC77C \uD574\uC2DC \uC77C\uCE58",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC7A0\uAE34 \uD30C\uC77C\uC744 \uC804\uCCB4\uC131\uACF5\uC73C\uB85C \uD45C\uC2DC\uD558\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBC31\uC5C5 \uC2E4\uD328 \uD6C4 \uAE30\uC874 \uBCF5\uAD6C\uC2DC\uC810 \uC720\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC798\uBABB\uB41C \uC554\uD638 \uBCF5\uAD6C\uC2E4\uD328\uB97C \uC228\uAE30\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC0C8 \uBC84\uC804 \uBC31\uC5C5 \uB4A4 \uC9C1\uC804 \uBCF5\uAD6C\uC2DC\uC810 \uBCF4\uD638",
+      "status": "PASS"
+    }
+  ]
+}

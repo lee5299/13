@@ -1,0 +1,29 @@
+{
+  "assessed_at": "2026-10-30T04:37:42.991196+00:00",
+  "checks": {
+    "json_readback": "ten authored fields equal",
+    "html_content": "all ten keys and charset exist; no visual render performed",
+    "candidate_package": "five selected architecture/decision/plan fields exactly equal",
+    "source_review": "최종요구사항25절 전체를 현재다시읽고 원문대화/현재권고와 대조. 전체범위 유지·기술제안/승인대기·실제제품미검증을 구분.",
+    "final_review": "첫추천과 조건/자산역할/선택과 대안·순서/백업암호복원/개발환경/현재권고범위가 후보와 일치. 최종완료문장은 실제채택/완료전이뒤만 반환한다."
+  },
+  "files": [
+    {
+      "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\outputs\\업무정리_SynFrame_개발계획.html",
+      "sha256": "c19554c772a7b955cac15eefabd2a7de6d02f5d193fdb43d4ec70ab412294272"
+    },
+    {
+      "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\outputs\\업무정리_SynFrame_개발계획.json",
+      "sha256": "0063038721cd53490503e096650dd795a8b2ca8d9c6f8b84a3b58a9c6da34c94"
+    },
+    {
+      "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\outputs\\업무정리_SynFrame_결론.md",
+      "sha256": "bd768d42fd610bb6dc6ba04d520d64c9e386b6253e7cf328a2d39d6600e574b0"
+    }
+  ],
+  "limits": [
+    "형식/동일성은 추천의진실이나 실제제품성능 검증이 아님",
+    "프로그램미구현/명세승인대기",
+    "사용자PC의실제화면/백업미실행"
+  ]
+}

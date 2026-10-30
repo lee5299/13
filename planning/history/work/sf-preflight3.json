@@ -1,0 +1,3375 @@
+{
+  "validated": true,
+  "applied": false,
+  "prepared_result": {
+    "operation_id": "op-1d2bb98c31f34056abfc739373af8a24",
+    "proposed_state_changes": [
+      {
+        "id": "ev-comparison",
+        "type": "EvidenceRecord",
+        "claim": "현재 목적에서 WPF/SQLite/restic과 개발·검증스킬 역할을 비교해 우선경로, 더간단한 구성의 손실, 조건부 UI배치검사와 실제대안·남은 제품시험을 판단했다.",
+        "source": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\work\\sf-comparison.json",
+        "observation_kind": "inference",
+        "observed_at": "2026-10-30T04:24:43.425726+00:00",
+        "environment": {
+          "event": "현재호스트 의미평가·산출물 작성",
+          "grounds": [
+            "ev-plan@1",
+            "보존된 공식관측"
+          ]
+        },
+        "verification_status": "VERIFIED",
+        "scope": "근거에 따른 현재 방법권고 판단. 실제제품성능·작동성공 또는 독립검토 증거가 아님."
+      },
+      {
+        "id": "ev-support",
+        "type": "EvidenceRecord",
+        "claim": "원문 F1~F4와 현재기능을 대조한 지지 평가: 전체계획 권고·실제스킬역할·관리절차·로컬제품을 보존하고 설치/구현승인으로 확대하지 않는다.",
+        "source": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\work\\sf-support.json",
+        "observation_kind": "inference",
+        "observed_at": "2026-10-30T04:24:43.425726+00:00",
+        "environment": {
+          "event": "현재호스트 의미평가·산출물 작성",
+          "grounds": [
+            "ev-plan@1",
+            "보존된 공식관측"
+          ]
+        },
+        "verification_status": "VERIFIED",
+        "scope": "근거에 따른 현재 방법권고 판단. 실제제품성능·작동성공 또는 독립검토 증거가 아님."
+      },
+      {
+        "id": "ev-omission",
+        "type": "EvidenceRecord",
+        "claim": "별도 누락 검토: 화면성공에도 원본/복원/예상부담/전체범위를 놓칠 조건을 대조하고 고유ID·재대조·편집보존·별도복원·보수계산·전체인수 관문으로 처리했다.",
+        "source": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\work\\sf-omission.json",
+        "observation_kind": "inference",
+        "observed_at": "2026-10-30T04:24:43.425726+00:00",
+        "environment": {
+          "event": "현재호스트 의미평가·산출물 작성",
+          "grounds": [
+            "ev-plan@1",
+            "보존된 공식관측"
+          ]
+        },
+        "verification_status": "VERIFIED",
+        "scope": "근거에 따른 현재 방법권고 판단. 실제제품성능·작동성공 또는 독립검토 증거가 아님."
+      },
+      {
+        "answer": {
+          "status": "SUPPORTED",
+          "claims": [
+            {
+              "id": "interpretation",
+              "text": "현재목표는 전체계획을 보존하는 근거있는 개발방법과 스킬권고다. 원문지지와 목적실패조건을 별도로 대조해 현재범위를 유지한다. 실제구현승인과 기능실행성공을 추정하지 않는다.",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "source_locator": "sf-support.json 및 sf-omission.json의 서로 다른 대조",
+              "conditions": [
+                "현재 원문/계획; 실제제품구현은 별도"
+              ],
+              "inference": true
+            }
+          ],
+          "counterevidence_refs": [],
+          "gaps": [],
+          "scope": "현재해석의 지지 및 중요관점누락 처리"
+        },
+        "answer_requirements": [
+          {
+            "ability": "원문권고와 전체계획을 유지하고 기술제안·승인대기를 분리했다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.source_preservation",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "반복 사용되는 폴더기록/탐색기접근/과거제출물/새업무판단·복원 목적에 사용할 조언임을 구별했다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.result_properties",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "화면완성만으로 끝내면 실패하는 파일정합성·복원·보수계산·범위 관점을 별도누락 경로에서 대조했다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.material_views",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "고유ID·대조·충돌·복원과 전체검증 관문을 개발계획에 반영했다. 외부구조를 제품신규요구로 확정하지 않았다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.differences",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "문서능력/현재판단과 실제제품시험·사용자승인/선호를 분리했다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.uncertainty",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "기존 alignment/delivery조건과 지지/누락 결과를 대조해 유지하고 현재후보/산출물에 실제소비했다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.consumption",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          },
+          {
+            "ability": "원문에 연결된 중요미처리차이가 없고 초기기술검증/신규요구·반박 때 재평가한다. 숨은의도를 유일하게 알아냈다는 주장은 하지 않는다.",
+            "discriminator": "원문목적/사용조건과 현재해석의 지지 및 양방향누락·목적실패를 분리대조",
+            "evidence_requirement": "원문/전체계획과 별도의 실제지지·누락평가",
+            "id": "interpretation.termination",
+            "sufficient_when": "의미차이를 실제권고·검증에 처리하고 권한/불확실성을 보존"
+          }
+        ],
+        "assessment": {
+          "relevance": "RELEVANT",
+          "materiality": "MATERIAL",
+          "role": "SCOPING",
+          "rationale": "현재기술이 성공해도 원문목적을 놓칠수 있는지 별도로 평가해야 한다.",
+          "evidence_refs": [
+            {
+              "id": "ev-support",
+              "revision": 1
+            },
+            {
+              "id": "ev-omission",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            }
+          ],
+          "unknowns": []
+        },
+        "closure_assessment": {
+          "verdict": "ANSWERED",
+          "rationale": "지지와 별도양방향누락·목적실패를 대조하고 기능/현재방법에 반영했다. 중요한미처리차이 없이 현재범위 종료.",
+          "evidence_refs": [
+            {
+              "id": "ev-support",
+              "revision": 1
+            },
+            {
+              "id": "ev-omission",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            }
+          ],
+          "scope": "현재해석 처리",
+          "remaining_uncertainties": [
+            "제품인수·최종명세승인을 현재판단으로 대체하지 않음."
+          ],
+          "basis": "f5993ee48b8d5e070c9ab2a5b1019cedd992a4aa3021c4389f70eb32f86f24dc"
+        },
+        "context": {
+          "conditions": [],
+          "constraints": [
+            {
+              "description": "완성 제품은 Windows 개인용 로컬 프로그램이며 업무자료는 PC 내부에 관리한다. 조사에 실제 업무파일을 외부 전송하지 않는다.",
+              "id": "local",
+              "predicate": null
+            },
+            {
+              "description": "현재 요청은 문서 검토와 진행 방법·스킬 추천이다. 요구사항 최종 승인은 대기 중이며 이 요청을 프로그램 전체 구현·설치·배포 승인으로 바꾸지 않는다.",
+              "id": "authority",
+              "predicate": null
+            },
+            {
+              "description": "전체 계획 범위, 진행률/실사용일수 입력 제외, 오늘 포함 계산, 요청별 폴더와 원본 보존, 디자인 기준을 유지한다.",
+              "id": "preserve",
+              "predicate": null
+            }
+          ],
+          "environment": {},
+          "purpose": "Preserve source outcome without narrowing or inventing intent",
+          "scope": "Current goal; initial interpretation remains provisional",
+          "version": "v3.2 / §§27.11–27.12"
+        },
+        "dependency_refs": [],
+        "disposition": "CLOSED",
+        "expansion": {
+          "status": "ACCOUNTED",
+          "discoveries": [],
+          "scope_rationale": "목적실패조건은 이미 도출한 기능과 현재아키텍처/개발검증에 소비했다. 기존기준 밖 새로운미판별차이는 확인하지 못했고 포괄적인 가능성만으로 새질문을 만들지 않는다.",
+          "evidence_refs": [
+            {
+              "id": "ev-support",
+              "revision": 1
+            },
+            {
+              "id": "ev-omission",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            }
+          ]
+        },
+        "extensions": {
+          "interpretation_review": {
+            "current_interpretation": "전체계획을 보존하는 개발방법/스킬 권고",
+            "assumptions": "조언 요청을 실제제품 구현으로 확대하지 않는다. 기술경로는 호스트제안이며 사용자 확정은 아니다.",
+            "result_properties": "반복사용 로컬폴더의 기록통일·업무수용판단·과거제출물재사용·원본복구에 쓰는 실행가능한 개발방법",
+            "interpretations": [
+              {
+                "id": "advice-scope",
+                "facet_ids": [
+                  "F1",
+                  "F2",
+                  "F3",
+                  "F4"
+                ],
+                "result_scope": "전체제품을 대상으로 한 개발방법 권고",
+                "basis": "원문·맥락·현재명세",
+                "assumptions": "기술결정은 제안이며 제품구현·설치의 승인으로 확대하지 않음",
+                "difference": "화면제작만이 아닌 폴더정합성/복원/보수판단·전체검증을 포함",
+                "decision_impact": "초기기술/복원 관문과 전체개발순서를 유지",
+                "uncertainties": "실제제품검증과 전체명세승인은 남음",
+                "consumer_refs": [
+                  {
+                    "id": "cap-alignment",
+                    "revision": 1
+                  },
+                  {
+                    "id": "cap-delivery",
+                    "revision": 1
+                  }
+                ],
+                "disposition": "CURRENT",
+                "rationale": "원문목적을 충족하는 방법권고로 두고 원본자료를 보호한다.",
+                "reopen_condition": "요구변경이나 중요반박"
+              }
+            ],
+            "support": {
+              "target": "원문의 조언·스킬추천·SynFrame처리·로컬제품과 현재해석의 지지",
+              "scope": "F1~F4 및 계획 전체",
+              "source_locator": "work/sf-support.json: findings F1~F4; 원문과 계획전체",
+              "rationale": "원문과 명세가 전체계획의 개발방법 권고를 지지하며 제품구현/설치승인을 추가하지 않는다.",
+              "facet_ids": [
+                "F1",
+                "F2",
+                "F3",
+                "F4"
+              ],
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ]
+            },
+            "omission": {
+              "target": "현재추천이 성공해도 기록통일·업무수용판단·원본복구를 놓칠 조건",
+              "scope": "F1~F4 및 계획 전체",
+              "source_locator": "work/sf-omission.json: source_to_result/result_to_source/counterfactual_scope/observed_structures",
+              "rationale": "화면성공·백업존재·숫자표시·단계분리만으로 원문목적이 충족되지 않는 조건을 별도로 대조했다. 고유ID/재대조/과거원본복사·키포함별도복원·보수예상·전체인수로 처리하고 기술제안의 과잉확정을 제거했다.",
+              "facet_ids": [
+                "F1",
+                "F2",
+                "F3",
+                "F4"
+              ],
+              "evidence_refs": [
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "source_to_result": "전체범위·원본·업무부담·재사용·복원을 개발관문에 보존",
+              "result_to_source": "기술선택은 요구확정과 분리하며 임의설치/진척추적·클라우드전송 없음",
+              "counterfactual_scope": "화면성공/백업존재가 원본보존·복원·판단유용성을 보장하지 않는 네 목적실패조건을 별도검토",
+              "observed_structures": "Kopia내장자동GUI·WPF에도 가능한UIA배치의 차이를 비교·조건부계획에 반영",
+              "remaining_uncertainty_assessment": "실제제품시험은 후속관문이며 현재해석의 중요미처리차이는 관측되지 않음",
+              "difference_ids": []
+            },
+            "handling": "CURRENT",
+            "treatment": "현재해석 유지. 별도지지/누락대조 결과를 기능·후보·5단계 계획·검증에 소비",
+            "termination_scope": "현재권고범위의 해석평가를 종료하며 실제제품성공/승인/숨은선호를 확정하지 않는다.",
+            "effects": [
+              {
+                "target_ref": {
+                  "id": "cap-alignment",
+                  "revision": 1
+                },
+                "assessment": "MAINTAIN",
+                "evidence_refs": [
+                  {
+                    "id": "ev-support",
+                    "revision": 1
+                  },
+                  {
+                    "id": "ev-omission",
+                    "revision": 1
+                  },
+                  {
+                    "id": "ev-plan",
+                    "revision": 1
+                  }
+                ],
+                "rationale": "현재cap조건의 원문보존/검증범위가 대조결과를 다루고 산출물에 실제소비됨"
+              },
+              {
+                "target_ref": {
+                  "id": "cap-delivery",
+                  "revision": 1
+                },
+                "assessment": "MAINTAIN",
+                "evidence_refs": [
+                  {
+                    "id": "ev-support",
+                    "revision": 1
+                  },
+                  {
+                    "id": "ev-omission",
+                    "revision": 1
+                  },
+                  {
+                    "id": "ev-plan",
+                    "revision": 1
+                  }
+                ],
+                "rationale": "현재cap조건의 원문보존/검증범위가 대조결과를 다루고 산출물에 실제소비됨"
+              }
+            ]
+          },
+          "requirements_change": {
+            "rationale": "실제원문대조에서 각 능력의 판별범위를 구체화",
+            "evidence_refs": [
+              {
+                "id": "ev-support",
+                "revision": 1
+              },
+              {
+                "id": "ev-omission",
+                "revision": 1
+              },
+              {
+                "id": "ev-plan",
+                "revision": 1
+              }
+            ]
+          }
+        },
+        "goal_connections": [
+          {
+            "facet_ids": [
+              "F1",
+              "F2",
+              "F3",
+              "F4"
+            ],
+            "goal_ref": {
+              "id": "work-organizer-advice",
+              "revision": 1
+            },
+            "path_refs": [],
+            "rationale": "Operating-contract obligation, not an invented user quotation"
+          }
+        ],
+        "goal_ref": {
+          "id": "work-organizer-advice",
+          "revision": 1
+        },
+        "id": "work-organizer-advice:goal-interpretation",
+        "origin_refs": [
+          {
+            "id": "work-organizer-advice",
+            "revision": 1
+          }
+        ],
+        "provenance": [],
+        "question": "Assess source-goal interpretation support AND material-view omission under §§27.11–27.12: 계획한 Windows 로컬 업무 정리 프로그램의 요구사항을 검토하고, 개발 진행 방법과 적절한 스킬·기술 조합을 근거와 검증 순서까지 제안한다. SynFrame 계약에 따라 조사·비교·검토·채택·결과를 보존한다.",
+        "reopen_conditions": [
+          "실제원문/요구변경 또는 현재해석을 깨는 관측된 목적실패"
+        ],
+        "subject": {
+          "concept": "Operating responsibility: goal interpretation review"
+        },
+        "type": "LearningTask",
+        "understanding": {
+          "status": "SUFFICIENT",
+          "k_level": 3,
+          "abilities": [
+            {
+              "id": "interpretation.source_preservation",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "원문권고와 전체계획을 유지하고 기술제안·승인대기를 분리했다."
+            },
+            {
+              "id": "interpretation.result_properties",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "반복 사용되는 폴더기록/탐색기접근/과거제출물/새업무판단·복원 목적에 사용할 조언임을 구별했다."
+            },
+            {
+              "id": "interpretation.material_views",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "화면완성만으로 끝내면 실패하는 파일정합성·복원·보수계산·범위 관점을 별도누락 경로에서 대조했다."
+            },
+            {
+              "id": "interpretation.differences",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "고유ID·대조·충돌·복원과 전체검증 관문을 개발계획에 반영했다. 외부구조를 제품신규요구로 확정하지 않았다."
+            },
+            {
+              "id": "interpretation.uncertainty",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "문서능력/현재판단과 실제제품시험·사용자승인/선호를 분리했다."
+            },
+            {
+              "id": "interpretation.consumption",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "기존 alignment/delivery조건과 지지/누락 결과를 대조해 유지하고 현재후보/산출물에 실제소비했다."
+            },
+            {
+              "id": "interpretation.termination",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-support",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-omission",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                }
+              ],
+              "rationale": "원문에 연결된 중요미처리차이가 없고 초기기술검증/신규요구·반박 때 재평가한다. 숨은의도를 유일하게 알아냈다는 주장은 하지 않는다."
+            }
+          ]
+        },
+        "validity_status": "VALID",
+        "work_state": "IDLE"
+      },
+      {
+        "answer": {
+          "status": "SUPPORTED",
+          "claims": [
+            {
+              "id": "selected-route",
+              "text": "SynFrame으로 기술 판단을 관리하고 SpecFrame의 명세를 개발 기준으로 유지한다. 구현의 첫 기술 검증 경로는 C# + WPF, 폴더의 실제 텍스트/결과물과 업무 식별 메타정보, Microsoft.Data.Sqlite 조회 색인으로 권고한다. 백업 엔진은 restic 로컬 저장소를 우선 검증하고 앱에서 설정·실행·실패·복원을 제어한다. 화면은 computer-use로 실제 관찰한다.",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "source_locator": "sf-comparison.json:contents 전체와 현재역할비교",
+              "conditions": [
+                "문서 근거에 따른 개발 경로의 우선순위다. WPF든 다른 프레임워크든 아이콘 아래층과 클릭·포커스·탐색기 재시작 동작은 실제 Windows 시제품에서 먼저 통과해야 한다. 이를 만족하지 못하면 전체 화면 구현 전에 원인과 대안을 검토한다.",
+                "실제 개발 전 요구사항 최종 확인과 지원되는 .NET 개발환경 준비가 필요하다. restic 채택에는 저장소 암호의 안전한 보관·다른 PC에서도 복원할 복구정보 확보·현재 파일과 설정을 함께 복원하는 시험을 포함한다. 그 전에는 실업무 자료를 맡기지 않는다. 추가 설치는 이번 작업에 포함하지 않았다."
+              ],
+              "inference": true
+            },
+            {
+              "id": "roadmap",
+              "text": "전체범위를 5단계에 연결하고 기술검증/복원 확인 후 실자료를 사용한다. 선택대안과 실행단계를 구분한다.",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "source_locator": "sf-comparison.json:ImplementationPlan·DecisionRationale",
+              "conditions": [
+                "실제 제품 구현은 승인후"
+              ],
+              "inference": true
+            }
+          ],
+          "counterevidence_refs": [],
+          "gaps": [],
+          "scope": "검증 관문이 포함된 개발방법 권고"
+        },
+        "answer_requirements": [
+          {
+            "ability": "개발관리/명세/Windows구현/검색색인/백업엔진/즉시화면검증/조건부배치검증의 수행주체와 산출물을 분리했다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.roles",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          },
+          {
+            "ability": "WinUI/Tauri/Avalonia/Kopia를 유효대안으로 유지하며 미시험을 기능부재로 바꾸지 않았다. WPF경로에 WinUI개발스킬을 필수 추가하지 않는다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.dispositions",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          },
+          {
+            "ability": "폴더+메모장 단독은 검색·부담·반복연결을 못채우고, 화면만으로 원본/복원목적을 못채운다. 호스트구현+기존엔진/기본API와 즉시검증을 기본으로 혼합한다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.combinations",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          },
+          {
+            "ability": "정본/ID→색인, 변경알림→대조, 일관된백업입력→restic JSON/종료코드→별도복원, 실행창→관측과 파일/계산검증의 주체·실패·검증을 명시했다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.connections",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          },
+          {
+            "ability": "투명창이 명시된 Windows전용 경로를 먼저 시험하는 WPF안을 선택. 실제속도/작업량우월을 주장하지 않으며 restic의 문서상 입출력과 암호·부분실패 조건을 보존했다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.comparison",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          },
+          {
+            "ability": "아이콘아래층/배율/복원·속도/툴체인은 실제제품검증으로 계획하고 승인대기·단계별 실패분기를 포함했다. 현재조언에 필요한 미판별 기능은 남기지 않았다.",
+            "discriminator": "역할·기여·연결·권한·실패/복원의 실제조건 대조",
+            "evidence_requirement": "계획+공식자료+현재조합대조",
+            "id": "composition.remaining_work",
+            "sufficient_when": "현재범위의 판단이 다음개발행동과 통과조건으로 연결"
+          }
+        ],
+        "assessment": {
+          "relevance": "RELEVANT",
+          "materiality": "MATERIAL",
+          "role": "SELECTION",
+          "rationale": "F1/F2/F4 선택과 전체진행방법을 실제조합으로 반환해야 한다.",
+          "evidence_refs": [
+            {
+              "id": "ev-comparison",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            },
+            {
+              "id": "ev-window",
+              "revision": 1
+            },
+            {
+              "id": "ev-file",
+              "revision": 1
+            },
+            {
+              "id": "ev-store",
+              "revision": 1
+            },
+            {
+              "id": "ev-backup",
+              "revision": 1
+            },
+            {
+              "id": "ev-bpolicy",
+              "revision": 1
+            },
+            {
+              "id": "ev-ui",
+              "revision": 1
+            },
+            {
+              "id": "ev-tools",
+              "revision": 1
+            },
+            {
+              "id": "ev-local",
+              "revision": 1
+            }
+          ],
+          "unknowns": []
+        },
+        "closure_assessment": {
+          "verdict": "ANSWERED",
+          "rationale": "현재발견을 실제단독/대안/보완·역할/I/O·설정/복구·작업순서에 반영했다. 문서기반권고의 충분성과 미요청제품시험을 구분했다.",
+          "evidence_refs": [
+            {
+              "id": "ev-comparison",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            },
+            {
+              "id": "ev-window",
+              "revision": 1
+            },
+            {
+              "id": "ev-file",
+              "revision": 1
+            },
+            {
+              "id": "ev-store",
+              "revision": 1
+            },
+            {
+              "id": "ev-backup",
+              "revision": 1
+            },
+            {
+              "id": "ev-bpolicy",
+              "revision": 1
+            },
+            {
+              "id": "ev-ui",
+              "revision": 1
+            },
+            {
+              "id": "ev-tools",
+              "revision": 1
+            },
+            {
+              "id": "ev-local",
+              "revision": 1
+            }
+          ],
+          "scope": "현재 개발방법 선택",
+          "remaining_uncertainties": [
+            "제품시험의 통과는 아직 주장하지 않음. 초기관문과 실패시 재평가로 처리."
+          ],
+          "basis": "ca8abfb58b94b95414a0e035a9d4b33650280e49894e4976918a8f5c342336d8"
+        },
+        "context": {
+          "conditions": [],
+          "constraints": [
+            {
+              "description": "완성 제품은 Windows 개인용 로컬 프로그램이며 업무자료는 PC 내부에 관리한다. 조사에 실제 업무파일을 외부 전송하지 않는다.",
+              "id": "local",
+              "predicate": null
+            },
+            {
+              "description": "현재 요청은 문서 검토와 진행 방법·스킬 추천이다. 요구사항 최종 승인은 대기 중이며 이 요청을 프로그램 전체 구현·설치·배포 승인으로 바꾸지 않는다.",
+              "id": "authority",
+              "predicate": null
+            },
+            {
+              "description": "전체 계획 범위, 진행률/실사용일수 입력 제외, 오늘 포함 계산, 요청별 폴더와 원본 보존, 디자인 기준을 유지한다.",
+              "id": "preserve",
+              "predicate": null
+            }
+          ],
+          "environment": {},
+          "purpose": "확인한 역할·조건에서 우선개발경로와 검증관문 선택",
+          "scope": "방법권고, 현재제품 구현/성능이 아님",
+          "version": "v3.2 / §§27.8–27.10"
+        },
+        "dependency_refs": [
+          {
+            "source_ref": {
+              "id": "work-organizer-advice:tool-discovery",
+              "revision": 2
+            },
+            "role": "COMPARES_USING",
+            "required": true,
+            "scope": "현재 발견의 기능/한계로 최종조합 비교",
+            "rationale": "새 후보와 실제조건을 현재 선택에 소비했다."
+          }
+        ],
+        "disposition": "CLOSED",
+        "expansion": {
+          "status": "ACCOUNTED",
+          "discoveries": [],
+          "scope_rationale": "발견2의 역할/조건을 기본안·대안·조건부추가·작업/검증에 실제소비했다. 새 미판별개념은 드러나지 않았고 실제제품구현시험을 조사미완료로 혼동하지 않는다.",
+          "evidence_refs": [
+            {
+              "id": "ev-comparison",
+              "revision": 1
+            },
+            {
+              "id": "ev-plan",
+              "revision": 1
+            },
+            {
+              "id": "ev-window",
+              "revision": 1
+            },
+            {
+              "id": "ev-file",
+              "revision": 1
+            },
+            {
+              "id": "ev-store",
+              "revision": 1
+            },
+            {
+              "id": "ev-backup",
+              "revision": 1
+            },
+            {
+              "id": "ev-bpolicy",
+              "revision": 1
+            },
+            {
+              "id": "ev-ui",
+              "revision": 1
+            },
+            {
+              "id": "ev-tools",
+              "revision": 1
+            },
+            {
+              "id": "ev-local",
+              "revision": 1
+            }
+          ]
+        },
+        "extensions": {
+          "requirements_change": {
+            "rationale": "운영질문의 능력을 현재계획에서 실제판별한 역할/조건으로 구체화",
+            "evidence_refs": [
+              {
+                "id": "ev-comparison",
+                "revision": 1
+              },
+              {
+                "id": "ev-plan",
+                "revision": 1
+              },
+              {
+                "id": "ev-window",
+                "revision": 1
+              },
+              {
+                "id": "ev-file",
+                "revision": 1
+              },
+              {
+                "id": "ev-store",
+                "revision": 1
+              },
+              {
+                "id": "ev-backup",
+                "revision": 1
+              },
+              {
+                "id": "ev-bpolicy",
+                "revision": 1
+              },
+              {
+                "id": "ev-ui",
+                "revision": 1
+              },
+              {
+                "id": "ev-tools",
+                "revision": 1
+              },
+              {
+                "id": "ev-local",
+                "revision": 1
+              }
+            ]
+          }
+        },
+        "goal_connections": [
+          {
+            "facet_ids": [
+              "F1",
+              "F2",
+              "F3",
+              "F4"
+            ],
+            "goal_ref": {
+              "id": "work-organizer-advice",
+              "revision": 1
+            },
+            "path_refs": [
+              {
+                "id": "work-organizer-advice:tool-scope",
+                "revision": 2
+              }
+            ],
+            "rationale": "Operating-contract obligation, not an invented user quotation"
+          }
+        ],
+        "goal_ref": {
+          "id": "work-organizer-advice",
+          "revision": 1
+        },
+        "id": "work-organizer-advice:tool-composition",
+        "origin_refs": [
+          {
+            "id": "work-organizer-advice:tool-scope",
+            "revision": 2
+          }
+        ],
+        "provenance": [],
+        "question": "현재 계획을 보존하는 개발·검증·복원 조합과 실제 개발 순서는 무엇인가?",
+        "reopen_conditions": [
+          "요구·실제플랫폼시험·도구 기능/배포·복원 조건의 중요한 반박"
+        ],
+        "subject": {
+          "concept": "Operating responsibility: tool composition"
+        },
+        "type": "LearningTask",
+        "understanding": {
+          "status": "SUFFICIENT",
+          "k_level": 3,
+          "abilities": [
+            {
+              "id": "composition.roles",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "개발관리/명세/Windows구현/검색색인/백업엔진/즉시화면검증/조건부배치검증의 수행주체와 산출물을 분리했다."
+            },
+            {
+              "id": "composition.dispositions",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "WinUI/Tauri/Avalonia/Kopia를 유효대안으로 유지하며 미시험을 기능부재로 바꾸지 않았다. WPF경로에 WinUI개발스킬을 필수 추가하지 않는다."
+            },
+            {
+              "id": "composition.combinations",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "폴더+메모장 단독은 검색·부담·반복연결을 못채우고, 화면만으로 원본/복원목적을 못채운다. 호스트구현+기존엔진/기본API와 즉시검증을 기본으로 혼합한다."
+            },
+            {
+              "id": "composition.connections",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "정본/ID→색인, 변경알림→대조, 일관된백업입력→restic JSON/종료코드→별도복원, 실행창→관측과 파일/계산검증의 주체·실패·검증을 명시했다."
+            },
+            {
+              "id": "composition.comparison",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "투명창이 명시된 Windows전용 경로를 먼저 시험하는 WPF안을 선택. 실제속도/작업량우월을 주장하지 않으며 restic의 문서상 입출력과 암호·부분실패 조건을 보존했다."
+            },
+            {
+              "id": "composition.remaining_work",
+              "status": "MET",
+              "evidence_refs": [
+                {
+                  "id": "ev-comparison",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-plan",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-window",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-file",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-store",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-backup",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-bpolicy",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-ui",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-tools",
+                  "revision": 1
+                },
+                {
+                  "id": "ev-local",
+                  "revision": 1
+                }
+              ],
+              "rationale": "아이콘아래층/배율/복원·속도/툴체인은 실제제품검증으로 계획하고 승인대기·단계별 실패분기를 포함했다. 현재조언에 필요한 미판별 기능은 남기지 않았다."
+            }
+          ]
+        },
+        "validity_status": "VALID",
+        "work_state": "IDLE"
+      },
+      {
+        "id": "consume-cap-alignment",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "work-organizer-advice:goal-interpretation",
+            "revision": 2
+          }
+        ],
+        "target_ref": {
+          "id": "cap-alignment",
+          "revision": 1
+        },
+        "relation": "AFFECTS",
+        "group_id": "advice-scope",
+        "evidence_refs": [
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "extensions": {
+          "scope": "현재방법의 조건/선택/검증 소비",
+          "rationale": "실제학습·대조를 기존기능판단에 소비"
+        }
+      },
+      {
+        "id": "consume-cap-delivery",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "work-organizer-advice:goal-interpretation",
+            "revision": 2
+          }
+        ],
+        "target_ref": {
+          "id": "cap-delivery",
+          "revision": 1
+        },
+        "relation": "AFFECTS",
+        "group_id": "advice-scope",
+        "evidence_refs": [
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "extensions": {
+          "scope": "현재방법의 조건/선택/검증 소비",
+          "rationale": "실제학습·대조를 기존기능판단에 소비"
+        }
+      },
+      {
+        "id": "consume-cap-selection",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "work-organizer-advice:tool-composition",
+            "revision": 2
+          }
+        ],
+        "target_ref": {
+          "id": "cap-selection",
+          "revision": 1
+        },
+        "relation": "AFFECTS",
+        "group_id": "advice-scope",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          }
+        ],
+        "extensions": {
+          "scope": "현재방법의 조건/선택/검증 소비",
+          "rationale": "실제학습·대조를 기존기능판단에 소비"
+        }
+      },
+      {
+        "id": "consume-cap-roadmap",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "work-organizer-advice:tool-composition",
+            "revision": 2
+          }
+        ],
+        "target_ref": {
+          "id": "cap-roadmap",
+          "revision": 1
+        },
+        "relation": "AFFECTS",
+        "group_id": "advice-scope",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          }
+        ],
+        "extensions": {
+          "scope": "현재방법의 조건/선택/검증 소비",
+          "rationale": "실제학습·대조를 기존기능판단에 소비"
+        }
+      },
+      {
+        "id": "asset-host",
+        "type": "KnowledgeAsset",
+        "kind": "method",
+        "identity": "현재호스트 + SynFrame v3.2",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [
+          {
+            "id": "cap-alignment",
+            "revision": 1
+          },
+          {
+            "id": "cap-selection",
+            "revision": 1
+          },
+          {
+            "id": "cap-roadmap",
+            "revision": 1
+          },
+          {
+            "id": "cap-delivery",
+            "revision": 1
+          }
+        ],
+        "applicability": "실제계획대조·공식관측·조합·검토/결과보존",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-comparison",
+                "revision": 1
+              },
+              {
+                "id": "ev-plan",
+                "revision": 1
+              },
+              {
+                "id": "ev-window",
+                "revision": 1
+              },
+              {
+                "id": "ev-file",
+                "revision": 1
+              },
+              {
+                "id": "ev-store",
+                "revision": 1
+              },
+              {
+                "id": "ev-backup",
+                "revision": 1
+              },
+              {
+                "id": "ev-bpolicy",
+                "revision": 1
+              },
+              {
+                "id": "ev-ui",
+                "revision": 1
+              },
+              {
+                "id": "ev-tools",
+                "revision": 1
+              },
+              {
+                "id": "ev-local",
+                "revision": 1
+              },
+              {
+                "id": "ev-support",
+                "revision": 1
+              },
+              {
+                "id": "ev-omission",
+                "revision": 1
+              },
+              {
+                "id": "ev-plan",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "available",
+        "extensions": {
+          "planned_product_asset": false,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "asset-specframe",
+        "type": "KnowledgeAsset",
+        "kind": "skill",
+        "identity": "SpecFrame 명세 기준",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [],
+        "applicability": "확정/제안/미검증·승인 경계 보존",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-plan",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "available",
+        "extensions": {
+          "planned_product_asset": false,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "asset-wpf",
+        "type": "KnowledgeAsset",
+        "kind": "technology",
+        "identity": "C# + WPF/.NET 기본API",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [],
+        "applicability": "제안된 첫 구현경로; 현재 앱실행 제공을 주장하지 않음",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-window",
+                "revision": 1
+              },
+              {
+                "id": "ev-write",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "knowledge_only",
+        "extensions": {
+          "planned_product_asset": true,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "asset-sqlite",
+        "type": "KnowledgeAsset",
+        "kind": "technology",
+        "identity": "Microsoft.Data.Sqlite",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [],
+        "applicability": "제안된 로컬조회색인과 지원DB백업",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-store",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "knowledge_only",
+        "extensions": {
+          "planned_product_asset": true,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "asset-restic",
+        "type": "KnowledgeAsset",
+        "kind": "technology",
+        "identity": "restic 로컬모드 문서0.19.1",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [],
+        "applicability": "제안된 백업엔진; 앱스케줄/실패표시/키복구/별도복원검증이 남는책임",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-backup",
+                "revision": 1
+              },
+              {
+                "id": "ev-bpolicy",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "knowledge_only",
+        "extensions": {
+          "planned_product_asset": true,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "asset-computeruse",
+        "type": "KnowledgeAsset",
+        "kind": "skill",
+        "identity": "computer-use @oai/sky",
+        "version": "문서/설치범위는 근거에 명시; 제품패키지버전은 구현전 고정",
+        "provided_capability_refs": [],
+        "applicability": "후속앱창검증; 현재는 지침·제약 확인. 금지동작 우회없음",
+        "understanding": [
+          {
+            "context": "현재개발방법 권고의 역할/연결/실패조건 판단",
+            "level": 3,
+            "questions": [
+              {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              }
+            ],
+            "evidence_refs": [
+              {
+                "id": "ev-local",
+                "revision": 1
+              }
+            ],
+            "stop_condition": "문서기반역할·조건판별은 확보. 실제제품 시험과 구별."
+          }
+        ],
+        "inputs": [],
+        "outputs": [],
+        "availability": "available",
+        "extensions": {
+          "planned_product_asset": false,
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "현재역할/조건평가",
+              "rationale": "선택/연결의 canonical판단을 재사용"
+            }
+          ]
+        }
+      },
+      {
+        "id": "frame-files-first",
+        "type": "Frame",
+        "goal_ref": {
+          "id": "work-organizer-advice",
+          "revision": 1
+        },
+        "object": "로컬폴더 업무흐름의 전체개발방법",
+        "representation": "정본자료·업무ID/상태·검증관문을 가진 앱 + 조회화면",
+        "mechanism": "기존기술 재사용과 실패/복원관문으로 단계별연결",
+        "intervention": "초기특수창/저장/복원시제품 뒤 전체범위연결",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          }
+        ],
+        "assumptions": [
+          "화면만완성해서는 기록보존·업무수용판단·복원목적이 보장되지 않음"
+        ],
+        "parent_refs": [],
+        "transformation": "initial",
+        "structural_difference": {
+          "rationale": "기존목업확장 중심 접근과 달리 파일정체성·외부변경·복원가능성을 선행판별하여 UI와 독립해 검증한다."
+        },
+        "information_requirements": [
+          {
+            "id": "work-organizer-advice:tool-composition",
+            "revision": 2
+          },
+          {
+            "id": "work-organizer-advice:goal-interpretation",
+            "revision": 2
+          }
+        ]
+      },
+      {
+        "id": "candidate-local-native",
+        "type": "SolutionCandidate",
+        "goal_ref": {
+          "id": "work-organizer-advice",
+          "revision": 1
+        },
+        "frame_refs": [
+          {
+            "id": "frame-files-first",
+            "revision": 1
+          }
+        ],
+        "asset_refs": [
+          {
+            "id": "asset-host",
+            "revision": 1
+          },
+          {
+            "id": "asset-specframe",
+            "revision": 1
+          },
+          {
+            "id": "asset-wpf",
+            "revision": 1
+          },
+          {
+            "id": "asset-sqlite",
+            "revision": 1
+          },
+          {
+            "id": "asset-restic",
+            "revision": 1
+          },
+          {
+            "id": "asset-computeruse",
+            "revision": 1
+          }
+        ],
+        "capability_refs": [
+          {
+            "id": "cap-alignment",
+            "revision": 1
+          },
+          {
+            "id": "cap-selection",
+            "revision": 1
+          },
+          {
+            "id": "cap-roadmap",
+            "revision": 1
+          },
+          {
+            "id": "cap-delivery",
+            "revision": 1
+          }
+        ],
+        "connections": [],
+        "gaps": [],
+        "attributes": {
+          "scope": "개발방법 권고를 현재호스트가 제공. 미래제품의 연결은 Architecture/ImplementationPlan에 구체화하고 실현성공을 주장하지 않음.",
+          "recommended_solution": {
+            "우선안": "SynFrame으로 기술 판단을 관리하고 SpecFrame의 명세를 개발 기준으로 유지한다. 구현의 첫 기술 검증 경로는 C# + WPF, 폴더의 실제 텍스트/결과물과 업무 식별 메타정보, Microsoft.Data.Sqlite 조회 색인으로 권고한다. 백업 엔진은 restic 로컬 저장소를 우선 검증하고 앱에서 설정·실행·실패·복원을 제어한다. 화면은 computer-use로 실제 관찰한다.",
+            "채택범위": "문서 근거에 따른 개발 경로의 우선순위다. WPF든 다른 프레임워크든 아이콘 아래층과 클릭·포커스·탐색기 재시작 동작은 실제 Windows 시제품에서 먼저 통과해야 한다. 이를 만족하지 못하면 전체 화면 구현 전에 원인과 대안을 검토한다.",
+            "추가조건": "실제 개발 전 요구사항 최종 확인과 지원되는 .NET 개발환경 준비가 필요하다. restic 채택에는 저장소 암호의 안전한 보관·다른 PC에서도 복원할 복구정보 확보·현재 파일과 설정을 함께 복원하는 시험을 포함한다. 그 전에는 실업무 자료를 맡기지 않는다. 추가 설치는 이번 작업에 포함하지 않았다.",
+            "첫산출물": "요구사항 ID별 구현 위치·저장 원본·상태전이·실패복구·검증을 연결한 개발설계서와 기술 검증 계획. 기존 디자인 분위기를 유지한다."
+          },
+          "architecture": {
+            "개발역할연결": [
+              "SpecFrame의 확정/제안/미검증이 구분된 전체 명세 → 호스트가 요구사항 ID를 기능·파일·검증 사례에 연결 → SynFrame의 기술 비교와 선택·실패에 따른 재판정.",
+              "호스트가 C#/WPF 실제 프로젝트를 구현하고 빌드·실행 → computer-use는 반환된 실제 앱 창을 관찰·조작·재관찰 → 파일/상태와 계산·복원 검증 결과를 함께 Review에 반환.",
+              "스킬은 개발 지침이다. 완성 프로그램의 실행에 SynFrame·SpecFrame·computer-use를 설치하거나 AI 서버에 접속할 필요가 있는 구조로 만들지 않는다."
+            ],
+            "제품저장제안": [
+              "요청마다 YYMMDD_작업명_요청내용 폴더. 이름/위치와 별개인 업무 고유 ID를 관리하고 원래 주기·최초 요청시각을 보존한다. 메타정보의 고유 ID까지 복제된 폴더는 충돌로 감지하고 조용히 합치지 않는다.",
+              "원문·본인 이해·실행명령/오류 기록의 텍스트와 실제 캡처/결과물은 작업폴더에 보존한다. 어떤 필드는 텍스트가 정본이고 어떤 필드는 관리 메타정보가 정본인지 개발설계서에서 단일 소유 표로 고정한다. SQLite에는 조회용 색인을 두고 같은 내용을 두 원본에서 독립 수정하지 않는다.",
+              "SQLite 색인은 정본 자료로 다시 만들 수 있게 설계한다. 색인에만 남는 요청일·유형·이름규칙·설정이 없도록 복원 범위를 확인한다. 첨부 문서 본문은 검색·분류를 위해 읽지 않는다.",
+              "파일 변경 알림은 대조가 필요한 신호로 취급한다. 시작·재연결·감지오류 뒤 폴더와 고유 ID를 대조하고 완료/복귀를 중복 반영하지 않는다. 실제 이동시각을 모르면 감지일로 꾸며 쓰지 않고 완료일 확인 필요를 유지한다.",
+              "기록 저장은 임시파일·교체 전 보존과 버전 대조를 사용하고 양쪽 편집이 있으면 양쪽 내용을 보존한다. 파일 교체와 메타정보/폴더 이동이 동시에 성공한다고 가정하지 않는다. 작업 의도와 실제 위치를 남겨 중단 후 대조·재시도한다.",
+              "바탕화면 전용 창과 일반 상세/완료 창을 분리하고, 기록 최대화는 읽기 편한 크기로 최소30줄·통상30~50줄을 실제 배율에서 확인한다."
+            ],
+            "백업연결": "앱이 저장된 자료/설정의 일관된 백업 입력을 준비한다. SQLite를 보관한다면 실행 중 DB파일을 무작정 복사하지 않고 BackupDatabase 같은 지원 경로로 사본을 만든다. 앱이 로컬 restic 프로세스를 호출해 snapshot ID와 종료코드/JSON·오류를 읽고 성공·부분실패·실패를 구별한다. 기본은 비관리자 파일 백업이며 VSS는 선택적 별도 권한/환경 검증 대상으로 둔다. 복원은 새 빈 위치로 꺼내 원본과 확인 후 명시 적용한다. 잠긴 파일·장치분리·용량부족은 기존 복구본을 유지한다.",
+            "자동화범위": "내장 파일/클립보드/외부프로그램 열기와 기존 백업엔진을 재사용하고, 업무 고유 ID·상태대조·편집충돌·주기·업무부담·제출물 연결은 앱 고유 동작으로 구현한다. 백업 앱을 매번 수동 실행하도록 떠넘기지 않는다. computer-use가 금지한 Win키 단축키 검사는 이 스킬로 자동 수행한다고 약속하지 않는다. 해당 인수 동작은 허용된 별도 테스트 수단 또는 사용자 확인으로 처리하며 금지를 우회하지 않는다."
+          },
+          "selected_assets": [
+            {
+              "이름": "SynFrame v3.2 + 현재 호스트",
+              "역할": "조사 질문·실제근거·대안·선택·Review/Gate·완료를 관리",
+              "입출력": "요청/명세/관측 → 근거 있는 권고·상태·결과파일",
+              "수행주체": "호스트가 의미 판단, Python/SQLite 코어가 구조/참조/복구 검사",
+              "추가가치": "비관리 초안과 달리 원문지지/누락·필수탐색·현재검토/채택을 추적. 구조통과는 의미적 진실의 자동 증거가 아님"
+            },
+            {
+              "이름": "SpecFrame",
+              "역할": "전체 요구사항과 승인상태의 기준",
+              "입출력": "사용자 요구/수정 → 확정·제안·미검증이 구분된 명세",
+              "수행주체": "호스트와 기존 상태 helper",
+              "추가가치": "개발 판단으로 사용자 요구를 임의 축소·확정하는 것을 방지. 이번에 승인상태를 변경하지 않음"
+            },
+            {
+              "이름": "C# + WPF + .NET 기본 파일 API",
+              "역할": "Windows 전용 창·텍스트·로컬 파일 작업의 첫 구현 경로",
+              "입출력": "명세·디자인·폴더 → 로컬 실행 프로그램(다음 개발 단계)",
+              "수행주체": "호스트가 구현, 사용자 PC에서 앱 실행",
+              "추가가치": "테두리/투명 창이 명시된 Windows 전용 경로. WinUI/Tauri/Avalonia보다 실측상 빠르거나 우월하다는 주장은 하지 않음"
+            },
+            {
+              "이름": "Microsoft.Data.Sqlite",
+              "역할": "로컬 조회 색인과 지원되는 DB 백업 경로",
+              "입출력": "업무 정본의 허용된 필드 → 목록/검색 색인·DB사본",
+              "수행주체": "앱 내부",
+              "추가가치": "여러 날짜/상태/이력 조회를 한 곳에서 처리. 색인만으로 원본을 대체하지 않고 재구성/복원 검증이 필요"
+            },
+            {
+              "이름": "restic — 문서 0.19.1의 로컬 저장소 모드",
+              "역할": "변경분·이력·선택 복원을 제공하는 우선 백업엔진",
+              "입출력": "저장된 로컬 자료·설정/일관된 사본 → snapshot과 상태/오류 → 별도 위치 복원",
+              "수행주체": "앱이 로컬 CLI 제어",
+              "추가가치": "이력 엔진을 처음부터 구현하는 범위를 줄인다. 암호/복구정보·부분실패·정리잠금·배포·실제 복원 시험은 앱의 남는 책임. PC에서 실제 실행하지 않음"
+            },
+            {
+              "이름": "computer-use",
+              "역할": "초기 실행 창과 기록영역·버튼·파일대화상자의 관측/상호작용",
+              "입출력": "정확히 선택한 앱창·시험 시나리오 → 화면/접근성 관측",
+              "수행주체": "호스트가 @oai/sky 사용",
+              "추가가치": "기존 도구로 실제 창을 확인한다. UI관측은 파일정합성/복원/계산 테스트를 대신하지 않으며 Win키·보안설정·터미널UI 금지를 유지"
+            }
+          ],
+          "decision_rationale": {
+            "WPF우선이유": "이번 목적은 Windows 개인용 폴더·텍스트 중심 앱이며 특수 바탕화면 창이 중요하다. 공식적으로 명시된 투명/테두리 없는 WPF 창과 일반 창을 첫 기술검증에 사용한다. 일반적인 신규 Windows 앱에 대한 WinUI 권장 자체를 부정하지 않으며 특수 동작이 보장된 것으로 확대하지 않는다.",
+            "간단구성과비교": "폴더와 메모장만 사용하면 기록은 남지만 주/월 여유·기간검색·반복/제출물 연결·자동대조를 제공하지 못한다. 화면만 구현하면 원본/동시수정/재실행/복원 목적을 놓칠 수 있다. SQLite는 검색 역할, restic은 별도 버전복원 역할이므로 서로를 대체하지 않는다. 초기 시제품은 computer-use와 코드/파일검사로 확인하고 반복 UI 배치검사는 안정된 화면이 생긴 뒤 조건부 추가한다.",
+            "대안": [
+              {
+                "구성": "WinUI 3 + OpenAI winui-app",
+                "판단": "유효한 대안. C#/XAML·창관리·빌드/실행 확인 절차가 있으나 WinUI 경로 전용이다. 지금 WPF 경로에 필수 설치하지 않는다. 실제 WinUI 선택시 환경/패키징 절차를 적용하며 기존 디자인을 보존한다."
+              },
+              {
+                "구성": "Tauri + HTML/CSS + Rust/로컬기능",
+                "판단": "목업 화면을 재사용할 수 있는 유효한 대안. 창꾸미기/투명성과 로컬 권한 경로도 존재하므로 웹이라 불가능하다고 제외하지 않는다. 이번에는 플랫폼 기능을 C# 경로에서 먼저 시험한다. 화면 재사용의 실익이 연결/검증 부담을 바꾸는 새 근거가 있으면 재평가한다."
+              },
+              {
+                "구성": "Avalonia + C#",
+                "판단": "Windows Win32/클립보드/대화상자/DPI도 제공하는 대안. 여러 OS는 현재 요구가 아니고 아이콘 아래층의 공통 검증을 없애주지 않아 첫 경로에 추가하지 않는다. 부적합이나 느리다는 판정은 아니다."
+              },
+              {
+                "구성": "KopiaUI 또는 Kopia CLI + 앱",
+                "판단": "로컬 암호화·변경분·자체 자동주기/보존·복원이 있는 유효한 백업 대안이다. 단순 수동 GUI로 잘못 배제하지 않는다. 선택한 앱내 백업제어 경로는 실제 읽은 JSON/실패계약을 가진 restic으로 먼저 검증한다. Kopia 기능이 없거나 성능이 낮다는 주장은 하지 않는다."
+              },
+              {
+                "구성": "자체 변경분 복사/이력 엔진",
+                "판단": "암호/외부실행파일 의존이 없는 구성이 될 수 있으나 스냅샷 완전성·중단/정리·선택복원의 구현 책임을 직접 져야 한다. restic이 복구·배포 조건을 만족하지 못하는 실제 문제가 있을 때 비교할 대안으로 유지한다."
+              }
+            ],
+            "조건부추가": [
+              {
+                "스킬": "Microsoft winui-ui-testing (카탈로그0.7.1 pinned SHA 5a064a427f1e056822a939b13ddce43b798090fa)",
+                "발동조건": "실제 빌드와 안정된 AutomationId가 생기고 반복 UI 회귀검사를 추가할 단계",
+                "기여": "이름과 달리 WPF도 지원. winapp ui가 배치 조작/값검증·JSON/PNG를 생성하고 호스트가 PNG를 시각검토",
+                "전제": "WinApp CLI released0.7+와 선택 workflow에 맞는 SDK/실행권한. local도 가능하며 Sandbox필수로 확대하지 않는다. Sandbox를 쓰면 Windows11 24H2+·지원에디션·가상화·동작중 연결창 등 전체 조건을 별도로 충족해야 한다. 현재 PC 준비/실행 성공은 미확인",
+                "범위": "computer-use의 즉시 관찰과 배치회귀는 보완 역할. 전체 제품 검증을 UIA만으로 대체하지 않고 외부스킬의 고정 재시도 횟수를 SynFrame 종료정책으로 편입하지 않는다."
+              }
+            ],
+            "설치판단": "이번 단계에 대량 추가 설치나 새 커스텀 스킬 제작은 필요하지 않다. 실제 선택 경로에 필요한 도구를 개발환경 확인 후 준비한다. 배포용 winappcli/WinDbg는 해당 기능·실패가 발생하는 단계에 적용하며 현재 필수 구성으로 올리지 않는다."
+          },
+          "implementation_plan": [
+            {
+              "단계": "1. 기준과 설계",
+              "내용": "목업의 착수 예정날짜/목록복사/강제양식 불일치를 정리하고 원문·본인이해·검토중·주/월여유를 맞춘다. 요구사항 ID별 정본필드·업무ID·상태전이·복원·검증 대응표 작성. 전체 승인 후 실제 제품 구현 착수.",
+              "통과": "25절의 전체범위·제안/미검증이 보존되고 임의 기능 삭제나 추가 확정이 없다."
+            },
+            {
+              "단계": "2. 별도 시험자료로 기술검증",
+              "내용": "Windows전용 목록의 아이콘/창아래층·클릭/포커스·바탕화면보기·탐색기 재시작/절전복귀, 기록창의 실제배율30~50줄, 앱/외부편집 충돌, 폴더완료/복귀와 재실행, restic 별도복원을 시험.",
+              "통과": "동작 관측과 파일/상태 보존이 확인된다. 불안정하면 전체UI개발 전에 원인/대안을 검토하고 요구를 몰래 완화하지 않는다."
+            },
+            {
+              "단계": "3. 요청 한 건 전체 연결",
+              "내용": "루트·주기 설정 → 요청폴더/체크양식 → 원문/본인이해/큰작업기록 → 캡처/결과물 → 검토/수락 → 완료버튼과 탐색기이동 → 재실행/검색. 초기백업/복원을 포함.",
+              "통과": "마감없음/0.5일/동명·잠김·부분실패·중복클릭에서도 원본과 업무ID·최초시각 보존. 사용일수 입력 없음. 복원 확인 전 실자료 운용하지 않음."
+            },
+            {
+              "단계": "4. 업무판단과 재사용",
+              "내용": "오늘포함 평일계산, 이번주/달여유와 기한미정량, 선택요청 수락전후, 중요도/기한초과/오늘마감/긴급 정렬, 완료기간검색·묶음, 유형/유사명/반복예상/연간일정/제출항목·지난파일복사.",
+              "통과": "20>15 과중, 오늘마감0.5, 수요일오늘포함3일/목요일2일, 검토중 제외/수락중복없음, 요청일3월·완료일4월 조회, 월경계±2주/회차중복/과거원본불변을 실제 코드에서 확인."
+            },
+            {
+              "단계": "5. 전체 인수·배포",
+              "내용": "이전주기 미완료와 원래주기 완료/역전환, 설정변경 비소급, 백업범위·주기·보존·암호복구·부분실패/분리·용량·잠김/중단, 현재자료와 별도복원본 비교, 실제백업시간/응답성, 실행파일 의존성/재시작/배율을 확인.",
+              "통과": "앱을 처음 켜는 환경과 실제 업무 한 건의 목적/복원까지 확인. 빌드성공·모형계산·UIA통과를 전체 인수성공으로 확대하지 않음."
+            }
+          ],
+          "validation_scope": "실제 원문대조·공식자료 조사·스킬절차/입출력 비교와 이번 권고의 기록 검증이다. 실제 프로그램 빌드·실행·복원·성능을 시험한 결과가 아니다."
+        },
+        "comparison_rationale": "이번 목적은 Windows 개인용 폴더·텍스트 중심 앱이며 특수 바탕화면 창이 중요하다. 공식적으로 명시된 투명/테두리 없는 WPF 창과 일반 창을 첫 기술검증에 사용한다. 일반적인 신규 Windows 앱에 대한 WinUI 권장 자체를 부정하지 않으며 특수 동작이 보장된 것으로 확대하지 않는다. 폴더와 메모장만 사용하면 기록은 남지만 주/월 여유·기간검색·반복/제출물 연결·자동대조를 제공하지 못한다. 화면만 구현하면 원본/동시수정/재실행/복원 목적을 놓칠 수 있다. SQLite는 검색 역할, restic은 별도 버전복원 역할이므로 서로를 대체하지 않는다. 초기 시제품은 computer-use와 코드/파일검사로 확인하고 반복 UI 배치검사는 안정된 화면이 생긴 뒤 조건부 추가한다.",
+        "disposition": "retain",
+        "constraint_values": {
+          "local": true,
+          "authority": true,
+          "preserve": true
+        },
+        "extensions": {
+          "judgment_dependencies": [
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:tool-composition",
+                "revision": 2
+              },
+              "role": "COMPARES_USING",
+              "required": true,
+              "scope": "현재조합/선택",
+              "rationale": "확인한후보역할·대안·조건을 실제소비"
+            },
+            {
+              "source_ref": {
+                "id": "work-organizer-advice:goal-interpretation",
+                "revision": 2
+              },
+              "role": "REUSES",
+              "required": true,
+              "scope": "원문/사용목적",
+              "rationale": "지지와누락대조의 현재결론 보존"
+            }
+          ]
+        }
+      },
+      {
+        "id": "provide-cap-alignment",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "asset-host",
+            "revision": 1
+          }
+        ],
+        "target_ref": {
+          "id": "cap-alignment",
+          "revision": 1
+        },
+        "relation": "PROVIDES",
+        "group_id": "actual-advice",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ]
+      },
+      {
+        "id": "provide-cap-selection",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "asset-host",
+            "revision": 1
+          }
+        ],
+        "target_ref": {
+          "id": "cap-selection",
+          "revision": 1
+        },
+        "relation": "PROVIDES",
+        "group_id": "actual-advice",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ]
+      },
+      {
+        "id": "provide-cap-roadmap",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "asset-host",
+            "revision": 1
+          }
+        ],
+        "target_ref": {
+          "id": "cap-roadmap",
+          "revision": 1
+        },
+        "relation": "PROVIDES",
+        "group_id": "actual-advice",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ]
+      },
+      {
+        "id": "provide-cap-delivery",
+        "type": "DependencyLink",
+        "sources": [
+          {
+            "id": "asset-host",
+            "revision": 1
+          }
+        ],
+        "target_ref": {
+          "id": "cap-delivery",
+          "revision": 1
+        },
+        "relation": "PROVIDES",
+        "group_id": "actual-advice",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ]
+      }
+    ],
+    "result_refs": [
+      {
+        "id": "ev-comparison",
+        "revision": 1
+      },
+      {
+        "id": "ev-support",
+        "revision": 1
+      },
+      {
+        "id": "ev-omission",
+        "revision": 1
+      },
+      {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      {
+        "id": "consume-cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-roadmap",
+        "revision": 1
+      },
+      {
+        "id": "asset-host",
+        "revision": 1
+      },
+      {
+        "id": "asset-specframe",
+        "revision": 1
+      },
+      {
+        "id": "asset-wpf",
+        "revision": 1
+      },
+      {
+        "id": "asset-sqlite",
+        "revision": 1
+      },
+      {
+        "id": "asset-restic",
+        "revision": 1
+      },
+      {
+        "id": "asset-computeruse",
+        "revision": 1
+      },
+      {
+        "id": "frame-files-first",
+        "revision": 1
+      },
+      {
+        "id": "candidate-local-native",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-roadmap",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "cap-roadmap",
+        "revision": 1
+      }
+    ],
+    "evidence_refs": [
+      {
+        "id": "ev-comparison",
+        "revision": 1
+      },
+      {
+        "id": "ev-plan",
+        "revision": 1
+      },
+      {
+        "id": "ev-window",
+        "revision": 1
+      },
+      {
+        "id": "ev-file",
+        "revision": 1
+      },
+      {
+        "id": "ev-store",
+        "revision": 1
+      },
+      {
+        "id": "ev-backup",
+        "revision": 1
+      },
+      {
+        "id": "ev-bpolicy",
+        "revision": 1
+      },
+      {
+        "id": "ev-ui",
+        "revision": 1
+      },
+      {
+        "id": "ev-tools",
+        "revision": 1
+      },
+      {
+        "id": "ev-local",
+        "revision": 1
+      },
+      {
+        "id": "ev-support",
+        "revision": 1
+      },
+      {
+        "id": "ev-omission",
+        "revision": 1
+      },
+      {
+        "id": "ev-plan",
+        "revision": 1
+      }
+    ],
+    "unresolved_items": [
+      "현재후보의 의미/구조 Review·Gate·채택·완료 확인",
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-d85b60ccac1873c836f2d1ba",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-host",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-af760fc755b7c437dfa6ca74",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-specframe",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-05da38bf35928360ebd7a62c",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-wpf",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-08d14951fd091f3121d9a0cb",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-sqlite",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-228ac4c9eaab10f9514bd15e",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-restic",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-5664ad0e9ceda9c59d76da09",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-computeruse",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-d802e680b360a3baecbd8b20",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "candidate-local-native",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-b13f810cf0ccadb9b8ed2c3a",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "candidate-local-native",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      }
+    ],
+    "observed_effects": [
+      "현재발견을 우선조합/조건부추가/대안/전체5단계에 실제소비",
+      "원문 지지와 별도목적누락대조로 현재범위 유지",
+      "실제제품미검증·승인대기를 보존"
+    ],
+    "next_decision_inputs": [
+      "현재후보 review-context로 버전/연결/능력·근거 대조",
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-d85b60ccac1873c836f2d1ba",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-host",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-af760fc755b7c437dfa6ca74",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-specframe",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-05da38bf35928360ebd7a62c",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-wpf",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-08d14951fd091f3121d9a0cb",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-sqlite",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-228ac4c9eaab10f9514bd15e",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-restic",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-5664ad0e9ceda9c59d76da09",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "asset-computeruse",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-d802e680b360a3baecbd8b20",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "candidate-local-native",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      },
+      {
+        "information_need": true,
+        "propagation": true,
+        "key": "prop-b13f810cf0ccadb9b8ed2c3a",
+        "description": "Declared consumer must assess changed provider in this scope",
+        "important": true,
+        "owner_ref": {
+          "id": "candidate-local-native",
+          "revision": 1
+        },
+        "status": "PENDING",
+        "next_action": "REVIEW_SOLUTION"
+      }
+    ],
+    "outcome": "SUCCEEDED",
+    "learning_results": [
+      {
+        "task_ref": {
+          "id": "work-organizer-advice:goal-interpretation",
+          "revision": 1
+        },
+        "result_ref": {
+          "id": "work-organizer-advice:goal-interpretation",
+          "revision": 2
+        },
+        "answer_refs": [
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "understanding_change": "지지/누락·목적실패를 구별하고 현재조건을 방법/검증에 반영",
+        "discovery_ids": [],
+        "upward_effects": "현재기능조건은 실제대조로 유지하고 후보·산출물·검증관문을 새로 구성",
+        "observations": "sf-support.json+sf-omission.json",
+        "prediction_difference": "외부도구가 UI/backup을 모두보장하는것으로 확대하지 않고 호스트가 남는연결/검증을 맡는다."
+      },
+      {
+        "task_ref": {
+          "id": "work-organizer-advice:tool-composition",
+          "revision": 1
+        },
+        "result_ref": {
+          "id": "work-organizer-advice:tool-composition",
+          "revision": 2
+        },
+        "answer_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          }
+        ],
+        "understanding_change": "역할·I/O·개입·복원·대안/조건부추가를 현재조합으로 선택",
+        "discovery_ids": [],
+        "upward_effects": "현재기능조건은 실제대조로 유지하고 후보·산출물·검증관문을 새로 구성",
+        "observations": "sf-comparison.json 및 두 출력파일",
+        "prediction_difference": "외부도구가 UI/backup을 모두보장하는것으로 확대하지 않고 호스트가 남는연결/검증을 맡는다."
+      }
+    ],
+    "propagation_resolutions": [
+      {
+        "id": "prop-b4583415474efb18344a0e37",
+        "assessment": "REVISE",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "발견2를 실제 조합·조건·대안·작업에 소비하여 현재 조합답을 새버전으로 작성했다.",
+        "result_refs": [
+          {
+            "id": "work-organizer-advice:tool-composition",
+            "revision": 2
+          }
+        ],
+        "remaining_work": []
+      },
+      {
+        "id": "prop-3fc912a63235e7c3629dab43",
+        "assessment": "REVISE",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "발견2를 실제 조합·조건·대안·작업에 소비하여 현재 조합답을 새버전으로 작성했다.",
+        "result_refs": [
+          {
+            "id": "work-organizer-advice:tool-composition",
+            "revision": 2
+          }
+        ],
+        "remaining_work": []
+      },
+      {
+        "id": "prop-1386cb33c77aa5bab3f30e43",
+        "assessment": "MAINTAIN",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+        "result_refs": [
+          {
+            "id": "cap-alignment",
+            "revision": 1
+          }
+        ],
+        "remaining_work": []
+      },
+      {
+        "id": "prop-ecf912b61099932380027c81",
+        "assessment": "MAINTAIN",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+        "result_refs": [
+          {
+            "id": "cap-delivery",
+            "revision": 1
+          }
+        ],
+        "remaining_work": []
+      },
+      {
+        "id": "prop-0912452c4339b68d2f0219ae",
+        "assessment": "MAINTAIN",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+        "result_refs": [
+          {
+            "id": "cap-selection",
+            "revision": 1
+          }
+        ],
+        "remaining_work": []
+      },
+      {
+        "id": "prop-1aae185bcc582c9c8c61f04a",
+        "assessment": "MAINTAIN",
+        "evidence_refs": [
+          {
+            "id": "ev-comparison",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          },
+          {
+            "id": "ev-window",
+            "revision": 1
+          },
+          {
+            "id": "ev-file",
+            "revision": 1
+          },
+          {
+            "id": "ev-store",
+            "revision": 1
+          },
+          {
+            "id": "ev-backup",
+            "revision": 1
+          },
+          {
+            "id": "ev-bpolicy",
+            "revision": 1
+          },
+          {
+            "id": "ev-ui",
+            "revision": 1
+          },
+          {
+            "id": "ev-tools",
+            "revision": 1
+          },
+          {
+            "id": "ev-local",
+            "revision": 1
+          },
+          {
+            "id": "ev-support",
+            "revision": 1
+          },
+          {
+            "id": "ev-omission",
+            "revision": 1
+          },
+          {
+            "id": "ev-plan",
+            "revision": 1
+          }
+        ],
+        "rationale": "현재 기능조건이 원문/실패/검증범위를 보존함을 실제 대조하고 이번후보·산출물에 적용했다. 기능정의의 의미변경은 필요하지 않다.",
+        "result_refs": [
+          {
+            "id": "cap-roadmap",
+            "revision": 1
+          }
+        ],
+        "remaining_work": []
+      }
+    ],
+    "path_assessments": []
+  },
+  "predicted": {
+    "applied": false,
+    "duplicate": false,
+    "revision": 11,
+    "result_refs": [
+      {
+        "id": "ev-comparison",
+        "revision": 1
+      },
+      {
+        "id": "ev-support",
+        "revision": 1
+      },
+      {
+        "id": "ev-omission",
+        "revision": 1
+      },
+      {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      {
+        "id": "consume-cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "consume-cap-roadmap",
+        "revision": 1
+      },
+      {
+        "id": "asset-host",
+        "revision": 1
+      },
+      {
+        "id": "asset-specframe",
+        "revision": 1
+      },
+      {
+        "id": "asset-wpf",
+        "revision": 1
+      },
+      {
+        "id": "asset-sqlite",
+        "revision": 1
+      },
+      {
+        "id": "asset-restic",
+        "revision": 1
+      },
+      {
+        "id": "asset-computeruse",
+        "revision": 1
+      },
+      {
+        "id": "frame-files-first",
+        "revision": 1
+      },
+      {
+        "id": "candidate-local-native",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-roadmap",
+        "revision": 1
+      },
+      {
+        "id": "provide-cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "cap-alignment",
+        "revision": 1
+      },
+      {
+        "id": "cap-delivery",
+        "revision": 1
+      },
+      {
+        "id": "cap-selection",
+        "revision": 1
+      },
+      {
+        "id": "cap-roadmap",
+        "revision": 1
+      }
+    ],
+    "invalidated": [
+      "decision-8d2a14c108684d9a8fe118d4dec8137b"
+    ],
+    "gate": null
+  },
+  "scope": "Deterministic checks only; no semantic approval or reserved revision"
+}

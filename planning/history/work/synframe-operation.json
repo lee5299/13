@@ -1,0 +1,80 @@
+{
+  "action": "REVIEW_SOLUTION",
+  "applied": false,
+  "attempt": 1,
+  "created_at": "2026-10-30T04:36:39.101940+00:00",
+  "extensions": {
+    "constraints": [
+      "실제앱성공/성능을 문서근거로 주장하지 않음",
+      "사용자승인·구현/설치범위를 확대하지 않음",
+      "전체계획보존·오늘포함·사용일수입력제외"
+    ],
+    "decision_ref": {
+      "id": "decision-37813c89d8bf477a896f79def95a00a8",
+      "revision": 1
+    },
+    "evidence_refs": [
+      {
+        "id": "ev-plan",
+        "revision": 1
+      },
+      {
+        "id": "ev-comparison",
+        "revision": 1
+      },
+      {
+        "id": "ev-support",
+        "revision": 1
+      },
+      {
+        "id": "ev-omission",
+        "revision": 1
+      }
+    ],
+    "expected_apply_revision": 15,
+    "request_digest": "69362289d747a075710b11c35ba0ced392bbf644b90fb65193da2f02c975e812",
+    "work_signature": "e41d0cbb036f01ea304eeb379c39411326c347aec7b2431c542663b3e03c0d16",
+    "actual_observations": [
+      {
+        "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\work\\sf-artifact-check5.json",
+        "source": "현재 원문/후보/출력 대조 및 실제 파일동일성 확인",
+        "sha256": "1ff95ce3352d3abb30c8da72e1ab087bcd6e4240e1682471a93389546a5a693b"
+      },
+      {
+        "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\outputs\\업무정리_SynFrame_개발계획.html",
+        "source": "현재 작성한 방법권고 보고서",
+        "sha256": "c19554c772a7b955cac15eefabd2a7de6d02f5d193fdb43d4ec70ab412294272"
+      },
+      {
+        "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\outputs\\업무정리_SynFrame_개발계획.json",
+        "source": "현재 작성한 방법권고 JSON",
+        "sha256": "0063038721cd53490503e096650dd795a8b2ca8d9c6f8b84a3b58a9c6da34c94"
+      }
+    ]
+  },
+  "id": "op-b6ec3eac3eb44fcf8184ed4feed74a6c",
+  "idempotency_key": "review-current-advice-v2",
+  "input_refs": [
+    {
+      "id": "candidate-local-native",
+      "revision": 2
+    }
+  ],
+  "intent": {
+    "description": "현재후보2와 원문·패키지의 의미/출력 검토",
+    "learning_task_refs": []
+  },
+  "provenance": [
+    {
+      "id": "decision-37813c89d8bf477a896f79def95a00a8",
+      "revision": 1
+    }
+  ],
+  "result": {},
+  "revision": 2,
+  "schema_version": 2,
+  "source_run_id": "run-637a8f4d78b6492b8e530596c7980057",
+  "type": "OperationRecord",
+  "updated_at": "2026-10-30T05:43:18.608262+00:00",
+  "validity_status": "VALID"
+}

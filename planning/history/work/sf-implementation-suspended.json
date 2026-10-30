@@ -1,0 +1,28 @@
+{
+  "contract_digest": "e1de44c3c9c09d793649bac048a449a3b838c8c334b1e8b1d6230f37df927990",
+  "contract_version": "3.2",
+  "created_at": "2026-10-30T05:48:37.851948+00:00",
+  "environment": {},
+  "extensions": {
+    "implementation_digest": "ae49301c6d57baa79f8939360484d241321c5772e2d4f5da784ddb4fc7d9fab3",
+    "parent_run_id": "run-637a8f4d78b6492b8e530596c7980057"
+  },
+  "goal_ref": {
+    "id": "work-organizer-implementation",
+    "revision": 1
+  },
+  "id": "run-686e69d3d23b4ef987790da6a7aee8cc",
+  "provenance": [],
+  "resource_observations": {
+    "remaining_cost": null,
+    "remaining_tokens": null
+  },
+  "revision": 6,
+  "schema_version": 2,
+  "source_run_id": "run-686e69d3d23b4ef987790da6a7aee8cc",
+  "state": "SUSPENDED",
+  "state_path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-29\\new-chat-3\\.synframe",
+  "type": "ReasoningRun",
+  "updated_at": "2026-10-30T07:08:01.476868+00:00",
+  "validity_status": "VALID"
+}

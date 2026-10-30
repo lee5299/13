@@ -1,0 +1,10 @@
+{
+  "confirmed_at": "2026-10-30T03:48:18+00:00",
+  "source": "로컬 computer-use SKILL.md와 guidance.md 전체 읽기 및 도구경로 확인",
+  "facts": [
+    "computer-use는 @oai/sky로 반환된 Windows창을 선택한 뒤 관측·행동·재관측한다.",
+    "Win키 단축키·보안설정조작·터미널UI조작은 금지이므로 이 스킬로 Win+D 입력을 시험한다고 약속하지 않는다.",
+    "PATH의 dotnet/winapp은 확인되지 않았고 기본 SDK폴더는 2.1.526이다. 전체 설치 위치 점검은 아님."
+  ],
+  "interpretation": "실제 앱 화면 확인에 사용할 수 있는 절차다. 핵심 계산/파일 보존/복원 검증과 개발환경 준비를 대신하지 않는다."
+}

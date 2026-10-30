@@ -1,0 +1,434 @@
+{
+  "observed_revision": 10,
+  "refs": {
+    "ev-comparison": {
+      "id": "ev-comparison",
+      "revision": 1
+    },
+    "ev-support": {
+      "id": "ev-support",
+      "revision": 1
+    },
+    "ev-omission": {
+      "id": "ev-omission",
+      "revision": 1
+    },
+    "work-organizer-advice:goal-interpretation": {
+      "id": "work-organizer-advice:goal-interpretation",
+      "revision": 2
+    },
+    "work-organizer-advice:tool-composition": {
+      "id": "work-organizer-advice:tool-composition",
+      "revision": 2
+    },
+    "consume-cap-alignment": {
+      "id": "consume-cap-alignment",
+      "revision": 1
+    },
+    "consume-cap-delivery": {
+      "id": "consume-cap-delivery",
+      "revision": 1
+    },
+    "consume-cap-selection": {
+      "id": "consume-cap-selection",
+      "revision": 1
+    },
+    "consume-cap-roadmap": {
+      "id": "consume-cap-roadmap",
+      "revision": 1
+    },
+    "asset-host": {
+      "id": "asset-host",
+      "revision": 1
+    },
+    "asset-specframe": {
+      "id": "asset-specframe",
+      "revision": 1
+    },
+    "asset-wpf": {
+      "id": "asset-wpf",
+      "revision": 1
+    },
+    "asset-sqlite": {
+      "id": "asset-sqlite",
+      "revision": 1
+    },
+    "asset-restic": {
+      "id": "asset-restic",
+      "revision": 1
+    },
+    "asset-computeruse": {
+      "id": "asset-computeruse",
+      "revision": 1
+    },
+    "frame-files-first": {
+      "id": "frame-files-first",
+      "revision": 1
+    },
+    "candidate-local-native": {
+      "id": "candidate-local-native",
+      "revision": 1
+    },
+    "provide-cap-alignment": {
+      "id": "provide-cap-alignment",
+      "revision": 1
+    },
+    "provide-cap-selection": {
+      "id": "provide-cap-selection",
+      "revision": 1
+    },
+    "provide-cap-roadmap": {
+      "id": "provide-cap-roadmap",
+      "revision": 1
+    },
+    "provide-cap-delivery": {
+      "id": "provide-cap-delivery",
+      "revision": 1
+    }
+  },
+  "invalidated_consumers": [
+    {
+      "previous_ref": {
+        "id": "decision-8d2a14c108684d9a8fe118d4dec8137b",
+        "revision": 2
+      },
+      "projected_ref": {
+        "id": "decision-8d2a14c108684d9a8fe118d4dec8137b",
+        "revision": 3
+      },
+      "projected_validity_status": "STALE",
+      "selection_validity": null
+    }
+  ],
+  "reference_conflicts": [
+    {
+      "owner_ref": {
+        "id": "link-discovery-composition",
+        "revision": 1
+      },
+      "path": [
+        "target_ref"
+      ],
+      "declared_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 1
+      },
+      "current_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "current_validity_status": "VALID"
+    }
+  ],
+  "propagation_obligations": [
+    {
+      "affected_scope": "selection",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-b4583415474efb18344a0e37",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "COMPARES_USING",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-discovery@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-discovery",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 1
+      }
+    },
+    {
+      "affected_scope": "Final composition must consume current discovery results",
+      "assessment": null,
+      "evidence_refs": [],
+      "id": "prop-3fc912a63235e7c3629dab43",
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "relationship_role": "COMPARES_USING",
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ],
+      "result_refs": [],
+      "source_change_id": "work-organizer-advice:tool-discovery@2",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-discovery",
+        "revision": 2
+      },
+      "status": "PENDING",
+      "target_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 1
+      }
+    },
+    {
+      "id": "prop-1386cb33c77aa5bab3f30e43",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "target_ref": {
+        "id": "cap-alignment",
+        "revision": 1
+      },
+      "relationship_role": "AFFECTS",
+      "affected_scope": "advice-scope",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-ecf912b61099932380027c81",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "target_ref": {
+        "id": "cap-delivery",
+        "revision": 1
+      },
+      "relationship_role": "AFFECTS",
+      "affected_scope": "advice-scope",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-0912452c4339b68d2f0219ae",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "cap-selection",
+        "revision": 1
+      },
+      "relationship_role": "AFFECTS",
+      "affected_scope": "advice-scope",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-1aae185bcc582c9c8c61f04a",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "cap-roadmap",
+        "revision": 1
+      },
+      "relationship_role": "AFFECTS",
+      "affected_scope": "advice-scope",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-d85b60ccac1873c836f2d1ba",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-host",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-af760fc755b7c437dfa6ca74",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-specframe",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-05da38bf35928360ebd7a62c",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-wpf",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-08d14951fd091f3121d9a0cb",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-sqlite",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-228ac4c9eaab10f9514bd15e",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-restic",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-5664ad0e9ceda9c59d76da09",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "asset-computeruse",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "현재역할/조건평가",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-d802e680b360a3baecbd8b20",
+      "source_ref": {
+        "id": "work-organizer-advice:tool-composition",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:tool-composition@2",
+      "target_ref": {
+        "id": "candidate-local-native",
+        "revision": 1
+      },
+      "relationship_role": "COMPARES_USING",
+      "affected_scope": "현재조합/선택",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    },
+    {
+      "id": "prop-b13f810cf0ccadb9b8ed2c3a",
+      "source_ref": {
+        "id": "work-organizer-advice:goal-interpretation",
+        "revision": 2
+      },
+      "source_change_id": "work-organizer-advice:goal-interpretation@2",
+      "target_ref": {
+        "id": "candidate-local-native",
+        "revision": 1
+      },
+      "relationship_role": "REUSES",
+      "affected_scope": "원문/사용목적",
+      "status": "PENDING",
+      "assessment": null,
+      "evidence_refs": [],
+      "rationale": "Declared consumer must assess changed provider in this scope",
+      "result_refs": [],
+      "remaining_work": [
+        "Assess maintain/revise/invalidate/observation"
+      ]
+    }
+  ],
+  "scope": "Read-only proposed versions and declared dependency effects. No validation, semantic approval, automatic rebinding or propagation assessment. Recompute after changing the patch."
+}

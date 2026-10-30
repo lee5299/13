@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>업무 정리 목업 · 작업 기록 확대</title>
+<!--
+  업무 정리 프로그램 — 디자인 검토용 목업 (가상 데이터)
+  - 실제 Windows 동작·파일 접근·외부 서비스 연결 없음
+  - 파일 열기/복사/연결/폴더 생성은 화면 아래 "목업 동작" 안내만 표시
+  - 화면: ① 바탕화면 목록 + 작업 상세 창  ② 완료 작업 창
+-->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#E2E0DB}
+body{font-family:'IBM Plex Sans KR','Malgun Gothic',system-ui,sans-serif;color:#1F2426;font-size:14px;line-height:1.5}
+button,input,select{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+a{color:#2F5E5C}
+:focus-visible{outline:2px solid #3D6B69;outline-offset:2px}
+.scene{position:relative;min-height:100vh;display:flex;flex-direction:column}
+.desk{flex-grow:1;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;padding:28px 32px 40px}
+.icons{flex:0 0 76px;display:flex;flex-direction:column;gap:22px;align-items:center;padding-top:4px}
+.dicon{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:#3A4245}
+.widget{flex:999 1 640px;min-width:0;max-width:980px;background:rgba(250,250,248,.84);border:1px solid rgba(31,36,38,.07);border-radius:14px;padding:22px 24px 16px;display:flex;flex-direction:column;gap:16px}
+.hdr{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+.col{display:flex;flex-direction:column}
+.eyebrow{font-size:12px;color:#5B6467}
+h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em}
+h2{margin:0;font-weight:600}
+h3{margin:0;font-size:14px;font-weight:600}
+.sub{font-size:14px;color:#4A5356}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.btn{height:40px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;border:1px solid #CFD2CE;border-radius:8px;background:#fff;color:#2B3234;text-decoration:none;white-space:nowrap;font-size:14px}
+.btn.primary{background:#3D6B69;border-color:#3D6B69;color:#fff;font-weight:500}
+.btn.outline{border-color:#3D6B69;color:#2F5E5C;font-weight:500}
+.btn.sm{height:34px;padding:0 10px;font-size:13px;border-radius:7px}
+.btn.xs{height:30px;padding:0 10px;font-size:12.5px;border-radius:6px}
+.btn.on{background:#3D6B69;border-color:#3D6B69;color:#fff}
+.btn.soft-on{background:#E9F1F0;border-color:#A9C6C3;color:#24504E}
+.link{border:none;background:none;padding:4px 0;color:#2F5E5C;font-size:12.5px;display:inline-flex;align-items:center;gap:2px;text-decoration:none}
+.tag{font-size:11.5px;padding:0 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;font-weight:400}
+.t-hi{color:#8E3427;background:#F6E6E2}.t-rep{color:#2F5E5C;background:#E4EEED}.t-wait{color:#4A5255;background:#ECECE8}
+.t-approx{color:#6E5210;border:1px dashed #B89A50}.t-exact{color:#2F5E5C;background:#E4EEED}.t-past{color:#4A5255;border:1px dotted #8C9497}.t-est{color:#6E5210;background:#F4EDDA}
+.card{background:#fff;border:1px solid #E3E2DE;border-radius:10px;padding:12px 14px 10px;display:flex;flex-direction:column;gap:4px}
+.card-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px;padding-bottom:2px}
+.card-h h2{font-size:15px}
+.meta{font-size:12px;color:#5B6467}
+.search{flex:1 1 300px;min-width:0;height:40px;display:flex;align-items:center;gap:8px;padding:0 6px 0 12px;border:1px solid #C9CCC8;border-radius:8px;background:#fff;color:#5B6467}
+.search input{flex-grow:1;min-width:0;height:34px;border:none;outline:none;background:transparent;color:#1F2426}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.scroll{overflow-x:auto}
+.grid-row{width:100%;text-align:left;display:grid;gap:10px;align-items:center;border:none;border-bottom:1px solid #F0EFEB;background:transparent;color:#1F2426;font-size:13.5px;min-height:36px;padding:var(--pad)}
+.grid-row:hover{background:#F6F6F3}
+.grid-head{display:grid;gap:10px;padding:0 12px 4px;font-size:12px;color:#5B6467;border-bottom:1px solid #ECEBE7}
+.g-task{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 62px 62px 48px;min-width:560px}
+.g-month{grid-template-columns:92px 120px minmax(0,1fr)}
+.g-done{grid-template-columns:52px minmax(0,1.2fr) minmax(0,1fr) 52px 48px;min-width:540px}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{font-variant-numeric:tabular-nums}
+.r{text-align:right}
+.grid-row.sel,.grid-row.sel:hover{background:#E9F1F0;box-shadow:inset 3px 0 0 #3D6B69}
+.namecell{display:flex;align-items:center;gap:6px;min-width:0;white-space:nowrap}
+.info{margin-top:6px;padding:7px 12px;border-radius:7px;background:#F4F4F1;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:12.5px;color:#3A4245}
+.foot{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px;color:#5B6467}
+.win{background:#FBFBFA;border:1px solid rgba(31,36,38,.16);border-radius:10px;box-shadow:0 18px 44px rgba(31,36,38,.18),0 2px 6px rgba(31,36,38,.08);overflow:hidden;display:flex;flex-direction:column}
+.detail{flex:1 1 500px;max-width:600px;min-width:0;position:relative;z-index:2;align-self:flex-start}
+@media(min-width:1180px){.detail{margin-left:-56px;margin-top:64px}}
+.tbar{height:38px;display:flex;align-items:center;justify-content:space-between;padding-left:14px;background:#F1F1EE;border-bottom:1px solid #E3E2DE;font-size:12.5px;color:#3A4245}
+.tbtn{width:44px;height:38px;border:none;background:none;color:#3A4245;display:inline-flex;align-items:center;justify-content:center}
+.wbody{padding:18px 22px 20px;display:flex;flex-direction:column;gap:16px}
+.metas{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));border:1px solid #E3E2DE;border-radius:8px;background:#fff}
+.metas>div{padding:8px 12px;display:flex;flex-direction:column;border-right:1px solid #EFEEEA}
+.metas>div:last-child{border-right:none}
+.metas .k{font-size:11.5px;color:#5B6467}
+.metas .v{font-weight:500;font-variant-numeric:tabular-nums}
+.box{padding:10px 14px;border-radius:8px;background:#F2F2EF;font-size:13.5px;margin:0}
+.dl{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 12px}
+.dl .k{color:#5B6467}
+pre.rec{margin:0;padding:10px 14px;border-radius:8px;background:#F2F2EF;font-family:Consolas,'D2Coding',ui-monospace,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;color:#2B3234}
+.sec{display:flex;flex-direction:column;gap:6px}
+.rowbar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px}
+.subrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 12px;border:1px solid #D6DAD7;border-radius:8px;background:#fff}
+.ficon{width:34px;height:34px;border-radius:7px;background:#E4EEED;color:#2F5E5C;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.thumb{width:112px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#4F585B;word-break:break-all}
+.thumb>div{height:64px;border-radius:6px;background:#ECECE8;display:flex;align-items:center;justify-content:center;color:#7B8487}
+.drop{flex:1 1 180px;min-height:64px;border:1px dashed #B9BEBB;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;font-size:12px;color:#4F585B;text-align:center}
+.taskbar{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px;background:rgba(243,242,239,.96);border-top:1px solid #D6D4CF}
+.overlay{position:absolute;top:0;left:0;right:0;bottom:0;z-index:20;background:rgba(28,34,36,.30);display:flex;justify-content:center;align-items:flex-start;padding:48px 16px}
+.toast{position:fixed;left:16px;right:16px;bottom:64px;z-index:40;display:flex;justify-content:center;pointer-events:none}
+.toast>div{pointer-events:auto;max-width:640px;display:flex;gap:10px;align-items:center;padding:10px 8px 10px 14px;border-radius:8px;background:#2B3234;color:#F4F4F1;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast .lbl{font-size:11.5px;padding:1px 6px;border-radius:4px;background:#4A5356;flex-shrink:0}
+.toast .tbtn{width:32px;height:32px;color:#F4F4F1}
+.seg{display:flex;flex-wrap:wrap;border:1px solid #CFD2CE;border-radius:8px;overflow:hidden}
+.seg button{height:36px;padding:0 12px;border:none;border-right:1px solid #E3E2DE;background:#fff;color:#2B3234;font-size:13px}
+.seg button:last-child{border-right:none}
+.seg button.on{background:#3D6B69;color:#fff}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#3A4245}
+.f input,.f select{height:40px;padding:0 10px;border:1px solid #C9CCC8;border-radius:7px;background:#fff;color:#1F2426;font-size:14px}
+.hint{color:#5B6467}
+.opts{position:fixed;left:12px;bottom:60px;z-index:30;background:#fff;border:1px solid #CFD2CE;border-radius:8px;padding:8px 10px;font-size:12px;display:flex;flex-direction:column;gap:4px;box-shadow:0 4px 12px rgba(0,0,0,.08);color:#3A4245}
+.opts b{font-weight:600}
+.month-card{min-height:96px;padding:8px 10px;border:1px solid #E3E2DE;border-radius:8px;background:#fff;display:flex;flex-direction:column;gap:5px}
+.month-card.now{border-color:#3D6B69}
+.chip{text-align:left;padding:3px 7px;border-radius:5px;font-size:12px}
+.chip.exact{border:1px solid #9DBDBA;background:#E4EEED;color:#24504E}
+.chip.approx{border:1px dashed #B89A50;background:#FBF7EC;color:#5E460C}
+.chip.past{border:1px dotted #8C9497;background:#fff;color:#3A4245}
+.chip.on{box-shadow:0 0 0 2px #3D6B69}
+.round{width:100%;text-align:left;min-height:44px;padding:6px 12px;border:1px solid #E3E2DE;border-radius:8px;background:#fff;color:#1F2426;display:flex;flex-direction:column}
+.round.on{background:#E9F1F0;border-color:#A9C6C3}
+.chk{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid #F0EFEB;font-size:13.5px}
+.chk:last-child{border-bottom:none}
+
+/* 작업 기록 중심 상세 창. 가상 UI이며 실제 파일 내용/Windows 창은 다루지 않음. */
+.detail{position:fixed;top:68px;right:24px;bottom:76px;width:min(1120px,calc(100vw - 160px));max-width:none;max-height:960px;min-height:440px;margin:0!important;z-index:10;align-self:auto}
+.detail .tbar{flex:0 0 38px;user-select:none}
+.tbtn[data-act="toggleDetailMax"]:hover{background:#DFE6E3}
+.detail .wbody{flex:1;min-height:0;padding:14px 18px 12px;gap:10px;overflow:hidden}
+.detail-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;flex-shrink:0}
+.detail-heading .detail-title{font-size:21px}
+.detail-heading .detail-path{max-width:560px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail .metas{grid-template-columns:repeat(5,minmax(0,1fr));flex-shrink:0}
+.detail .metas>div{padding:6px 10px}
+.detail-workspace{display:grid;grid-template-columns:minmax(0,1fr) 304px;gap:16px;flex:1;min-height:0}
+.record-pane{display:flex;flex-direction:column;gap:8px;min-width:0;min-height:0}
+.record-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;min-height:30px}
+.record-head h3{font-size:15px}
+.record-capacity{font-size:12px;color:#2F5E5C;background:#E9F1F0;border-radius:5px;padding:3px 8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.record-scroll{flex:1;min-height:0;overflow:auto;border:1px solid #D6DAD7;border-radius:8px;background:#F7F7F4;scrollbar-gutter:stable}
+.record-sheet{display:grid;grid-template-columns:42px minmax(max-content,1fr);min-width:100%;width:max-content;min-height:100%}
+.record-gutter,.record-text{margin:0;font-family:Consolas,'D2Coding','Malgun Gothic',monospace;font-size:13px;line-height:20px;tab-size:4;white-space:pre}
+.record-gutter{padding:12px 8px 12px 0;text-align:right;color:#8A9290;background:#F0F1ED;border-right:1px solid #E2E5DF;user-select:none}
+.record-text{padding:12px 16px;color:#2B3234;border:0;background:none;border-radius:0}
+.record-note{font-size:11.5px;color:#5B6467;flex-shrink:0}
+.detail-sidebar{min-width:0;min-height:0;overflow:auto;padding-right:4px;display:flex;flex-direction:column;gap:16px;scrollbar-gutter:stable}
+.detail-sidebar .dl{grid-template-columns:76px minmax(0,1fr);gap:5px 9px}
+.detail-sidebar .box{padding:10px 12px;font-size:12.5px}
+.detail-sidebar .subrow{padding:9px;gap:8px}
+.detail-sidebar .ficon{width:28px;height:30px}
+.detail-sidebar .subrow>.col{flex-basis:180px!important}
+.detail-sidebar .subrow>span:last-child{margin-left:auto}
+.detail-sidebar .thumb{width:100px}
+.detail-sidebar .thumb>div{height:54px}
+.capture-section{padding-top:12px;border-top:1px dashed #BEC5C1}
+.detail-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;border-top:1px solid #E3E2DE;padding-top:8px;min-height:44px}
+.detail.maximized{inset:0 0 48px 0;width:100%;height:auto;max-height:none;min-height:0;border-radius:0;z-index:15}
+.detail.maximized .detail-workspace{grid-template-columns:minmax(0,1fr) 330px;gap:20px}
+.detail.maximized>.wbody>.detail-heading,.detail.maximized>.wbody>.metas,.detail.maximized .record-pane>.rowbar{display:none}
+.max-summary{display:none}
+.detail.maximized .max-summary{display:flex;flex-direction:column;gap:8px;padding-bottom:12px;border-bottom:1px solid #E3E2DE}
+.max-summary .summary-values{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;font-size:12.5px}
+.max-summary .summary-values>span{display:flex;flex-direction:column;gap:2px}
+.detail.maximized .record-text,.detail.maximized .record-gutter{font-size:14px;line-height:20px}
+.detail-is-max{overflow:hidden}
+.detail-is-max .opts{display:none}
+@media (max-height:950px){
+ .detail.maximized .record-text,.detail.maximized .record-gutter{font-size:13px;line-height:18px}
+ .detail.maximized .wbody{padding:10px 16px;gap:8px}
+ .detail.maximized .detail-heading{min-height:38px}
+ .detail.maximized .detail-footer{min-height:40px;padding-top:5px}
+}
+@media (max-width:1000px){
+ .detail{width:calc(100vw - 48px)}
+ .detail-workspace,.detail.maximized .detail-workspace{grid-template-columns:minmax(0,1fr) 272px;gap:12px}
+ .detail-heading{flex-wrap:wrap}
+ .detail .metas .k{font-size:10.5px}
+ .detail-sidebar .dl{grid-template-columns:66px minmax(0,1fr)}
+}
+@media (max-width:700px){
+ .detail{inset:12px 12px 60px;width:auto;min-height:0}
+ .detail .wbody{overflow:auto}
+ .detail-workspace,.detail.maximized .detail-workspace{display:flex;flex-direction:column;flex:none;min-height:0}
+ .record-pane{height:65vh;min-height:360px;flex-shrink:0}
+ .detail-sidebar{overflow:visible;min-height:auto;flex-shrink:0}
+ .detail .metas{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .detail-heading .detail-path{max-width:calc(100vw - 90px)}
+ .detail-footer{flex-wrap:wrap}
+ .record-note{max-width:220px}
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function () {
+'use strict';
+
+/* ---------- 아이콘 ---------- */
+var IC = {
+  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  check: '<path d="M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  chev: '<path d="M9 6l6 6-6 6"/>',
+  back: '<path d="M15 6l-6 6 6 6"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  warn: '<path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',
+  file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+  doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+  copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',
+  clip: '<path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.5 3.5 0 0 1 5 5L10.5 18a2 2 0 0 1-3-3l8-8"/>',
+  hist: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+  img: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>'
+};
+function ic(n, s, w) { s = s || 16; w = w || 1.7; return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + '</svg>'; }
+function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+var X12 = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.1"/></svg>';
+
+/* ---------- 가상 데이터 ---------- */
+var TASKS = [
+  { id: 'A', name: 'A업무', folder: 'A업무_서버점검보고', cycle: '2026주기', hi: true, req: '2.24', due: '3.20', dueFull: '3.20', est: '3일', work: '3.09 무렵', imp: '높음',
+    who: '정보운영팀 담당자', when: '2.24 · 메일', what: '1분기 서버 점검 결과 보고서', how: '점검 결과를 부서에 공유', why: '상반기 감사 대비 자료',
+    caution: '점검 항목은 지난 분기 목록 기준으로 맞춥니다. 서버 이름은 보고서에 약칭으로 씁니다.',
+    record: '============ 작업 순서 · 실행 명령어\n1. 점검 대상 목록 확인\n2. 로그 수집\n   > python collect_logs.py --since 2026-01-01\n============ 오류 · 조치방법\n- 2번 서버 접속 시간 초과 → 담당자에게 재요청',
+    captures: ['캡처_0226_01.png'] },
+  { id: 'C', name: 'C업무', folder: 'C업무_2026-03', cycle: '2026주기', rep: true, req: '3.02', due: '3.15', dueFull: '3.15', est: '0.5일', work: '3.10 무렵', imp: '보통',
+    who: '총무팀 담당자', when: '3.02 · 메신저', what: '월간 현황 자료 2종', how: '월간 보고 취합', why: '매월 정기 보고',
+    caution: '지난 회차와 표 서식·파일 이름을 똑같이 유지합니다. 항목 변경이 있는지 먼저 확인합니다.',
+    record: '============ 작업 순서 · 실행 명령어\n1. 지난 회차 C_1 결과물 열어 서식 확인\n2. 원본 자료 정리\n   > python monthly.py --month 2026-03\n============ 오류 · 조치방법\n(아직 없음)',
+    captures: ['캡처_0303_01.png', '캡처_0303_02.png'] },
+  { id: 'E', name: 'E업무', folder: 'E업무_자료정리', cycle: '2026주기', req: '3.05', due: '미정', dueFull: '미입력 · 분석 후 입력', dueMissing: true, est: '1일', work: '미입력', imp: '보통',
+    who: '기획팀 담당자', when: '3.05 · 전화', what: '지난 자료 폴더 정리', how: '자료 찾는 시간 줄이기', why: '담당 업무 인수인계',
+    caution: '원본 폴더는 지우지 않고 복사본으로 정리합니다.',
+    record: '============ 작업 순서 · 실행 명령어\n(아직 없음)\n============ 오류 · 조치방법\n(아직 없음)',
+    captures: [] },
+  { id: 'D', name: 'D업무', folder: 'D업무_양식개선', cycle: '2025주기', prev: true, req: '25.11.20', due: '—', dueFull: '미입력', dueMissing: true, est: '2일', work: '미입력', imp: '낮음',
+    who: '인사팀 담당자', when: '2025.11.20 · 메일', what: '신청 양식 개선안', how: '작성 실수 줄이기', why: '같은 문의가 반복됨',
+    caution: '요청 부서 회신을 기다리는 중입니다. 원래 주기 폴더에 보관합니다.',
+    record: '============ 개선할 점\n- 날짜 입력칸 형식 통일\n============ 오류 · 조치방법\n(아직 없음)',
+    captures: [] }
+];
+var MONTH = [
+  { id: 'B', kind: 'approx', label: '예상 시기', name: 'B업무', sub: '작년 3월 중순 수행 · 올해 3월 전후 ±2주 예상' },
+  { id: 'C', kind: 'exact', label: '매월 반복', name: 'C업무', sub: '매월 15일 · 월간 현황 자료 2종 · 3월 회차 진행 중' },
+  { id: 'F', kind: 'past', label: '지난 주기 참고', name: 'F업무', sub: '지난 주기 3월에 요청받음 · 반복업무 미등록' }
+];
+var SUBS = [
+  { id: 'C1', label: 'C_1 결과물', file: 'C_1 결과물.hwp' },
+  { id: 'C2', label: 'C_2 결과물', file: 'C_2 결과물.png' }
+];
+var ROUNDS = [
+  { id: '2026-02', label: '2026년 2월 회차', files: [['C_1 결과물', 'hwp'], ['C_2 결과물', 'png']] },
+  { id: '2026-01', label: '2026년 1월 회차', files: [['C_1 결과물', 'hwp'], ['C_2 결과물', 'hwp']] },
+  { id: '2025-12', label: '2025년 12월 회차', files: [['C_1 결과물', 'hwp'], ['C_2 결과물', 'png']] },
+  { id: '2025-11', label: '2025년 11월 회차', files: [['C_1 결과물', 'hwp'], ['C_2 결과물', null]] }
+];
+var YEAR = {
+  B: { title: 'B업무', kind: '시기 반복 · 예상', lines: ['작년 수행: 3월 중순 무렵', '올해 예상: 3월 전후, 약 ±2주 오차', '확정일이 아닙니다. 요청이 오면 작업 리스트에 추가합니다.'] },
+  C: { title: 'C업무', kind: '날짜 반복', lines: ['매월 15일', '제출항목: C_1 결과물, C_2 결과물 (이름 고정)', '3월 회차는 작업 리스트에 있습니다.'] },
+  F: { title: 'F업무', kind: '지난 주기 기록', register: true, lines: ['지난 주기 3월에 요청받은 업무', '반복업무로 등록되어 있지 않습니다.', '반복으로 볼지는 직접 판단해 등록합니다.'] }
+};
+var COPYFILES = [
+  { k: 'f1', n: '작업기록.txt', fixed: true, note: '기록 양식 · 항상' },
+  { k: 'f2', n: '점검_체크리스트.xlsx', note: '자주 씀' },
+  { k: 'f3', n: '보고서_표지.hwp', note: '자주 씀' },
+  { k: 'f4', n: '참고자료_모음.zip', note: '' },
+  { k: 'f5', n: '로고_원본.ai', note: '' }
+];
+var TEMPLATE = '============ 요청\n누가 :\n언제 :\n무엇을 :\n어떻게(목적) :\n왜(요청이유) :\n============ 주의사항\n\n============ 개선할 점\n\n============ 작업 순서 · 실행 명령어\n\n============ 오류 · 조치방법\n';
+var W1 = '3월 1주 · 3.02–3.08', W0 = '2월 4주 · 2.23–3.01', W2 = '2월 2주 · 2.09–2.15', W3 = '1월 3주 · 1.19–1.25', W4 = '1월 2주 · 1.12–1.18';
+var DONE = [
+  { id: 'G', done: '3.03', req: '2.27', week: W1, month: '2026년 3월', folder: 'G업무_주간회의자료', what: '주간 회의 자료 취합', who: '운영팀 담당자', why: '주간 회의 준비', est: '0.5일', results: ['주간회의_0303.hwp'] },
+  { id: 'H', done: '3.02', req: '2.26', week: W1, month: '2026년 3월', folder: 'H업무_공유폴더권한', what: '공유폴더 접근 권한 정리', who: '보안 담당자', why: '담당자 변경 반영', est: '1일', results: ['권한목록_정리.xlsx'] },
+  { id: 'I', done: '2.27', req: '2.20', week: W0, month: '2026년 2월', folder: 'I업무_장비목록갱신', what: '부서 장비 목록 갱신', who: '총무팀 담당자', why: '장비 실사 결과 반영', est: '1일', results: ['장비목록_2026.xlsx'] },
+  { id: 'J', done: '2.25', req: '2.16', week: W0, month: '2026년 2월', folder: 'J업무_교육자료', what: '신규 담당자 교육 자료', who: '인사팀 담당자', why: '신규 담당자 교육', est: '2일', results: ['교육자료_v2.pptx', '캡처_0224_01.png'] },
+  { id: 'C2', done: '2.13', req: '2.02', week: W2, month: '2026년 2월', folder: 'C업무_2026-02', what: '월간 현황 자료 2종', who: '총무팀 담당자', why: '매월 정기 보고', est: '0.5일', rep: true, results: ['C_1 결과물.hwp', 'C_2 결과물.png'] },
+  { id: 'K', done: '2.10', req: '2.05', week: W2, month: '2026년 2월', folder: 'K업무_문의답변정리', what: '시스템 문의 답변 정리', who: '고객지원팀 담당자', why: '같은 문의 반복 대응', est: '0.5일', results: ['문의답변_모음.hwp'] },
+  { id: 'L', done: '1.20', req: '1.08', week: W3, month: '2026년 1월', folder: 'L업무_연간계획초안', what: '연간 운영계획 초안', who: '기획팀 담당자', why: '연간 계획 수립', est: '3일', results: ['운영계획_초안.hwp'] },
+  { id: 'C1', done: '1.14', req: '1.05', week: W4, month: '2026년 1월', folder: 'C업무_2026-01', what: '월간 현황 자료 2종', who: '총무팀 담당자', why: '매월 정기 보고', est: '0.5일', rep: true, results: ['C_1 결과물.hwp', 'C_2 결과물.hwp'] }
+];
+var PERIODS = [
+  ['week', '이번 주', function (d) { return d.week === W1; }],
+  ['lastweek', '지난 주', function (d) { return d.week === W0; }],
+  ['month', '이번 달', function (d) { return d.month === '2026년 3월'; }],
+  ['lastmonth', '지난 달', function (d) { return d.month === '2026년 2월'; }],
+  ['all', '이번 주기', function () { return true; }]
+];
+
+/* ---------- 상태 ---------- */
+var S = {
+  screen: 'main', open: 'C', detailMax: false, overlay: null, pastRound: '2026-02',
+  linked: { C1: true, C2: false }, notice: null, yearPick: 'B',
+  newName: 'C업무 4월', newRepeat: null,
+  copy: { f2: true, f3: true, f4: false, f5: false },
+  status: { A: '진행', C: '진행', E: '진행', D: '대기' },
+  folderMode: 'app', query: '',
+  form: { req: '2026-03-03', due: '', work: '', imp: '보통', est: '1' },
+  dq: '', period: 'all', group: 'week', sel: null,
+  overload: false, compact: true
+};
+function say(t) { S.notice = t; render(); }
+function hitter(q) { return function (xs) { return !q || xs.some(function (x) { return String(x || '').toLowerCase().indexOf(q) !== -1; }); }; }
+function num(e) { return parseFloat(e) || 0; }
+
+/* ---------- 공통 조각 ---------- */
+function titlebar(title, closeAct, deco) {
+  var isDetail = closeAct === 'closeDetail';
+  var maxControl = isDetail
+    ? '<button class="tbtn" data-act="toggleDetailMax" aria-label="' + (S.detailMax ? '원래 크기로' : '최대화') + '" title="' + (S.detailMax ? '원래 크기로 (Esc)' : '최대화 · 작업 기록 넓게 보기') + '">' +
+      (S.detailMax ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M3.5 3.5v-2h7v7h-2"/><rect x="1.5" y="3.5" width="7" height="7"/></svg>' : '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"><rect x="1.5" y="1.5" width="9" height="9"/></svg>') + '</button>'
+    : '<span class="tbtn" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 11 11"><rect x=".5" y=".5" width="10" height="10" fill="none" stroke="currentColor"/></svg></span>';
+  return '<div class="tbar"' + (isDetail ? ' data-detail-titlebar="true" title="두 번 클릭하면 최대화 / 복원"' : '') + '><span>' + title + '</span><div style="display:flex">' +
+    (deco ? '<span class="tbtn" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M1 6h10" stroke="currentColor" stroke-width="1"/></svg></span>' + maxControl : '') +
+    '<button class="tbtn" data-act="' + closeAct + '" aria-label="닫기">' + X12 + '</button></div></div>';
+}
+function vIcons() {
+  return '<nav class="icons" aria-label="바탕화면 아이콘">' +
+    '<div class="dicon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#5B7F86" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg><span>내 PC</span></div>' +
+    '<div class="dicon"><svg width="34" height="34" viewBox="0 0 24 24" fill="#E9C46A" stroke="#B8923A" stroke-width="1.2" aria-hidden="true">' + IC.folder + '</svg><span>업무 자료</span></div>' +
+    '<div class="dicon"><svg width="34" height="34" viewBox="0 0 24 24" fill="#fff" stroke="#7B8487" stroke-width="1.3" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 12h8M8 15h8M8 18h5"/></svg><span>메모.txt</span></div>' +
+    '<div class="dicon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7B8487" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span>휴지통</span></div>' +
+    '</nav>';
+}
+function vTaskbar() {
+  return '<div class="taskbar"><div style="display:flex;align-items:center;gap:12px">' +
+    '<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="#4F8AB0"/><rect x="11" y="1" width="8" height="8" fill="#4F8AB0"/><rect x="1" y="11" width="8" height="8" fill="#4F8AB0"/><rect x="11" y="11" width="8" height="8" fill="#4F8AB0"/></svg>' +
+    '<span style="height:32px;width:200px;border-radius:16px;background:#fff;border:1px solid #DAD8D3;display:flex;align-items:center;padding:0 12px;font-size:13px;color:#5B6467">검색</span></div>' +
+    '<span class="num" style="font-size:12px;color:#3A4245;text-align:right;line-height:1.3">오전 10:24<br>2026-03-03</span></div>';
+}
+function vToast() {
+  if (!S.notice) return '';
+  return '<div class="toast" role="status"><div><span class="lbl">목업 동작</span><span>' + esc(S.notice) + '</span><button class="tbtn" data-act="clearNotice" aria-label="알림 닫기">' + X12 + '</button></div></div>';
+}
+function vOpts() {
+  return '<div class="opts" aria-label="검토용 옵션"><b>검토용 옵션</b>' +
+    '<label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-change="overload"' + (S.overload ? ' checked' : '') + '> 과중 안내 예시 보기</label>' +
+    '<label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-change="compact"' + (S.compact ? ' checked' : '') + '> 촘촘한 행 간격</label></div>';
+}
+
+/* ---------- ① 바탕화면 목록 ---------- */
+function vMain() {
+  var q = S.query.trim().toLowerCase(), hit = hitter(q);
+  var tasks = TASKS.filter(function (t) { return hit([t.folder, t.name, t.what, t.who]); });
+  var months = MONTH.filter(function (m) { return hit([m.name, m.sub]); });
+  var weekDone = DONE.filter(function (d) { return d.week === W1; }).length;
+
+  var monthRows = months.map(function (m) {
+    return '<button class="grid-row g-month" data-act="year" data-arg="' + m.id + '" title="' + esc(m.label + ' · ' + m.name + ' — ' + m.sub) + '">' +
+      '<span><span class="tag t-' + m.kind + '">' + m.label + '</span></span>' +
+      '<span class="ell" style="font-weight:600">' + m.name + '</span>' +
+      '<span class="ell" style="color:#4A5356">' + m.sub + '</span></button>';
+  }).join('') || '<span class="meta" style="padding:6px 12px;font-size:13px">검색어와 맞는 항목이 없습니다</span>';
+
+  var taskRows = tasks.map(function (t) {
+    var sel = S.open === t.id, wait = S.status[t.id] === '대기';
+    return '<button class="grid-row g-task' + (sel ? ' sel' : '') + '" data-act="openTask" data-arg="' + t.id + '" aria-pressed="' + sel + '" title="' + esc(t.folder + ' — ' + t.what + ' · 요청 ' + t.req + ' · 마감 ' + t.due + ' · 예상 ' + t.est) + '">' +
+      '<span class="namecell">' + (t.prev ? '<span style="font-size:12px;color:#4A5255;flex-shrink:0">[이전 주기]</span>' : '') +
+      '<span class="ell" style="font-weight:600">' + t.folder + '</span>' +
+      (t.hi ? '<span class="tag t-hi">중요</span>' : '') + (t.rep ? '<span class="tag t-rep">반복</span>' : '') + (wait ? '<span class="tag t-wait">대기</span>' : '') + '</span>' +
+      '<span class="ell" style="color:#4A5356">' + t.what + '</span>' +
+      '<span class="num" style="color:#3A4245">' + t.req + '</span>' +
+      '<span class="num" style="' + (t.dueMissing ? 'color:#5B6467' : 'font-weight:600') + '">' + t.due + '</span>' +
+      '<span class="num r" style="color:#3A4245">' + t.est + '</span></button>';
+  }).join('') || '<span class="meta" style="padding:8px 12px;font-size:13px">검색어와 맞는 현재 작업이 없습니다</span>';
+
+  return '<div class="desk">' + vIcons() +
+    '<section class="widget" aria-label="바탕화면 업무 목록">' +
+      '<div class="hdr"><div class="col" style="gap:2px"><span class="eyebrow">바탕화면 전용 · 창과 아이콘 아래층 (목업에서는 시각 표현만)</span><h1>업무 정리</h1><span class="sub">2026년 3월 · 관리 주기 기준일 미정</span></div>' +
+        '<div class="acts">' +
+          '<button class="btn" data-act="overlay" data-arg="year">' + ic('cal') + '1년 일정</button>' +
+          '<button class="btn" data-act="screen" data-arg="done">' + ic('check') + '완료 작업 <span class="tag t-rep" style="font-size:12px">이번 주 ' + weekDone + '</span></button>' +
+          '<button class="btn primary" data-act="overlay" data-arg="new">' + ic('plus', 16, 2) + '새 작업</button>' +
+        '</div></div>' +
+      (S.overload ? '<div role="note" style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-radius:8px;background:#F4EDDA;border:1px solid #DCC793;color:#5E460C;font-size:13px"><span style="flex-shrink:0;margin-top:2px">' + ic('warn', 16, 1.8) + '</span><span><b style="font-weight:600">과중 안내 예시</b> · 앞으로 3주의 예상 업무부담이 처리 가능량(평일 하루 1일치)을 넘을 수 있습니다. 예: 등록 작업량 20일치 / 처리 가능 15일치. 계산 기준 확정 전 문구 예시입니다.</span></div>' : '') +
+      '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' +
+        '<label class="search">' + ic('search', 16, 1.8) + '<span class="sr">작업 검색</span><input id="q-main" data-input="query" value="' + esc(S.query) + '" placeholder="작업 검색 · 폴더명, 요청 내용">' +
+        (q ? '<button class="tbtn" style="width:30px;height:30px;border-radius:6px;background:#F1F1EE" data-act="clearQuery" aria-label="검색어 지우기">' + X12 + '</button>' : '') + '</label>' +
+        (q ? '<span style="font-size:12.5px;color:#3A4245">검색 결과 ' + (tasks.length + months.length) + '건 · 완료 작업은 <a href="#" data-act="screen" data-arg="done">완료 작업 화면</a>에서 검색</span>' : '') +
+      '</div>' +
+      '<div class="card"><div class="card-h"><div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><h2>이번 달 할 일</h2><span class="tag t-est" style="font-size:12px">예상</span><span class="meta">지난 주기·등록된 반복업무 참고</span></div>' +
+        '<button class="link" data-act="overlay" data-arg="year">1년 일정' + ic('chev', 13, 2) + '</button></div>' + monthRows + '</div>' +
+      '<div class="card"><div class="card-h"><div style="display:flex;align-items:baseline;gap:8px"><h2>작업 리스트</h2><span class="meta">현재 작업 폴더 ' + (q ? tasks.length + '/' + TASKS.length : TASKS.length) + '개</span></div><span class="meta">중요도 순 · 마감 임박 시 위로 (기준 미정)</span></div>' +
+        '<div class="scroll"><div class="grid-head g-task"><span>작업 폴더</span><span>요청 내용</span><span>요청일</span><span>마감</span><span class="r">예상량</span></div>' + taskRows + '</div>' +
+        '<div class="info">' + ic('info', 14, 1.8) + '<span><b style="font-weight:600">예상 업무부담</b> · 등록된 예상 작업량 합계 6.5일치</span><span style="color:#4F585B">계산 기준 확정 전 · 마감 미정 1건, 대기 1건 포함 여부 확인 필요</span></div></div>' +
+      '<div class="foot"><span>파일 내용 자동 열람 꺼짐</span><span>업무자료는 이 PC 안에서만 관리</span><span>자동 백업 · 운영 방식 검토 중</span></div>' +
+    '</section>' + (S.open ? vDetail() : '') + '</div>';
+}
+
+function vDetail() {
+  var t = TASKS.filter(function (x) { return x.id === S.open; })[0];
+  if (!t) return '';
+  var st = S.status[t.id];
+  var subs = '';
+  if (t.rep) {
+    subs = '<div class="sec" style="gap:8px;padding-top:14px;border-top:1px solid #E3E2DE">' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px"><div class="col"><h3 style="font-size:15px">제출항목 <span style="font-weight:400;color:#5B6467;font-size:13px">' + SUBS.length + '개</span></h3><span class="meta">반복업무 지정 이름 · 회차마다 같은 이름 사용</span></div>' +
+      '<button class="btn outline" style="height:38px;font-size:13.5px" data-act="overlay" data-arg="past">' + ic('hist') + '지난 제출물 보기</button></div>' +
+      SUBS.map(function (d) {
+        var linked = !!S.linked[d.id];
+        return '<div class="subrow"><span class="ficon">' + ic('file', 17) + '</span>' +
+          '<span class="col" style="flex:1 1 160px;min-width:0"><span style="font-weight:600;font-size:14.5px">' + d.label + '</span>' +
+          (linked ? '<span style="font-size:12.5px;color:#2F5E5C">연결됨(가상) · ' + d.file + '</span>' : '<span style="font-size:12.5px;color:#5B6467">연결된 파일 없음 · 파일을 끌어놓을 수 있음</span>') + '</span>' +
+          '<span style="display:flex;gap:6px"><button class="btn sm" style="font-size:12.5px" data-act="copyName" data-arg="' + d.id + '">' + ic('copy', 14) + '이름 복사</button>' +
+          '<button class="btn sm" style="font-size:12.5px" data-act="toggleLink" data-arg="' + d.id + '">' + ic('clip', 14) + (linked ? '연결 해제' : '파일 연결') + '</button></span></div>';
+      }).join('') +
+      '<span style="font-size:12px;color:#4F585B">파일 연결은 이 프로그램 안의 등록 표시입니다. 외부 제출 완료가 아니며, 파일 이름은 자동으로 바꾸지 않습니다.</span></div>';
+  } else {
+    subs = '<div style="padding:12px 14px;border-top:1px solid #E3E2DE;font-size:13px;color:#4F585B">반복업무가 아니어서 지정 제출항목이 없습니다. 결과물은 작업 폴더의 결과물 폴더에 보관합니다.</div>';
+  }
+  var caps = t.captures.map(function (c) { return '<div class="thumb"><div>' + ic('img', 20, 1.6) + '</div><span>' + c + '</span></div>'; }).join('');
+  var lineNumbers = Array.from({length:Math.max(60,t.record.split(String.fromCharCode(10)).length)},function(_,i){return i+1;}).join(String.fromCharCode(10));
+  return '<section class="win detail' + (S.detailMax ? ' maximized' : '') + '" aria-label="작업 상세 창">' + titlebar(t.name + ' — 작업 상세', 'closeDetail', true) +
+    '<div class="wbody">' +
+      '<div class="detail-heading"><div class="col" style="gap:2px;min-width:0">' +
+        '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><h2 class="detail-title">' + t.name + '</h2>' +
+        (t.rep ? '<span class="tag t-rep" style="font-size:12px">반복 · 매월 15일</span>' : '') + (t.prev ? '<span class="tag t-wait" style="font-size:12px">이전 주기 폴더에 보관 중</span>' : '') + '</div>' +
+        '<span class="meta detail-path" title="' + esc(t.folder) + '">D:\\업무관리\\' + t.cycle + '\\' + t.folder + ' (가상 경로)</span></div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn sm" data-act="msg" data-arg="folder">' + ic('folder', 15) + '폴더 열기</button><button class="btn sm" data-act="msg" data-arg="record">' + ic('doc', 15) + '기록 열기 (메모장)</button></div></div>' +
+      '<div class="metas"><div><span class="k">요청일</span><span class="v">' + t.req + '</span></div><div><span class="k">예상 작업일 · 대략</span><span class="v">' + t.work + '</span></div><div><span class="k">예상 작업량</span><span class="v">' + t.est + '</span></div><div><span class="k">중요도</span><span class="v">' + t.imp + '</span></div><div><span class="k">마감</span><span class="v"' + (t.dueMissing ? ' style="color:#5B6467;font-weight:400"' : '') + '>' + t.dueFull + '</span></div></div>' +
+      '<div class="detail-workspace">' +
+        '<section class="record-pane" aria-label="작업 기록 영역"><div class="record-head"><h3>작업 기록</h3><span class="record-capacity" id="record-capacity">넓게 보기</span></div>' +
+          '<div class="record-scroll" role="region" aria-label="작업 기록 본문" tabindex="0"><div class="record-sheet"><pre class="record-gutter" aria-hidden="true">' + lineNumbers + '</pre><pre class="record-text">' + esc(t.record) + '</pre></div></div>' +
+          '<div class="rowbar"><span class="record-note">가상 기록 예시 · 파일 내용 표시 범위는 별도 확인</span><button class="link" data-act="toggleDetailMax">' + (S.detailMax ? '원래 크기로' : '최대화해서 기록 보기') + '</button></div>' +
+        '</section>' +
+        '<aside class="detail-sidebar" aria-label="요청 및 제출 자료">' +
+          '<section class="max-summary"><h3 style="font-size:18px">' + t.name + '</h3><span class="meta" style="word-break:break-all">' + t.folder + '</span>' +
+            '<div class="summary-values"><span><span class="meta">요청일</span><b>' + t.req + '</b></span><span><span class="meta">마감</span><b>' + t.dueFull + '</b></span><span><span class="meta">예상 작업량</span><b>' + t.est + '</b></span><span><span class="meta">중요도</span><b>' + t.imp + '</b></span><span><span class="meta">예상 작업일 · 대략</span><b>' + t.work + '</b></span></div>' +
+            '<button class="btn sm" style="align-self:flex-start" data-act="msg" data-arg="record">' + ic('doc',15) + '기록 열기 (메모장)</button></section>' +
+          '<div class="sec"><h3>요청사항</h3><div class="box dl"><span class="k">누가</span><span>' + t.who + '</span><span class="k">언제</span><span>' + t.when + '</span><span class="k">무엇을</span><span>' + t.what + '</span><span class="k">어떻게(목적)</span><span>' + t.how + '</span><span class="k">왜(요청이유)</span><span>' + t.why + '</span></div></div>' +
+          '<div class="sec"><h3>주의사항</h3><p class="box">' + t.caution + '</p></div>' +
+          '<div class="sec"><h3>개선할 점</h3><p class="box">작업 중 확인한 개선 사항을 기록 양식에 정리합니다.</p></div>' +
+          subs +
+          '<div class="sec capture-section" style="gap:8px"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px"><h3>작업 중 캡처</h3><span class="tag t-past">선택 자료 · 제출항목 아님</span></div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:8px">' + caps + '<div class="drop"><span>Ctrl+V 붙여넣기 · 이미지 끌어놓기</span><span style="font-size:11.5px;color:#5B6467">Snipaste로 저장한 이미지를 캡처 폴더에 보관</span></div></div></div>' +
+        '</aside>' +
+      '</div>' +
+      '<div class="detail-footer">' +
+        '<div role="group" aria-label="작업 상태" style="display:flex;align-items:center;gap:4px"><span style="font-size:12.5px;color:#5B6467;margin-right:4px">상태</span>' +
+        ['진행', '대기', '완료'].map(function (x) { return '<button class="btn sm' + (st === x ? ' on' : '') + '" aria-pressed="' + (st === x) + '" data-act="status" data-arg="' + x + '">' + x + '</button>'; }).join('') +
+        '<button class="link" style="color:#5B6467;text-decoration:underline;padding:0 8px;height:34px" data-act="msg" data-arg="cancel">취소</button></div>' +
+        '<span class="meta">파일 내용 자동 열람 꺼짐</span></div>' +
+    '</div></section>';
+}
+
+/* ---------- 오버레이 ---------- */
+function vOverlay() {
+  if (S.overlay === 'past') return vPast();
+  if (S.overlay === 'new') return vNew();
+  if (S.overlay === 'year') return vYear();
+  return '';
+}
+function vPast() {
+  var round = ROUNDS.filter(function (r) { return r.id === S.pastRound; })[0] || ROUNDS[0];
+  return '<div class="overlay" style="padding-top:80px"><div class="win" role="dialog" aria-label="지난 제출물" style="width:100%;max-width:760px">' + titlebar('지난 제출물 — C업무', 'closeOverlay') +
+    '<div style="display:flex;flex-wrap:wrap;gap:16px;padding:18px 20px">' +
+      '<div class="col" style="flex:1 1 190px;gap:4px"><span class="meta" style="padding-bottom:2px">회차 선택</span>' +
+      ROUNDS.map(function (r) {
+        var n = r.files.filter(function (f) { return f[1]; }).length;
+        var meta = n === r.files.length ? '파일 ' + n + '개' : '파일 ' + n + '개 · 미연결 ' + (r.files.length - n) + '개';
+        return '<button class="round' + (r.id === round.id ? ' on' : '') + '" aria-pressed="' + (r.id === round.id) + '" data-act="round" data-arg="' + r.id + '"><span style="font-weight:500">' + r.label + '</span><span style="font-size:12px;color:#4F585B">' + meta + '</span></button>';
+      }).join('') + '</div>' +
+      '<div class="col" style="flex:3 1 340px;min-width:0;gap:8px"><div class="col"><h2 style="font-size:17px">' + round.label + '</h2><span class="meta">항목 이름은 회차마다 같고, 파일 형식은 회차마다 다를 수 있습니다</span></div>' +
+      round.files.map(function (f, i) {
+        return '<div class="subrow"><span class="col" style="flex:1 1 160px;min-width:0"><span class="meta">' + f[0] + '</span><span style="font-weight:500">' + (f[1] ? f[0] + '.' + f[1] : '이 회차에 연결된 파일 없음') + '</span></span>' +
+          (f[1] ? '<span class="tag t-wait" style="color:#3A4245">' + f[1] + '</span><button class="btn sm" data-act="openPast" data-arg="' + round.id + '|' + i + '">열기</button>' : '') + '</div>';
+      }).join('') +
+      '<span style="font-size:12px;color:#4F585B">열기는 목업 동작입니다. 실제 프로그램에서는 연결된 프로그램(한글, 이미지 뷰어 등)으로 엽니다.</span></div>' +
+    '</div></div></div>';
+}
+function vNew() {
+  var nm = S.newName || '';
+  var flat = nm.replace(/\s/g, '');
+  var similar = flat.indexOf('C업무') !== -1 ? 'C업무' : (flat.indexOf('B업무') !== -1 ? 'B업무' : null);
+  var copyCount = COPYFILES.filter(function (f) { return f.fixed || S.copy[f.k]; }).length;
+  var safe = nm.trim() || '새 업무';
+  var path = S.folderMode === 'app' ? '루트폴더 D:\\업무관리\\2026주기\\ 아래에 ‘' + esc(safe) + '’ 폴더 생성 (가상 경로)' : '탐색기에서 이미 만든 폴더를 선택합니다 (목업에서는 선택 창 없음)';
+  var F = S.form;
+  return '<div class="overlay" style="padding-top:40px"><div class="win" role="dialog" aria-label="새 작업" style="width:100%;max-width:820px">' + titlebar('새 작업', 'closeOverlay') +
+    '<div style="display:flex;flex-wrap:wrap;gap:20px;padding:18px 20px">' +
+      '<div class="col" style="flex:1 1 320px;min-width:0;gap:12px">' +
+        '<label class="f">업무 폴더 이름<input id="f-name" data-input="newName" value="' + esc(nm) + '"></label>' +
+        (similar ? '<div style="padding:10px 12px;border-radius:8px;background:#E4EEED;color:#24504E;font-size:13px;display:flex;flex-direction:column;gap:8px"><span>등록된 반복업무 <b style="font-weight:600">' + similar + '</b>과 이름이 비슷합니다. 반복업무 회차로 만들까요? 확인 전에는 연결하지 않습니다.</span>' +
+          '<span style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn sm' + (S.newRepeat === 'yes' ? ' on' : '') + '" aria-pressed="' + (S.newRepeat === 'yes') + '" data-act="repeat" data-arg="yes">' + similar + ' 회차로 만들기</button>' +
+          '<button class="btn sm' + (S.newRepeat === 'no' ? ' on' : '') + '" aria-pressed="' + (S.newRepeat === 'no') + '" data-act="repeat" data-arg="no">별개 업무로 만들기</button></span></div>' : '') +
+        '<div style="display:flex;flex-wrap:wrap;gap:10px"><label class="f" style="flex:1 1 140px">요청일<input id="f-req" type="date" data-input="form.req" value="' + esc(F.req) + '"></label>' +
+        '<label class="f" style="flex:1 1 140px">마감일 <span class="hint">선택 · 요청 분석 후 입력 가능</span><input id="f-due" type="date" data-input="form.due" value="' + esc(F.due) + '"></label></div>' +
+        '<label class="f">예상 작업일 <span class="hint">대략 입력 · 착수일인지 기간인지 확인 중</span><input id="f-work" data-input="form.work" value="' + esc(F.work) + '" placeholder="예: 3월 둘째 주"></label>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:10px"><label class="f" style="flex:1 1 140px">중요도<select id="f-imp" data-change="form.imp">' +
+          ['높음', '보통', '낮음'].map(function (x) { return '<option' + (F.imp === x ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select></label>' +
+        '<label class="f" style="flex:1 1 140px">예상 작업량 (일) <span class="hint">기본 1 · 0.5 단위 가능</span><input id="f-est" type="number" min="0.5" step="0.5" data-input="form.est" value="' + esc(F.est) + '"></label></div>' +
+        '<fieldset style="margin:0;padding:10px 12px;border:1px solid #E3E2DE;border-radius:8px;display:flex;flex-direction:column;gap:6px"><legend style="font-size:12.5px;color:#3A4245;padding:0 4px">폴더 만들기</legend>' +
+          '<label style="display:flex;align-items:center;gap:8px;font-size:13.5px;min-height:32px"><input type="radio" name="fmode" data-change="mode" data-arg="app"' + (S.folderMode === 'app' ? ' checked' : '') + '> 루트폴더에 새로 만들기</label>' +
+          '<label style="display:flex;align-items:center;gap:8px;font-size:13.5px;min-height:32px"><input type="radio" name="fmode" data-change="mode" data-arg="exp"' + (S.folderMode === 'exp' ? ' checked' : '') + '> 탐색기에서 만든 폴더 선택</label>' +
+          '<span style="font-size:12px;color:#4F585B;word-break:break-all">' + path + '</span></fieldset>' +
+      '</div>' +
+      '<div class="col" style="flex:1 1 300px;min-width:0;gap:12px">' +
+        '<div class="sec"><div class="col"><h3>기본 작업폴더에서 복사할 파일</h3><span class="meta">자주 쓴다고 체크한 파일만 새 폴더에 복사 · ' + copyCount + '개 선택</span></div>' +
+          '<div style="border:1px solid #E3E2DE;border-radius:8px;background:#fff">' +
+          COPYFILES.map(function (f) {
+            var on = f.fixed || !!S.copy[f.k];
+            return '<label class="chk"><input type="checkbox" data-change="copy" data-arg="' + f.k + '"' + (on ? ' checked' : '') + (f.fixed ? ' disabled' : '') + '><span style="flex-grow:1">' + f.n + '</span><span style="font-size:11.5px;color:#5B6467">' + f.note + '</span></label>';
+          }).join('') + '</div></div>' +
+        '<div class="sec"><h3>기본 기록 양식 <span style="font-weight:400;font-size:12px;color:#5B6467">작업기록.txt</span></h3><pre class="rec" style="font-size:12px">' + esc(TEMPLATE) + '</pre></div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;padding:12px 20px 16px;border-top:1px solid #E3E2DE"><button class="btn" data-act="closeOverlay">취소</button><button class="btn primary" data-act="create">폴더 만들기</button></div>' +
+  '</div></div>';
+}
+function vYear() {
+  var labels = ['3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월', '1월', '2월'];
+  function chip(id, name, sub, kind) { return '<button class="chip ' + kind + (S.yearPick === id ? ' on' : '') + '" aria-pressed="' + (S.yearPick === id) + '" data-act="yearPick" data-arg="' + id + '">' + name + ' · ' + sub + '</button>'; }
+  var cards = labels.map(function (l, i) {
+    var chips = (i === 0 ? chip('B', 'B업무', '전후 ±2주', 'approx') : '') + chip('C', 'C업무', '15일', 'exact') + (i === 0 ? chip('F', 'F업무', '지난 주기', 'past') : '');
+    return '<div class="month-card' + (i === 0 ? ' now' : '') + '"><span style="font-size:13px;font-weight:600;color:#2B3234">' + l + (i === 0 ? '<span style="font-weight:400;font-size:11.5px;color:#2F5E5C"> · 이번 달</span>' : '') + '</span>' + chips + '</div>';
+  }).join('');
+  var yd = YEAR[S.yearPick] || YEAR.B;
+  return '<div class="overlay"><div class="win" role="dialog" aria-label="1년 일정" style="width:100%;max-width:980px">' + titlebar('1년 일정 — 시기별 반복업무', 'closeOverlay') +
+    '<div style="padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px">' +
+      '<div style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between"><span style="font-size:13px;color:#3A4245">관리 주기 기준일 미정 · 아래는 3월 시작 예시</span>' +
+        '<span style="display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:#3A4245">' +
+        '<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:10px;border-radius:3px;background:#E4EEED;border:1px solid #9DBDBA"></span>정해진 날짜 반복</span>' +
+        '<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:10px;border-radius:3px;border:1px dashed #B89A50"></span>대략적 시기(예상)</span>' +
+        '<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:10px;border-radius:3px;border:1px dotted #8C9497"></span>지난 주기 기록만 있음</span></span></div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">' +
+        '<div style="flex:3 1 480px;min-width:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px">' + cards + '</div>' +
+        '<div style="flex:1 1 240px;min-width:0;padding:14px;border:1px solid #E3E2DE;border-radius:8px;background:#fff;display:flex;flex-direction:column;gap:8px"><span class="meta">' + yd.kind + '</span><h2 style="font-size:18px">' + yd.title + '</h2>' +
+          yd.lines.map(function (l) { return '<span style="font-size:13.5px;color:#2B3234;padding-left:10px;border-left:2px solid #E3E2DE">' + l + '</span>'; }).join('') +
+          (yd.register ? '<button class="btn sm" style="align-self:flex-start;margin-top:4px" data-act="msg" data-arg="register">반복업무로 직접 등록…</button>' : '') +
+        '</div></div>' +
+    '</div></div></div>';
+}
+
+/* ---------- ② 완료 작업 창 ---------- */
+function vDone() {
+  var q = S.dq.trim().toLowerCase();
+  var pd = PERIODS.filter(function (p) { return p[0] === S.period; })[0] || PERIODS[4];
+  var list = DONE.filter(function (d) { return pd[2](d) && (!q || [d.folder, d.what, d.who].some(function (x) { return x.toLowerCase().indexOf(q) !== -1; })); });
+  var sum = function (xs) { return xs.reduce(function (a, d) { return a + num(d.est); }, 0); };
+  var keyOf = function (d) { return S.group === 'week' ? d.week : d.month; };
+  var keys = [];
+  list.forEach(function (d) { if (keys.indexOf(keyOf(d)) === -1) keys.push(keyOf(d)); });
+  var rows = keys.map(function (k) {
+    var items = list.filter(function (d) { return keyOf(d) === k; });
+    return '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 12px 4px;border-bottom:1px solid #ECEBE7;min-width:540px"><span style="font-size:13px;font-weight:600;color:#2B3234">' + k + '</span><span class="meta">' + items.length + '건 · 예상량 합계 ' + sum(items) + '일</span></div>' +
+      items.map(function (d) {
+        var on = S.sel === d.id;
+        return '<button class="grid-row g-done' + (on ? ' sel' : '') + '" style="padding:7px 12px" aria-pressed="' + on + '" data-act="selDone" data-arg="' + d.id + '" title="' + esc(d.done + ' 완료 · ' + d.folder + ' — ' + d.what) + '">' +
+          '<span class="num" style="color:#3A4245">' + d.done + '</span>' +
+          '<span class="namecell"><span class="ell" style="font-weight:500">' + d.folder + '</span>' + (d.rep ? '<span class="tag t-rep" style="font-size:11px">반복</span>' : '') + '</span>' +
+          '<span class="ell" style="color:#4A5356">' + d.what + '</span><span class="num" style="color:#4A5356">' + d.req + '</span><span class="num r" style="color:#3A4245">' + d.est + '</span></button>';
+      }).join('');
+  }).join('') || '<span class="meta" style="display:block;padding:14px 12px;font-size:13px">해당하는 완료 작업이 없습니다</span>';
+
+  var sel = DONE.filter(function (d) { return d.id === S.sel; })[0];
+  var side = sel ?
+    '<div class="col" style="gap:2px"><span class="meta">' + sel.done + ' 완료 · 완료 폴더</span><h2 style="font-size:17px;word-break:break-all">' + sel.folder + '</h2></div>' +
+    '<div class="box dl" style="grid-template-columns:88px minmax(0,1fr);font-size:13px"><span class="k">요청일</span><span class="num">' + sel.req + '</span><span class="k">누가</span><span>' + sel.who + '</span><span class="k">무엇을</span><span>' + sel.what + '</span><span class="k">왜(요청이유)</span><span>' + sel.why + '</span><span class="k">예상 작업량</span><span>' + sel.est + '</span></div>' +
+    '<div class="sec"><h3 style="font-size:13.5px">결과물</h3>' + sel.results.map(function (r, i) {
+      return '<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid #D6DAD7;border-radius:7px;font-size:13px"><span style="color:#2F5E5C;display:flex">' + ic('file', 15) + '</span><span style="flex-grow:1;min-width:0;word-break:break-all">' + r + '</span><button class="btn xs" data-act="openResult" data-arg="' + i + '">열기</button></div>';
+    }).join('') + '</div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn sm" data-act="msg" data-arg="doneFolder">폴더 열기</button><button class="btn sm" data-act="msg" data-arg="record">기록 열기 (메모장)</button></div>' +
+    '<span class="meta">파일 내용 자동 열람 꺼짐 · 내용 표시 범위 확인 중(예시)</span>'
+    : '<div style="min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;color:#5B6467;font-size:13px">' + ic('check', 22, 1.6) + '<span>목록에서 작업을 누르면<br>요청 내용과 결과물이 여기에 표시됩니다</span></div>';
+
+  return '<div style="flex-grow:1;padding:32px 32px 40px;display:flex;justify-content:center;align-items:flex-start">' +
+    '<section class="win" aria-label="완료 작업 창" style="width:100%;max-width:1180px">' + titlebar('완료 작업 — 업무 정리', 'toMain', true) +
+    '<div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px">' +
+      '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between"><div class="col" style="gap:2px">' +
+        '<a href="#" class="link" style="font-size:12.5px" data-act="toMain">' + ic('back', 13, 2) + '바탕화면 목록으로</a><h1 style="font-size:22px">완료 작업</h1>' +
+        '<span style="font-size:13px;color:#4A5356">' + pd[1] + ' · ' + list.length + '건 · 등록 예상량 합계 ' + sum(list) + '일' + (q ? ' · 검색 중' : '') + ' · 완료 폴더 기준</span></div>' +
+        '<button class="btn" style="height:38px;font-size:13.5px" data-act="copyList">' + ic('copy', 15) + '목록 복사</button></div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">' +
+        '<label class="search" style="flex:1 1 260px;height:38px">' + ic('search', 16, 1.8) + '<span class="sr">완료 작업 검색</span><input id="q-done" data-input="dq" value="' + esc(S.dq) + '" placeholder="완료 작업 검색 · 폴더명, 요청 내용, 요청자"></label>' +
+        '<div class="seg" role="group" aria-label="기간">' + PERIODS.map(function (p) { return '<button class="' + (p[0] === pd[0] ? 'on' : '') + '" aria-pressed="' + (p[0] === pd[0]) + '" data-act="period" data-arg="' + p[0] + '">' + p[1] + '</button>'; }).join('') + '</div>' +
+        '<div role="group" aria-label="묶음" style="display:flex;align-items:center;gap:4px"><span style="font-size:12.5px;color:#5B6467;margin-right:2px">묶음</span>' +
+          [['week', '주별'], ['month', '월별']].map(function (g) { return '<button class="btn sm' + (S.group === g[0] ? ' soft-on' : '') + '" aria-pressed="' + (S.group === g[0]) + '" data-act="group" data-arg="' + g[0] + '">' + g[1] + '</button>'; }).join('') + '</div>' +
+      '</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">' +
+        '<div style="flex:3 1 560px;min-width:0;background:#fff;border:1px solid #E3E2DE;border-radius:10px;padding:6px 14px 10px;overflow-x:auto">' +
+          '<div class="grid-head g-done" style="padding:6px 12px"><span>완료일</span><span>작업 폴더</span><span>요청 내용</span><span>요청일</span><span class="r">예상량</span></div>' + rows + '</div>' +
+        '<aside aria-label="선택한 완료 작업" style="flex:1 1 300px;min-width:0;background:#fff;border:1px solid #E3E2DE;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px">' + side + '</aside>' +
+      '</div>' +
+    '</div></section></div>';
+}
+
+/* ---------- 동작 ---------- */
+var MSG = {
+  folder: '폴더 열기 — 실제 프로그램에서는 탐색기로 엽니다. 목업이라 열지 않았습니다.',
+  doneFolder: '완료 폴더 열기 — 목업이라 탐색기를 열지 않았습니다.',
+  record: '기록 열기 — 실제 프로그램에서는 메모장이나 Notepad++로 엽니다. 목업이라 열지 않았습니다.',
+  cancel: '취소 상태로 바꾸는 메뉴 자리입니다. 목업에서는 상태를 바꾸지 않았습니다.',
+  register: '반복업무 등록 창은 아직 그리지 않았습니다. 사람이 직접 등록하는 흐름입니다.'
+};
+var ACT = {
+  screen: function (a) { S.detailMax = false; S.screen = a; S.overlay = null; S.notice = null; render(); window.scrollTo(0, 0); },
+  toMain: function () { ACT.screen('main'); },
+  overlay: function (a) { S.overlay = a; if (a === 'past') S.pastRound = '2026-02'; render(); },
+  closeOverlay: function () { S.overlay = null; render(); },
+  closeDetail: function () { S.open = null; S.detailMax = false; render(); },
+  toggleDetailMax: function () { S.detailMax = !S.detailMax; render(); },
+  clearNotice: function () { S.notice = null; render(); },
+  clearQuery: function () { S.query = ''; render(); },
+  openTask: function (a) { S.open = a; S.notice = null; render(); },
+  year: function (a) { S.overlay = 'year'; S.yearPick = a; render(); },
+  yearPick: function (a) { S.yearPick = a; render(); },
+  round: function (a) { S.pastRound = a; render(); },
+  openPast: function (a) { var p = a.split('|'), r = ROUNDS.filter(function (x) { return x.id === p[0]; })[0], f = r.files[+p[1]]; say(r.label + ' ' + f[0] + '.' + f[1] + ' 열기 — 목업이라 파일을 열지 않았습니다.'); },
+  msg: function (a) { say(MSG[a]); },
+  copyName: function (a) { var d = SUBS.filter(function (x) { return x.id === a; })[0]; say('‘' + d.label + '’ 이름 복사 — 실제 클립보드에는 복사하지 않았습니다.'); },
+  toggleLink: function (a) {
+    var was = !!S.linked[a]; S.linked[a] = !was;
+    say(was ? '연결 표시를 해제했습니다. 실제 파일은 그대로입니다.' : '파일 선택 창 대신 예시 파일을 연결 상태로 표시했습니다. 외부 제출 완료가 아닙니다.');
+  },
+  status: function (a) {
+    S.status[S.open] = a;
+    if (a === '완료') say('완료로 표시하면 실제 프로그램에서는 완료 폴더로 옮깁니다. 목업이라 폴더를 옮기지 않았습니다.'); else { S.notice = null; render(); }
+  },
+  repeat: function (a) { S.newRepeat = a; render(); },
+  create: function () { S.overlay = null; say('폴더 만들기 — 목업이라 실제 폴더와 파일을 만들거나 복사하지 않았습니다.'); },
+  period: function (a) { S.period = a; render(); },
+  group: function (a) { S.group = a; render(); },
+  selDone: function (a) { S.sel = a; render(); },
+  openResult: function (a) { var d = DONE.filter(function (x) { return x.id === S.sel; })[0]; say(d.results[+a] + ' 열기 — 목업이라 파일을 열지 않았습니다.'); },
+  copyList: function () {
+    var pd = PERIODS.filter(function (p) { return p[0] === S.period; })[0] || PERIODS[4];
+    var q = S.dq.trim().toLowerCase();
+    var n = DONE.filter(function (d) { return pd[2](d) && (!q || [d.folder, d.what, d.who].some(function (x) { return x.toLowerCase().indexOf(q) !== -1; })); }).length;
+    say(pd[1] + ' 완료 작업 ' + n + '건을 “완료일 폴더명 — 요청 내용” 한 줄씩 복사하는 자리입니다. 실제 클립보드에는 복사하지 않았습니다.');
+  }
+};
+
+/* ---------- 렌더 ---------- */
+var app = document.getElementById('app');
+function view() {
+  return '<div class="scene" style="--pad:' + (S.compact ? '7px 12px' : '11px 14px') + '">' +
+    (S.screen === 'main' ? vMain() : vDone()) + vTaskbar() +
+    (S.screen === 'main' ? vOverlay() : '') + vToast() + vOpts() + '</div>';
+}
+function render() {
+  var oldRecord = document.querySelector('.record-scroll'), oldSide = document.querySelector('.detail-sidebar');
+  var recordTop = oldRecord ? oldRecord.scrollTop : 0, recordLeft = oldRecord ? oldRecord.scrollLeft : 0, sideTop = oldSide ? oldSide.scrollTop : 0;
+  var oldRecordTask = oldRecord && oldRecord.getAttribute('data-task');
+  var a = document.activeElement, id = a && a.id, pos = null;
+  try { if (a && a.selectionStart != null) pos = [a.selectionStart, a.selectionEnd]; } catch (e) { pos = null; }
+  app.innerHTML = view();
+  document.body.classList.toggle('detail-is-max', !!(S.detailMax && S.screen === 'main' && S.open));
+  var recordArea = document.querySelector('.record-scroll'), sideArea = document.querySelector('.detail-sidebar');
+  if(recordArea){ recordArea.setAttribute('data-task',S.open); if(oldRecordTask===S.open){recordArea.scrollTop=recordTop;recordArea.scrollLeft=recordLeft; if(sideArea)sideArea.scrollTop=sideTop;} }
+  updateRecordCapacity();
+  if (id) {
+    var n = document.getElementById(id);
+    if (n) { n.focus(); if (pos) { try { n.setSelectionRange(pos[0], pos[1]); } catch (e) {} } }
+  }
+}
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-act]');
+  if (!el) return;
+  if (el.tagName === 'A') e.preventDefault();
+  var f = ACT[el.getAttribute('data-act')];
+  if (f) f(el.getAttribute('data-arg'));
+});
+document.addEventListener('input', function (e) {
+  var el = e.target, k = el.getAttribute && el.getAttribute('data-input');
+  if (!k) return;
+  if (k.indexOf('form.') === 0) { S.form[k.slice(5)] = el.value; return; }
+  S[k] = el.value;
+  if (k === 'newName') S.newRepeat = null;
+  render();
+});
+document.addEventListener('change', function (e) {
+  var el = e.target, c = el.getAttribute && el.getAttribute('data-change');
+  if (!c) return;
+  if (c === 'copy') S.copy[el.getAttribute('data-arg')] = el.checked;
+  else if (c === 'mode') S.folderMode = el.getAttribute('data-arg');
+  else if (c === 'overload') S.overload = el.checked;
+  else if (c === 'compact') S.compact = el.checked;
+  else if (c.indexOf('form.') === 0) { S.form[c.slice(5)] = el.value; return; }
+  render();
+});
+document.addEventListener('dblclick', function(e){
+  if(e.target.closest('[data-detail-titlebar]') && !e.target.closest('button')) ACT.toggleDetailMax();
+});
+function updateRecordCapacity(){
+  var area=document.querySelector('.record-scroll'),text=document.querySelector('.record-text'),badge=document.getElementById('record-capacity');
+  if(!area||!text||!badge)return;
+  var style=getComputedStyle(text),available=area.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom);
+  var lines=Math.max(1,Math.floor(available/parseFloat(style.lineHeight)));
+  badge.textContent='현재 화면 약 '+lines+'줄';
+}
+window.addEventListener('resize',updateRecordCapacity);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && S.overlay) { S.overlay = null; render(); }
+  else if(e.key === 'Escape' && S.detailMax){S.detailMax=false;render();}
+});
+render();
+})();
+</script>
+</body>
+</html>
