@@ -25,12 +25,15 @@ public static class Program
         app.Resources.Add(typeof(TextBox), UI.TextStyle());
         app.Resources.Add(typeof(DatePicker), new Style(typeof(DatePicker)) { Setters = { new Setter(FrameworkElement.MarginProperty, new Thickness(0, 4, 0, 6)) } });
         string? root = null;
-        if (args.Contains("--demo")) root = Demo.Create();
+        if (args.Contains("--demo")) { root = Demo.Create(); MessageBox.Show("시험자료로 실행합니다.\n시험자료의 업무정리 암호: " + Demo.Passphrase + "\n실제 업무자료에는 쓰지 마세요.", "업무정리 시험자료"); }
         int i = Array.IndexOf(args, "--root"); if (i >= 0 && i + 1 < args.Length) root = args[i + 1];
-        if (root is null) { try { root = Disk.ReadJson<ClientConfig>(ConfigPath)?.Root; } catch { } }
+        if (root is null) { try { root = (Disk.ReadJson<ClientConfig>(ConfigPath) ?? Disk.ReadJson<ClientConfig>(LegacyConfigPath))?.Root; } catch { } }
         app.Run(new MainWindow(root));
     }
-    public static string ConfigPath => Path.Combine(AppContext.BaseDirectory, "프로그램설정.json");
+    // 설치형(셋업)에서는 실행 폴더가 아니라 사용자 설정 폴더에 기기별 설정을 둔다. 업무자료는 사용자가 정한 루트에만 저장한다.
+    public static string ConfigFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "업무정리");
+    public static string ConfigPath => Path.Combine(ConfigFolder, "프로그램설정.json");
+    private static string LegacyConfigPath => Path.Combine(AppContext.BaseDirectory, "프로그램설정.json");
     public sealed class ClientConfig { public string Root { get; set; } = ""; }
 }
 public static class UI
@@ -82,6 +85,10 @@ public sealed class MainWindow : Window
     public WorkStore? Store { get; private set; }
     public List<WorkItem> Items { get; private set; } = [];
     public BackupController? Backups { get; private set; }
+    /// <summary>잠금 해제된 private 보관소. 키는 이 객체의 메모리에만 있다. null이면 잠김.</summary>
+    public PrivateVault? Vault { get; private set; }
+    public event Action? PrivateStateChanged;
+    private readonly Border externalBanner = new() { Visibility = Visibility.Collapsed };
     private readonly TextBlock rootLabel = UI.Text("루트폴더를 선택하면 새 업무부터 관리합니다.");
     private readonly TextBlock status = UI.Text("");
     private readonly TextBlock capacity = UI.Text("");
@@ -109,25 +116,144 @@ public sealed class MainWindow : Window
         var body = new Grid(); body.RowDefinitions.Add(new() { Height = new GridLength(1.3, GridUnitType.Star) }); body.RowDefinitions.Add(new() { Height = new GridLength(2.4, GridUnitType.Star) }); body.RowDefinitions.Add(new() { Height = new GridLength(1.4, GridUnitType.Star) });
         body.Children.Add(Section("이번 달 할 일 · 예상", forecast)); var work = Section("작업 리스트", active); Grid.SetRow(work, 1); body.Children.Add(work);
         var rp = new DockPanel(); DockPanel.SetDock(capacity, Dock.Top); rp.Children.Add(capacity); rp.Children.Add(review); var reviews = Section("수락할지 검토 중인 요청", rp); Grid.SetRow(reviews, 2); body.Children.Add(reviews);
-        Grid.SetRow(body, 2); outer.Children.Add(body); Grid.SetRow(status, 3); outer.Children.Add(status); Content = outer;
+        Grid.SetRow(body, 2); outer.Children.Add(body);
+        var bottom = new StackPanel(); bottom.Children.Add(externalBanner); bottom.Children.Add(status); Grid.SetRow(bottom, 3); outer.Children.Add(bottom); Content = outer;
         search.TextChanged += (_, _) => RefreshRows(); from.SelectedDateChanged += (_, _) => RefreshRows(); to.SelectedDateChanged += (_, _) => RefreshRows();
         active.MouseDoubleClick += (_, _) => OpenSelected(active); review.MouseDoubleClick += (_, _) => OpenSelected(review);
         active.KeyDown += (_, e) => { if (e.Key == System.Windows.Input.Key.Enter) OpenSelected(active); }; review.KeyDown += (_, e) => { if (e.Key == System.Windows.Input.Key.Enter) OpenSelected(review); };
         forecast.MouseDoubleClick += (_, _) => { if (forecast.SelectedItem is ForecastRow f) NewWork(f.Item); };
         timer.Tick += async (_, _) => { await Refresh(); if (Backups is not null) await Backups.TryScheduled(); }; timer.Start();
-        Closed += (_, _) => { timer.Stop(); desktop.Dispose(); Backups?.Dispose(); };
+        Closed += (_, _) => { timer.Stop(); desktop.Dispose(); Backups?.Dispose(); Vault?.Lock(); Vault = null; };
         Closing += (_, e) => { foreach (var w in details.Values.ToList()) { w.Close(); if (w.IsVisible) { e.Cancel = true; return; } } if (Backups?.Engine.Running == true && !UI.Confirm("백업/복원이 실행 중입니다. 중단하고 종료할까요? 이전 복구본은 유지됩니다.")) e.Cancel = true; };
-        Loaded += async (_, _) => { if (!string.IsNullOrWhiteSpace(root)) SetRoot(root); await Refresh(); };
+        Loaded += async (_, _) =>
+        {
+            if (!string.IsNullOrWhiteSpace(root))
+            {
+                try { SetRoot(root); }
+                catch (DirectoryNotFoundException) { MessageBox.Show("마지막으로 쓰던 루트폴더에 접근할 수 없습니다. 자료가 지워졌다는 뜻은 아닙니다. 외장디스크·네트워크 연결을 확인하거나 루트를 다시 선택해주세요.\n" + root, "루트 재연결"); FirstRun(true); }
+            }
+            else FirstRun(false);
+            await Refresh();
+        };
     }
     private static Border Section(string heading, UIElement child) { var dock = new DockPanel(); var label = UI.Text(heading, 15, true); DockPanel.SetDock(label, Dock.Top); dock.Children.Add(label); dock.Children.Add(child); return UI.Card(dock); }
     public void RequireStore(Action action) { if (Store is null) { SetRootFromDialog(); if (Store is null) return; } action(); }
+    /// <summary>첫 실행(또는 루트 접근 불가) 안내. 업무자료를 둘 루트폴더를 고른다. 나중에 설정에서 바꿀 수 있다.</summary>
+    private void FirstRun(bool reconnect)
+    {
+        var w = UI.Window(reconnect ? "루트폴더 다시 선택" : "업무정리 시작", 640, 430); w.Owner = this; w.ResizeMode = ResizeMode.NoResize;
+        var p = new StackPanel { Margin = new Thickness(26) };
+        p.Children.Add(UI.Text(reconnect ? "루트폴더를 다시 선택해주세요" : "업무자료를 둘 루트폴더를 정해주세요", 20, true));
+        p.Children.Add(UI.Text("요청마다 이 폴더 아래에 날짜가 붙은 업무폴더가 만들어집니다. 실제 업무자료를 둘 폴더나, 시험해 보려면 비어 있는 새 폴더를 고르세요. 기존 폴더의 자료를 옮기거나 합치지 않습니다."));
+        p.Children.Add(UI.Text("나중에 설정 → 기본 / 주기 → ‘다른 루트로 전환’에서 바꿀 수 있습니다.", 12));
+        p.Children.Add(UI.Row(UI.Button("나중에", () => w.Close()), UI.Button("루트폴더 선택", () => { var path = UI.PickFolder("업무를 관리할 루트폴더 선택 · ‘새 폴더 만들기’도 가능"); if (path is null) return; SetRoot(path); w.Close(); }, true)));
+        w.Content = p; w.ShowDialog();
+    }
     private void SetRootFromDialog() { var path = UI.PickFolder("업무를 관리할 루트폴더 선택"); if (path is not null) SetRoot(path); }
     public void SetRoot(string root)
     {
         if (Store is not null && !Store.Root.Equals(System.IO.Path.GetFullPath(root), StringComparison.OrdinalIgnoreCase) && details.Count > 0) throw new IOException("열어둔 작업 상세 창을 먼저 닫아주세요. 미저장 내용은 각 창에서 보호합니다.");
         if (Backups?.Engine.Running == true) throw new IOException("백업/복원이 끝난 뒤 루트를 전환해주세요.");
-        var next = new WorkStore(root); Backups?.Dispose(); Store = next; Backups = new BackupController(next);
+        var next = new WorkStore(root); Backups?.Dispose(); Vault?.Lock(); Vault = null; Store = next; Backups = new BackupController(next); PrivateStateChanged?.Invoke(); UpdateExternalBanner();
         Disk.WriteJson(Program.ConfigPath, new Program.ClientConfig { Root = root }); rootLabel.Text = root; _ = Refresh();
+    }
+    /// <summary>private 잠금 해제. 보관소가 없으면 암호를 새로 정한다. 외부 AI 작업 잠금 중에는 해제하지 않는다(PRIVATE_LOCK_DURING).</summary>
+    public PrivateVault? EnsurePrivateUnlocked(Window owner)
+    {
+        if (Store is null) throw new InvalidOperationException("루트폴더를 먼저 지정해주세요.");
+        if (ExternalAiSession.IsActive(Store)) throw new InvalidOperationException("외부 폴더 AI 작업 잠금 중입니다. 작업을 끝내고 ‘외부 AI 작업 종료 확인’을 누른 뒤 private 잠금을 해제할 수 있습니다.");
+        if (Vault is { IsLocked: false }) return Vault;
+        bool create = !PrivateVault.Exists(Store.Control);
+        var w = new PassphraseWindow(owner, create, create ? null : "private 잠금을 해제합니다.");
+        if (w.ShowDialog() != true || w.Passphrase is null) return null;
+        Vault = create ? PrivateVault.Create(Store.Control, w.Passphrase) : PrivateVault.Unlock(Store.Control, w.Passphrase);
+        PrivateStateChanged?.Invoke(); return Vault;
+    }
+    /// <summary>
+    /// 업무정리 암호를 받아 돌려준다(복구정보·백업파일용). 이 루트의 보관소로 맞는 암호인지 확인한다.
+    /// 아직 암호를 정하지 않았으면 새로 정한다. 외부 AI 작업 잠금 중에는 묻지 않는다.
+    /// </summary>
+    public string? AskUserPassword(Window owner, string purpose)
+    {
+        if (Store is null) throw new InvalidOperationException("루트폴더를 먼저 지정해주세요.");
+        if (ExternalAiSession.IsActive(Store)) throw new InvalidOperationException("외부 폴더 AI 작업 잠금 중에는 암호를 입력받지 않습니다. 작업을 끝낸 뒤 다시 시도해주세요.");
+        bool create = !PrivateVault.Exists(Store.Control);
+        var w = new PassphraseWindow(owner, create, purpose);
+        if (w.ShowDialog() != true || w.Passphrase is null) return null;
+        var vault = create ? PrivateVault.Create(Store.Control, w.Passphrase) : PrivateVault.Unlock(Store.Control, w.Passphrase);
+        if (Vault is { IsLocked: false }) vault.Lock(); else { Vault = vault; PrivateStateChanged?.Invoke(); }
+        return w.Passphrase;
+    }
+    /// <summary>다른 PC의 복구정보나 예전 백업파일처럼 이 루트와 무관한 암호를 받을 때(확인 없이 입력만).</summary>
+    public static string? AskPasswordOnly(Window owner, string purpose)
+    {
+        var w = new PassphraseWindow(owner, false, purpose);
+        return w.ShowDialog() == true ? w.Passphrase : null;
+    }
+    public void ChangeUserPassword(Window owner)
+    {
+        if (Store is null) throw new InvalidOperationException("루트폴더를 먼저 지정해주세요.");
+        if (ExternalAiSession.IsActive(Store)) throw new InvalidOperationException("외부 폴더 AI 작업 잠금 중에는 암호를 바꾸지 않습니다.");
+        if (!PrivateVault.Exists(Store.Control)) throw new InvalidOperationException("아직 업무정리 암호를 정하지 않았습니다. private 잠금 해제나 복구정보 저장에서 먼저 정해주세요.");
+        var w = new ChangePasswordWindow(owner, Store.Control);
+        if (w.ShowDialog() != true || w.NewPassword is null) return;
+        bool diskCopy = false; try { diskCopy = Backups?.WriteRecoveryCopy(w.NewPassword) == true; } catch (Exception ex) { MessageBox.Show("백업 위치의 복구정보를 새 암호로 바꾸지 못했습니다: " + ex.Message); }
+        if (UI.Confirm("암호를 바꿨습니다. private 파일은 새 암호로 열립니다." + (diskCopy ? "\n백업 위치(외장디스크)의 복구정보도 새 암호로 바꿨습니다." : "") + "\n\n따로 보관하던 복구정보 파일도 새 암호로 다시 저장할까요? 옛 암호로 잠근 파일은 지워주세요."))
+            Backups?.ExportKey(w.NewPassword);
+        MessageBox.Show("이미 만든 백업파일(.wobak)은 만들 때의 암호가 그대로 필요합니다. 필요하면 새로 만들어 올리고 예전 파일은 지워주세요.", "암호 변경 완료");
+    }
+    /// <summary>private 키를 메모리에서 지운다. 미저장 private 편집이 있으면 저장 여부를 먼저 묻는다(PRIVATE_LOCK_START).</summary>
+    public bool TryLockPrivate(string reason)
+    {
+        foreach (var w in details.Values.Where(x => x.PrivateDirty).ToList())
+        {
+            var answer = MessageBox.Show($"{reason} 전에 private 상세의 미저장 내용을 저장할까요?\n예: 저장 후 잠금 · 아니요/취소: 잠그지 않고 돌아가기", w.Title, MessageBoxButton.YesNo);
+            if (answer != MessageBoxResult.Yes) return false;
+            try { w.SavePrivateNow(); } catch (Exception ex) { MessageBox.Show("저장하지 못해 잠그지 않았습니다. 입력은 창에 남아 있습니다.\n" + ex.Message); return false; }
+        }
+        Vault?.Lock(); Vault = null; PrivateStateChanged?.Invoke(); return true;
+    }
+    /// <summary>외부 폴더 AI 작업 시작(PRIVATE_LOCK_FLOW). 잠금·평문 점검이 성공해야만 PowerShell 창을 연다.</summary>
+    public void StartExternalAi(string tool)
+    {
+        if (Store is null) throw new InvalidOperationException("루트폴더를 먼저 지정해주세요.");
+        if (ExternalAiSession.IsActive(Store)) throw new InvalidOperationException("이미 외부 AI 작업 잠금 중입니다.");
+        if (!UI.Confirm("외부 폴더 AI 작업을 시작할까요?\n1) private 미저장 내용을 저장하고 private 키를 메모리에서 지웁니다.\n2) 루트 안에 AI가 읽을 수 있는 private 평문이 없는지 확인합니다.\n3) 업무 루트에서 PowerShell 창을 엽니다. 작업 중에는 private을 보거나 편집할 수 없습니다.")) return;
+        if (!TryLockPrivate("외부 AI 작업 시작")) return;
+        ExternalAiSession.Begin(Store, Vault, tool, null);
+        try
+        {
+            string command = "Set-Location -LiteralPath '" + Store.Root.Replace("'", "''") + "'" + (tool is "claude" or "codex" ? "; " + tool : "");
+            var start = new ProcessStartInfo("powershell.exe") { UseShellExecute = false, CreateNoWindow = false, WorkingDirectory = Store.Root };
+            start.ArgumentList.Add("-NoExit"); start.ArgumentList.Add("-NoLogo"); start.ArgumentList.Add("-Command"); start.ArgumentList.Add(command);
+            CliAiConnector.Sanitize(start.Environment);
+            var process = Process.Start(start) ?? throw new IOException("PowerShell 창을 열지 못했습니다.");
+            ExternalAiSession.Attach(Store, process);
+        }
+        catch { ExternalAiSession.End(Store, false); throw; }
+        UpdateExternalBanner();
+    }
+    public void EndExternalAi()
+    {
+        if (Store is null || !ExternalAiSession.IsActive(Store)) { UpdateExternalBanner(); return; }
+        var l = ExternalAiSession.Read(Store);
+        if (l is not null && ExternalAiSession.IsProcessAlive(l))
+        {
+            if (!UI.Confirm("외부 AI 작업 창이 아직 실행 중입니다. 창(과 그 안의 AI 프로그램)을 종료하고 잠금을 해제할까요?\n아니요를 누르면 잠금을 유지합니다.")) return;
+            ExternalAiSession.End(Store, true);
+        }
+        else ExternalAiSession.End(Store, false);
+        int others = ExternalAiSession.OtherAiProcesses();
+        UpdateExternalBanner();
+        MessageBox.Show("외부 AI 작업 잠금을 끝냈습니다. private은 필요할 때 다시 잠금 해제하세요." + (others > 0 ? $"\n참고: 다른 Claude/Codex 프로세스 {others}개가 실행 중입니다. private 파일은 암호문이지만, 잠금 해제 중인 앱 메모리에 대한 보호는 검증되지 않았습니다." : ""), "외부 AI 작업 종료");
+    }
+    public void UpdateExternalBanner()
+    {
+        if (Store is null || !ExternalAiSession.IsActive(Store)) { externalBanner.Visibility = Visibility.Collapsed; return; }
+        var l = ExternalAiSession.Read(Store); var p = new StackPanel();
+        p.Children.Add(UI.Text($"외부 폴더 AI 작업 잠금 중 · {l?.Tool} · {l?.StartedAt:MM.dd HH:mm} 시작 · private 열람/편집 잠금", 14, true));
+        p.Children.Add(UI.Row(UI.Button("외부 AI 작업 종료 확인", EndExternalAi, true)));
+        externalBanner.Child = UI.Card(p); externalBanner.Visibility = Visibility.Visible;
     }
     private void Settings()
     {
@@ -150,7 +276,8 @@ public sealed class MainWindow : Window
         try
         {
             var currentStore = Store; var jobs = await Task.Run(currentStore.Scan); if (!ReferenceEquals(Store, currentStore)) return;
-            string signature = DateTime.Today.ToString("yyyy-MM-dd") + System.Text.Json.JsonSerializer.Serialize(currentStore.Settings, Disk.Json) + string.Join("|", jobs.Select(x => System.Text.Json.JsonSerializer.Serialize(x, Disk.Json) + x.Folder + (x.Missing ? "" : Disk.Hash(Path.Combine(x.Folder, WorkText.FileName)))));
+            string signature = DateTime.Today.ToString("yyyy-MM-dd") + System.Text.Json.JsonSerializer.Serialize(currentStore.Settings, Disk.Json) + string.Join("|", jobs.Select(x => System.Text.Json.JsonSerializer.Serialize(x, Disk.Json) + x.Folder + (x.Missing ? "" : Disk.Hash(Path.Combine(x.Folder, WorkText.FileName)) + Disk.Hash(Path.Combine(x.Folder, WorkText.LegacyFileName)))));
+            UpdateExternalBanner();
             Items = jobs;
             if (signature != lastSignature)
             {
@@ -169,7 +296,7 @@ public sealed class MainWindow : Window
         bool Match(WorkItem x)
         {
             if (from.SelectedDate is DateTime a && x.RequestedOn < DateOnly.FromDateTime(a) || to.SelectedDate is DateTime b && x.RequestedOn > DateOnly.FromDateTime(b)) return false;
-            string record = x.Missing ? "" : WorkText.Load(x.Folder);
+            string record = x.Missing ? "" : WorkText.LoadForDisplay(x.Folder); // 로컬 화면 검색. private은 검색하지 않는다.
             string text = x.FolderName + " " + x.Name + " " + WorkText.ReadSection(record, "요청 원문") + " " + WorkText.ReadSection(record, "본인이 이해한 요청");
             return text.Contains(q, StringComparison.OrdinalIgnoreCase);
         }
@@ -182,6 +309,7 @@ public sealed class MainWindow : Window
         status.Text = $"오늘 {today:yyyy.MM.dd} 포함 · 파일 내용 자동 분석 없음 · {Store.Settings.LastBackupStatus}";
         if (Store.Issues.Count > 0) status.Text += "\n" + string.Join(" / ", Store.Issues.Take(2));
         if (Store.NewFolders.Count > 0) status.Text += $" · 탐색기 신규폴더 {Store.NewFolders.Count}개 (새 요청에서 선택 등록)";
+        int unclassified = Items.Count(x => x.Unclassified); if (unclassified > 0) status.Text += $" · 공개/private 미분류 이전 기록 {unclassified}건(AI 전송 안 함)";
     }
 }
 public sealed record WorkRow(WorkItem Item, DateOnly Today, AppSettings Settings)
@@ -203,14 +331,16 @@ public static class SearchIndex
 {
     public static void Rebuild(WorkStore store, List<WorkItem> items)
     {
+        // 보조 색인은 공개기록의 요청 원문만 담는다. private·이전 단일기록은 넣지 않는다(AI_PRIVATE_DERIVED). 지운 자료가 빈 페이지에 남지 않게 secure_delete.
         using var db = new SqliteConnection("Data Source=" + Path.Combine(store.Control, "검색.sqlite")); db.Open();
+        using (var pragma = db.CreateCommand()) { pragma.CommandText = "PRAGMA secure_delete=ON;"; pragma.ExecuteNonQuery(); }
         using var transaction = db.BeginTransaction();
         using var cmd = db.CreateCommand(); cmd.Transaction = transaction;
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS work(id TEXT PRIMARY KEY,name TEXT,folder TEXT,request TEXT,requested TEXT,completed TEXT,state TEXT); DELETE FROM work;"; cmd.ExecuteNonQuery();
         foreach (var x in items)
         {
             cmd.Parameters.Clear(); cmd.CommandText = "INSERT INTO work VALUES($id,$name,$folder,$request,$requested,$completed,$state)";
-            cmd.Parameters.AddWithValue("$id", x.Id); cmd.Parameters.AddWithValue("$name", x.Name); cmd.Parameters.AddWithValue("$folder", x.Folder); cmd.Parameters.AddWithValue("$request", x.Missing ? "" : x.Request); cmd.Parameters.AddWithValue("$requested", x.RequestedOn.ToString("yyyy-MM-dd")); cmd.Parameters.AddWithValue("$completed", x.CompletedAt?.ToString("O") ?? ""); cmd.Parameters.AddWithValue("$state", x.State.ToString()); cmd.ExecuteNonQuery();
+            cmd.Parameters.AddWithValue("$id", x.Id); cmd.Parameters.AddWithValue("$name", x.Name); cmd.Parameters.AddWithValue("$folder", x.Folder); cmd.Parameters.AddWithValue("$request", x.Missing ? "" : WorkText.ReadSection(WorkText.Load(x.Folder), "요청 원문")); cmd.Parameters.AddWithValue("$requested", x.RequestedOn.ToString("yyyy-MM-dd")); cmd.Parameters.AddWithValue("$completed", x.CompletedAt?.ToString("O") ?? ""); cmd.Parameters.AddWithValue("$state", x.State.ToString()); cmd.ExecuteNonQuery();
         }
         transaction.Commit();
     }

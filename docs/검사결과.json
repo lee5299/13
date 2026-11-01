@@ -1,6 +1,6 @@
 {
-  "at": "2026-10-30T16:13:25.7433556+09:00",
-  "passed": 40,
+  "at": "2026-11-01T00:01:13.0234756+09:00",
+  "passed": 102,
   "scope": "\uD575\uC2EC \uACC4\uC0B0\u00B7\uD30C\uC77C\uD750\uB984\u00B7\uC120\uD0DD \uC2DC \uC2E4\uC81C restic \uBCF5\uC6D0 \uAC80\uC0AC. UI/\uC0AC\uC6A9\uC790\uBAA9\uC801 \uC804\uCCB4\uC778\uC218 \uC544\uB2D8.",
   "results": [
     {
@@ -132,6 +132,242 @@
       "status": "PASS"
     },
     {
+      "name": "private \uBCF4\uAD00\uC18C \uC911\uBCF5 \uC0DD\uC131 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "DOC_PUBLIC/DOC_PRIVATE \uB450 \uC601\uC5ED \uBD84\uB9AC \uC800\uC7A5",
+      "status": "PASS"
+    },
+    {
+      "name": "DOC_PRIVATE_SAVE private \uBCC4\uB3C4 \uBB38\uC11C \uC800\uC7A5\u00B7\uC7AC\uC5F4\uAE30",
+      "status": "PASS"
+    },
+    {
+      "name": "\uACF5\uAC1C/private \uAC01\uAC01 \uC7AC\uC5F4\uAE30 \uC77C\uCE58",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC7A0\uAE34 private\uB294 \uC77D\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uD2C0\uB9B0 private \uC554\uD638 \uAC70\uBD80",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC7A0\uAE34 \uC0C1\uD0DC\uC5D0\uC11C private \uD3EC\uD568 \uC0DD\uC131 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uB2E4\uB978 \uC5C5\uBB34\uC758 private \uBB38\uC11C\uB294 \uD574\uB3C5\uB418\uC9C0 \uC54A\uC74C(\uC5C5\uBB34\uBCC4 \uACB0\uD569)",
+      "status": "PASS"
+    },
+    {
+      "name": "private \uC774\uC804\uBCF8\uB3C4 \uAC19\uC740 \uC5C5\uBB34 \uC554\uD638\uBB38\uC73C\uB85C \uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_PRIVATE_DERIVED \uB8E8\uD2B8 \uC5B4\uB514\uC5D0\uB3C4(\uC774\uC804\uBCF8\u00B7\uC784\uC2DC\uBCF8\u00B7\uC800\uB110\u00B7\uC124\uC815) private \uD3C9\uBB38 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC678\uBD80 AI \uC0AC\uC804\uC810\uAC80: \uD3C9\uBB38 \uC5C6\uC74C\uC774\uBA74 \uC2DC\uC791 \uAC00\uB2A5",
+      "status": "PASS"
+    },
+    {
+      "name": "PRIVATE_LOCK_GATE private \uD3F4\uB354\uC758 \uD3C9\uBB38 \uD30C\uC77C \uCC28\uB2E8",
+      "status": "PASS"
+    },
+    {
+      "name": "\uD0A4\uAC00 \uBA54\uBAA8\uB9AC\uC5D0 \uC788\uC73C\uBA74 \uC678\uBD80 AI \uC2DC\uC791 \uAC70\uBD80",
+      "status": "PASS"
+    },
+    {
+      "name": "PRIVATE_LOCK_RECOVER \uC7AC\uC2E4\uD589 \uB4A4\uC5D0\uB3C4 \uC7A0\uAE08 \uC0C1\uD0DC \uD655\uC778",
+      "status": "PASS"
+    },
+    {
+      "name": "PRIVATE_LOCK_END \uD504\uB85C\uC138\uC2A4 \uC5C6\uC74C \uD655\uC778 \uD6C4 \uD574\uC81C",
+      "status": "PASS"
+    },
+    {
+      "name": "MIGRATION_UNCLASSIFIED \uBBF8\uBD84\uB958 \uAE30\uB85D\uC740 \uACF5\uAC1C \uC804\uC1A1\uBCF8\uC73C\uB85C \uC77D\uC9C0 \uC54A\uC74C(\uD654\uBA74 \uD45C\uC2DC\uB9CC)",
+      "status": "PASS"
+    },
+    {
+      "name": "MIGRATION_PRESERVE \uAE30\uC874 \uB2E8\uC77C\uAE30\uB85D \uC790\uB3D9 \uB36E\uC5B4\uC4F0\uAE30 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBBF8\uBD84\uB958 \uD3C9\uBB38\uC774 \uC788\uC73C\uBA74 \uC678\uBD80 AI \uC2DC\uC791 \uCC28\uB2E8",
+      "status": "PASS"
+    },
+    {
+      "name": "\uACF5\uAC1C \uBD84\uB9AC \uC800\uC7A5 \uC804\uC5D0\uB294 \uAE30\uC874 \uAE30\uB85D \uC774\uB3D9 \uAE08\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC0AC\uC6A9\uC790 \uBD84\uB9AC \uD6C4 \uAE30\uC874 \uAE30\uB85D\uC744 private \uC554\uD638\uBB38\uC73C\uB85C \uBCF4\uC874\u00B7\uD3C9\uBB38 \uC81C\uAC70",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_KEY sk-\u00B7AWS\u00B7\uD0A4=\uAC12 \uAC80\uCD9C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_ID \uAD6C\uBD84\uC790 \uBCC0\uD615 \uAC80\uCD9C\u00B7\uB0A0\uC9DC/\uBB34\uD6A8 \uC6D4 \uBE44\uB300\uC0C1",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_PHONE \uD734\uB300\u00B7\uC9C0\uC5ED\u00B7\uD45C\uC2DC\uB41C \uC9E7\uC740 \uBC88\uD638 \uAC80\uCD9C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_EXTENSION_MARKED \uB0B4\uC120 \uBA85\uC2DC \uC9E7\uC740 \uBC88\uD638 \uC608\uC678",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_EXTENSION_CUSTOM \uC0AC\uC6A9\uC790 \uC608\uC678 \uC801\uC6A9\u00B7\uC0AD\uC81C \uC2DC \uB2E4\uC2DC \uAC80\uCD9C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uAC80\uCD9C \uC704\uCE58(\uC904) \uD45C\uC2DC",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_CONFIRM \uAC00\uB9B0 \uC0AC\uBCF8\uB9CC \uC804\uC1A1\u00B7\uC694\uCCAD \uC6D0\uBB38 \uBBF8\uC804\uC1A1\u00B7\uBC18\uBCF5\uAC12 \uD558\uB098\uC758 \uD45C\uC2DC",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_MASK \uBC18\uBCF5\uAC12\uC740 \uAC19\uC740 \uD45C\uC2DC\uB85C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_MASK_RESULT \uB85C\uCEEC \uBCF5\uC6D0",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_INTERNAL_DENY \uC804\uC1A1\uBB38\uC5D0 private \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_RESULT_APPLY \uC801\uC6A9 \uC2DC \uBC1B\uC740 \uC694\uCCAD \uC6D0\uBB38 \uBCF4\uC874(R06)",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_RESULT_CONFLICT \uC694\uCCAD \uC911 \uC218\uC815\uB418\uBA74 \uB36E\uC5B4\uC4F0\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_CHANGED \uB0B4\uC6A9 \uBCC0\uACBD \uC2DC \uC7AC\uAC80\uC0AC \uD544\uC694",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_MASK_UNCERTAIN \uD45C\uC2DC \uC0AD\uC81C \uC54C\uB9BC",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBCC0\uD615 \uD45C\uC2DC\uB294 \uCD94\uCE21\uD574 \uBCF5\uC6D0\uD558\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_MASK_SCOPE \uB2E4\uB978 \uC694\uCCAD\uC758 \uB300\uC751\uC815\uBCF4\uC640 \uC11E\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_RESULT_FAILURE \uBE48 \uC751\uB2F5 \uC801\uC6A9 \uBD88\uAC00",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_SCAN_FAIL \uAC80\uC0AC \uC624\uB958\uC774\uBA74 \uC804\uC1A1\uD558\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC694\uCCAD \uC6D0\uBB38\uB9CC \uC788\uC73C\uBA74 \uBCF4\uB0BC \uB300\uC0C1 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_RESULT_DIFF \uD504\uB85C\uADF8\uB7A8\uC774 \uC904 \uBE44\uAD50 \uC0DD\uC131",
+      "status": "PASS"
+    },
+    {
+      "name": "AI_NO_PAID_FALLBACK API \uD0A4 \uD658\uACBD\uBCC0\uC218 \uC81C\uAC70",
+      "status": "PASS"
+    },
+    {
+      "name": "Claude \uB3C4\uAD6C \uC804\uBD80 \uB054\u00B7Codex\uB294 \uC7A0\uAE08 \uB300\uC0C1",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC778\uC99D/\uD55C\uB3C4 \uC2E4\uD328 \uAD6C\uBD84 \uC548\uB0B4",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_LOCAL_INCLUDE \uAE30\uBCF8 private \uD3EC\uD568",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_PRIVATE_OPTION \uC81C\uC678 \uC120\uD0DD\u00B7\uBC94\uC704 \uD45C\uC2DC",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_CLOUD_NO_AUTO \uBA85\uC2DC \uC2E4\uD589 \uC804\uC5D0\uB294 \uD30C\uC77C \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_CLOUD_CLEAN private\u00B7\uC774\uC804\uBCF8\u00B7\uC0C9\uC778\u00B7\uBCF4\uAD00\uC18C\u00B7\uBBF8\uBD84\uB958 \uC81C\uC678",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_CLOUD_PORTABLE \uC800\uC7A5\uC18C \uC5C6\uC774 \uBCC4\uB3C4 \uBCF5\uC6D0\u00B7private \uBD80\uC7AC\u00B7\uACF5\uAC1C \uB0B4\uC6A9 \uC874\uC7AC",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_RESTORE_EXCLUDED \uC81C\uC678\uBCF8 \uBCF5\uC6D0\uC774 \uD604\uC7AC private\uB97C \uC9C0\uC6B0\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBC31\uC5C5\uD30C\uC77C \uD2C0\uB9B0 \uC554\uD638 \uBCF5\uC6D0 \uC2E4\uD328",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC911\uAC04\uC5D0 \uB04A\uAE34 \uBC31\uC5C5\uD30C\uC77C\uC740 \uBCF5\uC6D0\uD558\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBC31\uC5C5\uD30C\uC77C\uC744 \uC5C5\uBB34 \uB8E8\uD2B8 \uC548\uC5D0 \uB9CC\uB4E4\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBD88\uC644\uC804 \uD30C\uC77C\uC744 \uC131\uACF5\uC73C\uB85C \uB0A8\uAE30\uC9C0 \uC54A\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBCF5\uAD6C\uC815\uBCF4\uB294 \uC0AC\uC6A9\uC790 \uC554\uD638\uB85C \uC7A0\uAE30\uACE0 \uB0B4\uBD80 \uBC31\uC5C5 \uC554\uD638 \uD3C9\uBB38 \uC5C6\uC74C",
+      "status": "PASS"
+    },
+    {
+      "name": "\uBCF5\uAD6C\uC815\uBCF4 \uD2C0\uB9B0 \uC0AC\uC6A9\uC790 \uC554\uD638 \uAC70\uBD80",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC554\uD638 \uBCC0\uACBD: \uAE30\uC874 private \uD30C\uC77C \uADF8\uB300\uB85C \uC0C8 \uC554\uD638\uB85C \uC5F4\uB9BC\u00B7\uC61B \uC554\uD638 \uAC70\uBD80\u00B7\uC61B \uD3EC\uC7A5 \uBBF8\uBCF4\uC874",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC554\uD638 \uBCC0\uACBD \uC911 \uC5F4\uB824 \uC788\uB358 \uC7A0\uAE08 \uD574\uC81C \uC0C1\uD0DC \uC720\uC9C0(\uC790\uB8CC \uD0A4 \uB3D9\uC77C)",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC61B \uC554\uD638\uB85C\uB294 \uC554\uD638 \uBCC0\uACBD \uBD88\uAC00",
+      "status": "PASS"
+    },
+    {
+      "name": "\uC554\uD638 \uBCC0\uACBD \uC804\uC5D0 \uB9CC\uB4E0 \uBC31\uC5C5\uD30C\uC77C\uC740 \uB9CC\uB4E4 \uB54C\uC758 \uC554\uD638\uB85C \uC5F4\uB9BC",
+      "status": "PASS"
+    },
+    {
       "name": "\uC2E4\uC81C restic \uC774\uB825\uBC31\uC5C5",
       "status": "PASS"
     },
@@ -161,6 +397,18 @@
     },
     {
       "name": "\uC0C8 \uBC84\uC804 \uBC31\uC5C5 \uB4A4 \uC9C1\uC804 \uBCF5\uAD6C\uC2DC\uC810 \uBCF4\uD638",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_LOCAL_INCLUDE private \uD3EC\uD568 \uBC31\uC5C5\u00B7\uBCC4\uB3C4 \uC704\uCE58 \uBCF5\uC6D0 \uC77C\uCE58(\uC554\uD638\uBB38)",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_HISTORY_PRESERVE \uC635\uC158 \uBCC0\uACBD \uB4A4 \uC774\uC804 private \uD3EC\uD568 \uBCF5\uAD6C\uC2DC\uC810 \uC720\uC9C0",
+      "status": "PASS"
+    },
+    {
+      "name": "BACKUP_LOCAL_DESTINATION \uC678\uC7A5\uB514\uC2A4\uD06C \uBBF8\uC5F0\uACB0 \uC2E4\uD328 \uC548\uB0B4",
       "status": "PASS"
     }
   ]

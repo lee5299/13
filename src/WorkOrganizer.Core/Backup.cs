@@ -13,6 +13,8 @@ public sealed class BackupEngine
     public bool Running { get; private set; }
     public BackupEngine(WorkStore store) => this.store = store;
     public string Repository => Path.Combine(store.Settings.BackupLocation, "업무정리_백업저장소");
+    /// <summary>백업 저장소 옆(외장디스크)에 두는 복구정보. 백업 비밀키를 업무정리 암호로 잠근 것이며, 다른 PC에서는 디스크 + 업무정리 암호로 복원한다.</summary>
+    public string RecoveryCopyPath => Path.Combine(store.Settings.BackupLocation, "업무정리_백업복구정보.txt");
     public static string NewPassword() => Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     public void Validate()
     {
@@ -33,6 +35,20 @@ public sealed class BackupEngine
         await p.WaitForExitAsync(cancel);
         return (p.ExitCode, await output, await error);
     }
+    public string ScopeTag => store.Settings.BackupPrivate ? "scope-full" : "scope-noprivate";
+    public static string ScopeLabel(bool includesPrivate) => includesPrivate ? "private 포함" : "private 제외";
+    /// <summary>실행 전 표시용 범위 설명(BACKUP_OPTION_VISIBLE).</summary>
+    public string ScopeDescription()
+    {
+        var parts = new List<string> { "업무정보·설정·양식·이름규칙" };
+        if (store.Settings.BackupRecords) parts.Add("공개기록");
+        if (store.Settings.BackupCaptures) parts.Add("캡처");
+        if (store.Settings.BackupResults) parts.Add("결과물");
+        parts.Add(store.Settings.BackupPrivate ? "private 상세(암호문)" : "private 제외");
+        return string.Join(" · ", parts);
+    }
+    public static bool IsPrivatePath(string relative) => relative.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Any(x => x.Equals(WorkText.PrivateFolder, StringComparison.OrdinalIgnoreCase));
+    public IEnumerable<string> SourceFiles() => Sources();
     private IEnumerable<string> Sources()
     {
         foreach (var f in Directory.EnumerateFiles(store.Root, "*", new EnumerationOptions { RecurseSubdirectories = true, AttributesToSkip = FileAttributes.ReparsePoint, IgnoreInaccessible = false }))
@@ -41,7 +57,9 @@ public sealed class BackupEngine
             if (rel.StartsWith(".업무정리" + Path.DirectorySeparatorChar + "복원전보존", StringComparison.OrdinalIgnoreCase) || rel.Contains("백업입력상태.json", StringComparison.OrdinalIgnoreCase) || rel.EndsWith("설정.json.previous", StringComparison.OrdinalIgnoreCase) || rel.EndsWith(".tmp", StringComparison.OrdinalIgnoreCase) || rel.Contains("검색.sqlite", StringComparison.OrdinalIgnoreCase)) continue;
             if (!store.Settings.BackupCaptures && rel.Split(Path.DirectorySeparatorChar).Contains("작업캡처")) continue;
             if (!store.Settings.BackupResults && rel.Split(Path.DirectorySeparatorChar).Contains("결과물")) continue;
-            if (!store.Settings.BackupRecords && (rel.EndsWith(WorkText.FileName) || rel.EndsWith(WorkText.FileName + ".previous"))) continue;
+            string fileName = Path.GetFileName(rel);
+            if (!store.Settings.BackupRecords && (fileName.StartsWith("공개기록", StringComparison.OrdinalIgnoreCase) || fileName.StartsWith("업무기록", StringComparison.OrdinalIgnoreCase))) continue;
+            if (!store.Settings.BackupPrivate && IsPrivatePath(rel)) continue;
             yield return f;
         }
     }
@@ -82,7 +100,7 @@ public sealed class BackupEngine
                 var stable = Disk.ReadJson<AppSettings>(Path.Combine(stage, settingsRelative))!; stable.LastBackupAt = null; stable.LastBackupStatus = "";
                 signatureParts[settingsRelative] = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(JsonSerializer.Serialize(stable, Disk.Json))));
             }
-            string signature = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(JsonSerializer.Serialize(signatureParts))));
+            string signature = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(ScopeTag + JsonSerializer.Serialize(signatureParts))));
             string inputStatePath = Path.Combine(store.Control, "백업입력상태.json");
             var previousInput = Disk.ReadJson<BackupInputState>(inputStatePath);
             if (previousInput?.Signature == signature && previousInput.Repository == Repository)
@@ -90,7 +108,7 @@ public sealed class BackupEngine
                 var old = await Run(password, ["snapshots", previousInput.SnapshotId, "--json"], cancel);
                 if (old.Exit == 0 && JsonDocument.Parse(old.Output).RootElement.GetArrayLength() > 0) return new(true, false, "변경 없음 · 이전 복구시점을 유지합니다.", previousInput.SnapshotId, timer.Elapsed);
             }
-            var result = await Run(password, ["backup", stage, "--tag", "WorkOrganizer", "--json"], cancel);
+            var result = await Run(password, ["backup", stage, "--tag", "WorkOrganizer", "--tag", ScopeTag, "--json"], cancel);
             string? id = null;
             foreach (string line in result.Output.Split('\n', StringSplitOptions.RemoveEmptyEntries))
             { try { using var j = JsonDocument.Parse(line); if (j.RootElement.TryGetProperty("snapshot_id", out var v)) id = v.GetString(); } catch (JsonException) { } }
@@ -98,7 +116,9 @@ public sealed class BackupEngine
             if (result.Exit != 0 || id is null) return Finish(false, partial, partial ? "일부 파일 백업 실패 · 이전 복구본은 보존했습니다." : $"백업 실패({result.Exit}) · {result.Error}", id, timer.Elapsed);
             Disk.WriteJson(inputStatePath, new BackupInputState { Signature = signature, Repository = Repository, SnapshotId = id });
             var retention = await Run(password, ["forget", "--tag", "WorkOrganizer", "--keep-last", "2", "--keep-daily", store.Settings.KeepDaily.ToString(), "--keep-monthly", store.Settings.KeepMonthly.ToString(), "--group-by", "tags", "--prune"], cancel);
-            return Finish(true, false, retention.Exit == 0 ? "백업 및 이력 정리 완료" : "백업 완료 · 이력 정리는 재확인 필요: " + retention.Error, id, timer.Elapsed);
+            // --group-by tags: 범위(scope)별로 보존을 따로 계산하므로 옵션을 바꿔도 이전 범위의 복구시점을 지우지 않는다(BACKUP_HISTORY_PRESERVE).
+            string scope = ScopeLabel(store.Settings.BackupPrivate);
+            return Finish(true, false, retention.Exit == 0 ? $"백업 및 이력 정리 완료 · {scope}" : $"백업 완료 · {scope} · 이력 정리는 재확인 필요: " + retention.Error, id, timer.Elapsed);
         }
         catch (OperationCanceledException) { return Finish(false, false, "백업을 중단했습니다. 원본과 이전 복구본을 보존합니다.", null, timer.Elapsed); }
         catch (Exception ex) { return Finish(false, false, ex.Message, null, timer.Elapsed); }
@@ -120,7 +140,13 @@ public sealed class BackupEngine
         Validate(); var r = await Run(password, ["snapshots", "--tag", "WorkOrganizer", "--json"], cancel);
         if (r.Exit != 0) throw new IOException("백업 목록을 읽을 수 없습니다. 암호/장치/잠금 상태를 확인해주세요. " + r.Error);
         using var json = JsonDocument.Parse(r.Output);
-        return json.RootElement.EnumerateArray().Select(x => new BackupPoint(x.GetProperty("id").GetString()!, x.GetProperty("time").GetString()!, "업무정리 복구시점")).OrderByDescending(x => x.Time).ToList();
+        static string Describe(JsonElement x)
+        {
+            var names = x.TryGetProperty("tags", out var tags) && tags.ValueKind == JsonValueKind.Array ? tags.EnumerateArray().Select(t => t.GetString()).ToList() : new List<string?>();
+            string scope = names.Contains("scope-noprivate") ? ScopeLabel(false) : names.Contains("scope-full") ? ScopeLabel(true) : "범위 표시 없는 이전 버전 백업";
+            return "업무정리 복구시점 · " + scope;
+        }
+        return json.RootElement.EnumerateArray().Select(x => new BackupPoint(x.GetProperty("id").GetString()!, x.GetProperty("time").GetString()!, Describe(x))).OrderByDescending(x => x.Time).ToList();
     }
     public async Task Restore(string password, string snapshot, string emptyTarget, CancellationToken cancel = default)
     {

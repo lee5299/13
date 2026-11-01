@@ -22,6 +22,18 @@ public static class Disk
         }
         finally { if (File.Exists(temp)) File.Delete(temp); }
     }
+    public static void WriteBytes(string path, byte[] bytes)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        string temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+        try
+        {
+            using (var stream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None)) { stream.Write(bytes); stream.Flush(true); }
+            if (File.Exists(path)) File.Replace(temp, path, path + ".previous", true); else File.Move(temp, path);
+        }
+        finally { if (File.Exists(temp)) File.Delete(temp); }
+    }
+    public static string HashText(string text) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text.Replace("\r\n", "\n"))));
     public static void WriteJson<T>(string path, T value) => Write(path, JsonSerializer.Serialize(value, Json));
     public static T? ReadJson<T>(string path) => File.Exists(path) ? JsonSerializer.Deserialize<T>(File.ReadAllText(path), Json) : default;
     public static bool IsInside(string path, string parent) => Path.GetFullPath(path).TrimEnd(Path.DirectorySeparatorChar).Equals(Path.GetFullPath(parent).TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase) || Path.GetFullPath(path).StartsWith(Path.GetFullPath(parent).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
@@ -128,8 +140,8 @@ public sealed class WorkStore
         known = found; SaveManifest();
         return found;
     }
-    public WorkItem Create(string name, string original, string understood, DateOnly requestDate, decimal effort, int priority, DateOnly? due, WorkType? type = null, string? occurrence = null, string? existingFolder = null, string? requestKey = null) { lock (sync) return CreateCore(name, original, understood, requestDate, effort, priority, due, type, occurrence, existingFolder, requestKey); }
-    private WorkItem CreateCore(string name, string original, string understood, DateOnly requestDate, decimal effort, int priority, DateOnly? due, WorkType? type = null, string? occurrence = null, string? existingFolder = null, string? requestKey = null)
+    public WorkItem Create(string name, string original, string understood, DateOnly requestDate, decimal effort, int priority, DateOnly? due, WorkType? type = null, string? occurrence = null, string? existingFolder = null, string? requestKey = null, string privateText = "", PrivateVault? vault = null) { lock (sync) return CreateCore(name, original, understood, requestDate, effort, priority, due, type, occurrence, existingFolder, requestKey, privateText, vault); }
+    private WorkItem CreateCore(string name, string original, string understood, DateOnly requestDate, decimal effort, int priority, DateOnly? due, WorkType? type, string? occurrence, string? existingFolder, string? requestKey, string privateText, PrivateVault? vault)
     {
         if (effort <= 0 || effort > 100000) throw new ArgumentException("예상 소요일수는 0보다 큰 숫자로 입력해주세요.");
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("작업명을 입력해주세요.");
@@ -164,8 +176,14 @@ public sealed class WorkStore
         }
         var templates = Settings.CommonTemplates.Concat(type?.Templates ?? []).Where(x => x.Selected).Select(x => new TemplateFile { Selected = true, Path = Path.IsPathFullyQualified(x.Path) ? x.Path : Path.Combine(Root, x.Path) }).ToList();
         if (templates.Any(x => !File.Exists(x.Path))) throw new FileNotFoundException("선택한 양식이 없습니다. 설정에서 확인해주세요.");
+        // 기록 양식(업무기록.txt/공개기록.txt)은 파일로 복사하지 않고 해당 영역에 넣는다. 업무기록.txt 양식은 명령어 등 상세 양식이므로 private에 넣는다.
+        string? privateTemplate = templates.FirstOrDefault(x => Path.GetFileName(x.Path).Equals(WorkText.LegacyFileName, StringComparison.OrdinalIgnoreCase))?.Path;
+        string? publicTemplate = templates.FirstOrDefault(x => Path.GetFileName(x.Path).Equals(WorkText.FileName, StringComparison.OrdinalIgnoreCase))?.Path;
+        templates.RemoveAll(x => Path.GetFileName(x.Path).Equals(WorkText.LegacyFileName, StringComparison.OrdinalIgnoreCase) || Path.GetFileName(x.Path).Equals(WorkText.FileName, StringComparison.OrdinalIgnoreCase));
+        bool needsPrivate = privateTemplate is not null || !string.IsNullOrWhiteSpace(privateText);
+        if (needsPrivate && (vault is null || vault.IsLocked)) throw new PrivateLockedException();
         var names = templates.Select(x => Path.GetFileName(x.Path)).ToList();
-        if (names.Distinct(StringComparer.OrdinalIgnoreCase).Count() != names.Count || names.Any(x => x.Equals(MetaName, StringComparison.OrdinalIgnoreCase))) throw new IOException("선택 양식의 이름이 충돌합니다. 설정에서 구분해주세요.");
+        if (names.Distinct(StringComparer.OrdinalIgnoreCase).Count() != names.Count || names.Any(x => x.Equals(MetaName, StringComparison.OrdinalIgnoreCase) || x.Equals(WorkText.PrivateFolder, StringComparison.OrdinalIgnoreCase))) throw new IOException("선택 양식의 이름이 충돌합니다. 설정에서 구분해주세요.");
         if (resume is null && existingFolder is not null && templates.Any(x => File.Exists(Path.Combine(target, Path.GetFileName(x.Path))))) throw new IOException("기존 파일과 양식 이름이 충돌합니다. 덮어쓰지 않습니다.");
         Directory.CreateDirectory(target);
         var item = new WorkItem { Id = requestKey, Name = name.Trim(), RequestedOn = requestDate, Effort = effort, Priority = priority, DueOn = due, CycleStart = cycle, Folder = target, TypeId = type?.Id, Occurrence = occurrence, Submissions = (type?.SubmissionNames ?? []).Select(x => new Submission { Name = x }).ToList() };
@@ -177,9 +195,9 @@ public sealed class WorkStore
             if (resume is not null) record = resume.Record;
             else
             {
-                string? templateRecord = templates.FirstOrDefault(x => Path.GetFileName(x.Path).Equals(WorkText.FileName, StringComparison.OrdinalIgnoreCase))?.Path;
-                if (templateRecord is not null) record += "\n============ 선택한 기록 양식\n" + File.ReadAllText(templateRecord);
-                else if (File.Exists(recordPath)) record += "\n============ 기존 기록 보존\n" + File.ReadAllText(recordPath);
+                if (publicTemplate is not null) record += "\n============ 선택한 공개 기록 양식\n" + File.ReadAllText(publicTemplate);
+                else if (File.Exists(recordPath)) record += "\n============ 기존 공개기록 보존\n" + File.ReadAllText(recordPath);
+                // 저널에는 공개 내용만 둔다. private 평문을 디스크에 남기지 않는다.
                 Disk.WriteJson(journalPath, new CreateIntent { Target = target, InputHash = inputHash, Record = record, RegisteredAt = item.RegisteredAt });
             }
             foreach (var t in templates)
@@ -191,6 +209,13 @@ public sealed class WorkStore
             if (resume is not null && File.Exists(recordPath) && File.ReadAllText(recordPath) != record && !templates.Any(t => Path.GetFileName(t.Path) == WorkText.FileName && Disk.Hash(t.Path) == Disk.Hash(recordPath))) throw new IOException("부분 생성 뒤 기록이 수정됐습니다. 내용을 보존하고 확인해주세요.");
             Disk.Write(recordPath, record);
             Directory.CreateDirectory(Path.Combine(target, "작업캡처")); Directory.CreateDirectory(Path.Combine(target, "결과물"));
+            string privatePath = PrivatePath(target);
+            if (vault is not null && !vault.IsLocked && !File.Exists(privatePath))
+            {
+                string body = WorkText.BuildPrivate() + (string.IsNullOrWhiteSpace(privateText) ? "" : "\n" + privateText.Replace("\r\n", "\n").TrimEnd() + "\n");
+                if (privateTemplate is not null) body += "\n============ 선택한 기록 양식\n" + File.ReadAllText(privateTemplate);
+                Disk.WriteBytes(privatePath, vault.Encrypt(body, item.Id));
+            }
             Save(item); File.Delete(journalPath);
             return item;
         }
@@ -242,11 +267,88 @@ public sealed class WorkStore
         Validate(item); string path = Path.Combine(item.Folder, WorkText.FileName);
         if (Disk.Hash(path) != expectedHash)
         {
-            string conflict = Path.Combine(item.Folder, $"업무기록_앱수정본_{DateTime.Now:yyyyMMdd_HHmmss}_{Guid.NewGuid().ToString("N")[..6]}.txt");
+            string conflict = Path.Combine(item.Folder, $"공개기록_앱수정본_{DateTime.Now:yyyyMMdd_HHmmss}_{Guid.NewGuid().ToString("N")[..6]}.txt");
             Disk.Write(conflict, text);
             throw new IOException("외부 프로그램에서 기록이 변경되었습니다. 외부 원본과 앱 수정본을 모두 보존했습니다. 다시 읽기 전에 폴더에서 내용을 확인해주세요.\n" + conflict);
         }
         Disk.Write(path, text); return Disk.Hash(path);
+    }
+    public static string PrivatePath(string folder) => Path.Combine(folder, WorkText.PrivateFolder, WorkText.PrivateFileName);
+    public static string PrivatePath(WorkItem item) => PrivatePath(item.Folder);
+    public static string PrivateHash(WorkItem item) => Disk.Hash(PrivatePath(item));
+    /// <summary>private 상세를 해독해 읽는다. 문서가 아직 없으면 빈 양식을 돌려준다(저장 전에는 파일을 만들지 않음).</summary>
+    public string LoadPrivate(WorkItem item, PrivateVault vault)
+    {
+        if (vault.IsLocked) throw new PrivateLockedException();
+        Validate(item); string path = PrivatePath(item);
+        return File.Exists(path) ? vault.Decrypt(File.ReadAllBytes(path), item.Id) : WorkText.BuildPrivate();
+    }
+    public string LoadPrivateArchive(WorkItem item, PrivateVault vault)
+    {
+        string path = Path.Combine(item.Folder, WorkText.PrivateFolder, WorkText.LegacyArchiveName);
+        return File.Exists(path) ? vault.Decrypt(File.ReadAllBytes(path), item.Id) : "";
+    }
+    /// <summary>private 상세를 암호문으로 저장한다. 다른 곳에서 바뀌었으면 앱 수정본을 별도 암호문으로 보존하고 알린다.</summary>
+    public string SavePrivate(WorkItem item, PrivateVault vault, string text, string expectedHash)
+    {
+        lock (sync)
+        {
+            if (vault.IsLocked) throw new PrivateLockedException();
+            Validate(item); string path = PrivatePath(item);
+            byte[] data = vault.Encrypt(text.Replace("\r\n", "\n"), item.Id);
+            if (Disk.Hash(path) != expectedHash)
+            {
+                string conflict = Path.Combine(item.Folder, WorkText.PrivateFolder, $"상세기록_앱수정본_{DateTime.Now:yyyyMMdd_HHmmss}_{Guid.NewGuid().ToString("N")[..6]}.private");
+                Disk.WriteBytes(conflict, data);
+                throw new IOException("private 상세가 다른 곳에서 변경되었습니다. 기존 문서와 앱 수정본을 모두 암호문으로 보존했습니다.\n" + conflict);
+            }
+            Disk.WriteBytes(path, data); return Disk.Hash(path);
+        }
+    }
+    /// <summary>
+    /// 이전 단일기록 평문을 private 보관본(암호문)으로 옮긴다. 사용자가 명시 실행할 때만 호출한다.
+    /// 암호문을 다시 해독해 원문과 같음을 확인한 뒤에만 평문을 지운다(MIGRATION_PRESERVE).
+    /// </summary>
+    public int ArchiveLegacy(WorkItem item, PrivateVault vault)
+    {
+        lock (sync)
+        {
+            if (vault.IsLocked) throw new PrivateLockedException();
+            Validate(item);
+            if (!File.Exists(Path.Combine(item.Folder, WorkText.FileName))) throw new InvalidOperationException("먼저 공개 내용을 나눠 저장해주세요. 공개기록이 없으면 기존 기록을 옮기지 않습니다.");
+            var files = WorkText.LegacyFiles(item.Folder);
+            if (files.Count == 0) return 0;
+            string archivePath = Path.Combine(item.Folder, WorkText.PrivateFolder, WorkText.LegacyArchiveName);
+            var builder = new StringBuilder();
+            if (File.Exists(archivePath)) builder.Append(vault.Decrypt(File.ReadAllBytes(archivePath), item.Id)).Append('\n');
+            foreach (string file in files.Order(StringComparer.OrdinalIgnoreCase)) builder.Append("============ 기존 파일: ").Append(Path.GetFileName(file)).Append('\n').Append(File.ReadAllText(file)).Append('\n');
+            string combined = builder.ToString();
+            Disk.WriteBytes(archivePath, vault.Encrypt(combined, item.Id));
+            if (vault.Decrypt(File.ReadAllBytes(archivePath), item.Id) != combined) throw new IOException("private 보관본 확인에 실패했습니다. 기존 평문 기록은 지우지 않았습니다.");
+            foreach (string file in files) File.Delete(file);
+            return files.Count;
+        }
+    }
+    /// <summary>
+    /// 외부 폴더 AI 작업 전 점검(PRIVATE_LOCK_GATE). 루트 안에서 AI가 읽을 수 있는 private 평문이 있으면 목록을 돌려준다.
+    /// 빈 목록이어야 시작할 수 있다. 미분류 단일기록·private 폴더의 암호화되지 않은 파일이 대상이다.
+    /// </summary>
+    public List<string> ExternalAiBlockers()
+    {
+        lock (sync)
+        {
+            var problems = new List<string>();
+            foreach (var item in ScanCore().Where(x => !x.Missing))
+            {
+                foreach (string legacy in WorkText.LegacyFiles(item.Folder)) problems.Add("미분류/이전 단일기록 평문: " + legacy);
+                string privateFolder = Path.Combine(item.Folder, WorkText.PrivateFolder);
+                if (Directory.Exists(privateFolder))
+                    foreach (string f in Directory.EnumerateFiles(privateFolder, "*", SearchOption.AllDirectories))
+                        if (!PrivateVault.IsEncryptedFile(f) && !f.EndsWith(".tmp", StringComparison.OrdinalIgnoreCase)) problems.Add("private 폴더의 암호화되지 않은 파일: " + f);
+            }
+            foreach (string folder in NewFolders) foreach (string legacy in WorkText.LegacyFiles(folder)) problems.Add("등록 전 폴더의 기록 평문: " + legacy);
+            return problems;
+        }
     }
     public string CopyInto(WorkItem item, string source, string subfolder) { lock (sync) { return CopyIntoCore(item, source, subfolder); } }
     private string CopyIntoCore(WorkItem item, string source, string subfolder)

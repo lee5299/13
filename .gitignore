@@ -8,6 +8,7 @@
 .build-home/
 .tools/
 실행/
+배포/
 프로그램설정.json
 *.user
 *.suo
@@ -22,7 +23,15 @@ tests/검사자료/
 **/.백업입력상태.json
 *복구정보*.txt
 *.restic
+*.wobak
+*.private
+*.partial
+**/private보관소.json
+**/외부AI잠금.json
 
 # 외부 도구 바이너리는 준비 스크립트로 받음
 도구/*.exe
 도구/*.zip
+
+# 개인 피드백 메모(원하면 이 줄을 지워 저장소에 포함)
+업무방식_피드백.md
